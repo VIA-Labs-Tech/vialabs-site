@@ -1,0 +1,19 @@
+@import "@fontsource/inter/400.css";
+@import "@fontsource/inter/500.css";
+@import "@fontsource/inter/600.css";
+@import "@fontsource/inter/700.css";
+@import "@fontsource/inter/900.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply antialiased text-slate-900 bg-[#F5F5F7] selection:bg-via-teal/20 selection:text-slate-900;
+  }
+}
+
+.glass-nav {
+  @apply bg-white/70 backdrop-blur-md border-b border-white/20;
+}
