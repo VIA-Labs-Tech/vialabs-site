@@ -29,7 +29,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
     const [isSuccess, setIsSuccess] = useState(false);
 
     const handleClose = () => {
-        handleClose();
+        onClose();
         setTimeout(() => {
             setStep(1);
             setFormData(initialFormData);
@@ -93,7 +93,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden relative"
+                            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-y-auto relative"
                         >
                             {/* Header */}
                             <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-white">
@@ -250,7 +250,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {step === 5 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
                                                 <h3 className="text-2xl font-semibold text-slate-800">How should we contact you?</h3>
-                                                <div className="flex gap-4">
+                                                <div className="flex flex-wrap gap-3">
                                                     {['Telegram', 'Discord', 'Slack', 'Email'].map((method) => (
                                                         <button
                                                             key={method}
