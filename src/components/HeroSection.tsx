@@ -7,7 +7,7 @@ export function HeroSection() {
         <section className="relative w-full min-h-[90vh] flex flex-col justify-center pt-32 pb-20 overflow-hidden bg-[#F5F5F7]">
             <AnimatedGridBackground />
 
-            <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center pointer-events-none">
+            <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
 
                 <motion.div
                     initial={{ opacity: 0, y: 0 }}
@@ -36,7 +36,7 @@ export function HeroSection() {
                             }
                         }
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8 pointer-events-auto cursor-default"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8 cursor-default"
                 >
                     <span className="w-2 h-2 rounded-full bg-via-teal animate-pulse" />
                     <span className="text-sm font-medium text-slate-600">Cardano Testnet Now Live</span>
@@ -69,7 +69,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5, delay: 0.3 }}
-                    className="flex flex-col sm:flex-row items-center gap-4 pointer-events-auto"
+                    className="flex flex-col sm:flex-row items-center gap-4"
                 >
                     <button className="h-12 px-8 rounded-full bg-slate-900 text-white font-semibold flex items-center gap-2 hover:bg-slate-800 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-via-teal/20">
                         Start Building <ArrowRight size={18} />

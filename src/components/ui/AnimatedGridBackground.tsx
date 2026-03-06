@@ -309,7 +309,7 @@ export function AnimatedGridBackground() {
     }, [images, isInView]);
 
     return (
-        <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0">
             <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,white,transparent_80%)]">
                 <canvas ref={canvasRef} />
             </div>

@@ -1,52 +1,34 @@
 import { useState } from 'react';
-import { Menu, X, ChevronDown, ExternalLink, ShieldCheck, Zap, Book, Code, Send } from 'lucide-react';
+import { Menu, X, ChevronDown, ExternalLink, ShieldCheck, Zap, Book, Code, Send, Globe } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { OnboardingModal } from './OnboardingModal';
+import { XIcon } from './icons/XIcon';
+import { DiscordIcon } from './icons/DiscordIcon';
 
 // Assets
 import logoUrl from '../assets/company_logo/Logo_300-02_b.png';
 
+const navLinks = {
+    platform: [
+        { name: "Overview", href: "/overview", icon: Zap },
+        { name: "Use Cases", href: "/use-cases", icon: Globe },
+        { name: "Security", href: "/overview#security", icon: ShieldCheck }
+    ],
+    developers: [
+        { name: "Documentation", href: "#", icon: Book, external: false },
+        { name: "GitHub", href: "#", icon: Code, external: true }
+    ],
+    community: [
+        { name: "Discord", href: "#", icon: DiscordIcon, external: true },
+        { name: "Telegram", href: "#", icon: Send, external: true },
+        { name: "Twitter / X", href: "#", icon: XIcon, external: true }
+    ]
+};
+
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [showOnboarding, setShowOnboarding] = useState(false);
-
-    // Custom Icons
-    // Custom Icons
-    const Globe = ({ size, className }: { size: number, className?: string }) => (
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><circle cx="12" cy="12" r="10" /><line x1="2" y1="12" x2="22" y2="12" /><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg>
-    );
-
-    const XIcon = ({ size, className }: { size: number, className?: string }) => (
-        <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-            <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z" />
-        </svg>
-    );
-
-    const DiscordIcon = ({ size, className }: { size: number, className?: string }) => (
-        <svg width={size} height={size} viewBox="0 0 127.14 96.36" fill="currentColor" className={className}>
-            <path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.79,32.65-1.71,56.6.54,80.21h0A105.73,105.73,0,0,0,32.71,96.36,77.11,77.11,0,0,0,39.6,85.25a68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1A105.25,105.25,0,0,0,126.6,80.22c2.36-24.44-2-47.27-18.9-72.15ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z" />
-        </svg>
-    );
-
-    // Dropdown Data
-    const navLinks = {
-        platform: [
-            { name: "Overview", href: "/overview", icon: Zap },
-            { name: "Use Cases", href: "/use-cases", icon: Globe },
-            { name: "Security", href: "/overview#security", icon: ShieldCheck }
-        ],
-        developers: [
-            { name: "Documentation", href: "#", icon: Book, external: false },
-            { name: "GitHub", href: "#", icon: Code, external: true }
-        ],
-
-        community: [
-            { name: "Discord", href: "#", icon: DiscordIcon, external: true },
-            { name: "Telegram", href: "#", icon: Send, external: true },
-            { name: "Twitter / X", href: "#", icon: XIcon, external: true }
-        ]
-    };
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
@@ -174,9 +156,9 @@ export function Navbar() {
                                 <button onClick={() => setShowOnboarding(true)} className="px-5 py-3 rounded-full border border-slate-300 text-slate-600 font-semibold text-center">
                                     Onboarding Assistance
                                 </button>
-                                <button className="bg-black text-white px-6 py-3 rounded-full font-semibold text-center">
+                                <a href="https://anytoany.xyz" target="_blank" rel="noopener noreferrer" className="bg-black text-white px-6 py-3 rounded-full font-semibold text-center">
                                     Launch App
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </motion.div>

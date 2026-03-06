@@ -24,8 +24,8 @@ export function UseCases() {
                     { title: "Gaming", icon: Gamepad2, color: "text-purple-500", desc: "Sync game state, items, and achievements across multiple chains. Build infinite worlds without congestion." },
                     { title: "DeFi", icon: Coins, color: "text-green-500", desc: "Unified liquidity provision and cross-chain lending. Manage positions on any chain from a single dashboard." },
                     { title: "Identity", icon: UserCheck, color: "text-blue-500", desc: "One identity, everywhere. Prove reputation or credentials on one chain to access apps on another." },
-                    { title: "NFTs", icon: ShoppingBag, color: "text-pink-500", desc: "True multi-chain collections. Teleport NFTs seamlessy or update metadata globally." },
-                    { title: "Governance", icon: Layers, color: "text-orange-500", desc: "DAO voting across chains. aggregate votes from holders on any network." },
+                    { title: "NFTs", icon: ShoppingBag, color: "text-pink-500", desc: "True multi-chain collections. Teleport NFTs seamlessly or update metadata globally." },
+                    { title: "Governance", icon: Layers, color: "text-orange-500", desc: "DAO voting across chains. Aggregate votes from holders on any network." },
                     { title: "Data Streams", icon: Activity, color: "text-cyan-500", desc: "Real-world data onchain. Ship sports, shipping, or flight data to any connected chain reliably." },
                 ].map((useCase, i) => (
                     <motion.div

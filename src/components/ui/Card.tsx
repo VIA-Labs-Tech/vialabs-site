@@ -1,5 +1,3 @@
-// import { clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
 import { ReactNode } from 'react';
 
 interface CardProps {
@@ -7,13 +5,10 @@ interface CardProps {
     className?: string;
 }
 
-export function Card({ children, className }: CardProps) {
+export function Card({ children, className = '' }: CardProps) {
     return (
         <div
-            className={twMerge(
-                "bg-white rounded-3xl border border-slate-200 p-6 shadow-clean transition-all duration-300 hover:shadow-lg relative overflow-hidden",
-                className
-            )}
+            className={`bg-white rounded-3xl border border-slate-200 p-6 shadow-clean transition-all duration-300 hover:shadow-lg relative overflow-hidden ${className}`}
         >
             {children}
         </div>

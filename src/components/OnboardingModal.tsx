@@ -8,26 +8,34 @@ interface OnboardingModalProps {
     onClose: () => void;
 }
 
+const initialFormData = {
+    projectName: '',
+    description: '',
+    buildType: '',
+    buildTypeDetails: '',
+    category: '',
+    communicationMethod: '',
+    communicationHandle: '',
+    userName: '',
+    userRole: '',
+    referralSource: '',
+    referralDetails: ''
+};
+
 export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
     const [step, setStep] = useState(1);
-
-
-    const [formData, setFormData] = useState({
-        projectName: '',
-        description: '',
-        buildType: '', // Self, Via, Other
-        buildTypeDetails: '',
-        category: '', // Tokens, NFT, Data, Integration, Other
-        communicationMethod: '', // Telegram, Discord, Slack, Email
-        communicationHandle: '',
-        userName: '',
-        userRole: '',
-        referralSource: '', // X, Conference, Search...
-        referralDetails: ''
-    });
-
+    const [formData, setFormData] = useState(initialFormData);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+
+    const handleClose = () => {
+        handleClose();
+        setTimeout(() => {
+            setStep(1);
+            setFormData(initialFormData);
+            setIsSuccess(false);
+        }, 300);
+    };
 
     // Validation
     const isStepValid = () => {
@@ -76,7 +84,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        onClick={() => !isSuccess && onClose()}
+                        onClick={() => !isSuccess && handleClose()}
                         className="fixed inset-0 bg-black/60 backdrop-blur-md z-[9999] flex items-center justify-center p-4"
                     >
                         {/* Modal Container */}

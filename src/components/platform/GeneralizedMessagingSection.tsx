@@ -2,34 +2,27 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FileCode, Database, CreditCard } from 'lucide-react';
 
-const PacketType = {
-  TOKEN: 'Token',
-  NFT: 'NFT',
-  DATA: 'Arbitrary Data'
-};
+const packets = [
+  { type: 'Token', icon: CreditCard, color: '#FF00FF', label: 'USDC Transfer' },
+  { type: 'NFT', icon: FileCode, color: '#00E5E5', label: 'NFT Metadata' },
+  { type: 'Arbitrary Data', icon: Database, color: '#0f172a', label: 'Contract State' },
+];
 
 export default function GeneralizedMessagingSection() {
   const [activePacket, setActivePacket] = useState(0);
-  const [timerKey, setTimerKey] = useState(0); // Used to reset the interval
+  const [timerKey, setTimerKey] = useState(0);
 
-  // Simulation loop
   useEffect(() => {
     const interval = setInterval(() => {
       setActivePacket((prev) => (prev + 1) % 3);
     }, 4000);
     return () => clearInterval(interval);
-  }, [timerKey]); // Re-run when timerKey changes
+  }, [timerKey]);
 
   const handleManualSelect = (index: number) => {
     setActivePacket(index);
-    setTimerKey(prev => prev + 1); // Reset timer
+    setTimerKey(prev => prev + 1);
   };
-
-  const packets = [
-    { type: PacketType.TOKEN, icon: CreditCard, color: '#FF00FF', label: 'USDC Transfer' },
-    { type: PacketType.NFT, icon: FileCode, color: '#00E5E5', label: 'NFT Metadata' },
-    { type: PacketType.DATA, icon: Database, color: '#0f172a', label: 'Contract State' },
-  ];
 
   const currentPacket = packets[activePacket];
 
