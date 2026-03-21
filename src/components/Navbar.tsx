@@ -16,13 +16,13 @@ const navLinks = {
         { name: "Security", href: "/overview#security", icon: ShieldCheck }
     ],
     developers: [
-        { name: "Documentation", href: "#", icon: Book, external: false },
-        { name: "GitHub", href: "#", icon: Code, external: true }
+        { name: "Documentation", href: "https://developer.vialabs.tech", icon: Book, external: true },
+        { name: "GitHub", href: "https://github.com/VIA-Labs-Tech", icon: Code, external: true }
     ],
     community: [
-        { name: "Discord", href: "#", icon: DiscordIcon, external: true },
-        { name: "Telegram", href: "#", icon: Send, external: true },
-        { name: "Twitter / X", href: "#", icon: XIcon, external: true }
+        { name: "Discord", href: "https://discord.gg/h4rBhukkWz", icon: DiscordIcon, external: true },
+        { name: "Telegram", href: "https://t.me/VIA-Labs-Tech", icon: Send, external: true },
+        { name: "Twitter / X", href: "https://x.com/VIA_Labs", icon: XIcon, external: true }
     ]
 };
 
@@ -104,7 +104,7 @@ export function Navbar() {
                     </div>
 
                     {/* Explorer Link (Right side) */}
-                    <a href="#" className="hover:text-black transition-colors">Explorer</a>
+                    <a href="https://scan.vialabs.io" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Explorer</a>
 
                 </div>
 
@@ -144,19 +144,50 @@ export function Navbar() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="lg:hidden bg-white border-t border-slate-100"
+                        className="lg:hidden bg-white border-t border-slate-100 overflow-hidden"
                     >
-                        <div className="flex flex-col p-6 space-y-4">
-                            <Link to="/overview" className="text-lg font-medium text-slate-700">Platform</Link>
-                            <a href="#" className="text-lg font-medium text-slate-700">Developers</a>
-                            <a href="#" className="text-lg font-medium text-slate-700">Community</a>
-                            <a href="#" className="text-lg font-medium text-slate-700">Explorer</a>
+                        <div className="flex flex-col p-4 sm:p-6 space-y-3 max-w-full overflow-hidden">
+                            {/* Platform sub-links */}
+                            <div className="space-y-1">
+                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2">Platform</p>
+                                {navLinks.platform.map(link => (
+                                    <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 hover:text-black rounded-lg hover:bg-slate-50">
+                                        <link.icon size={16} className="text-via-teal flex-shrink-0" />
+                                        <span>{link.name}</span>
+                                    </Link>
+                                ))}
+                            </div>
+
+                            {/* Developers sub-links */}
+                            <div className="space-y-1">
+                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2">Developers</p>
+                                {navLinks.developers.map(link => (
+                                    <a key={link.name} href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 hover:text-black rounded-lg hover:bg-slate-50">
+                                        <link.icon size={16} className="text-via-teal flex-shrink-0" />
+                                        <span>{link.name}</span>
+                                        {link.external && <ExternalLink size={12} className="text-slate-400 ml-auto flex-shrink-0" />}
+                                    </a>
+                                ))}
+                            </div>
+
+                            {/* Community sub-links */}
+                            <div className="space-y-1">
+                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2">Community</p>
+                                {navLinks.community.map(link => (
+                                    <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 hover:text-black rounded-lg hover:bg-slate-50">
+                                        <link.icon size={16} className="text-via-teal flex-shrink-0" />
+                                        <span>{link.name}</span>
+                                        <ExternalLink size={12} className="text-slate-400 ml-auto flex-shrink-0" />
+                                    </a>
+                                ))}
+                            </div>
+
                             <hr className="border-slate-100" />
-                            <div className="flex flex-col gap-3 pt-2">
-                                <button onClick={() => setShowOnboarding(true)} className="px-5 py-3 rounded-full border border-slate-300 text-slate-600 font-semibold text-center">
+                            <div className="flex flex-col gap-3 pt-1">
+                                <button onClick={() => { setShowOnboarding(true); setIsOpen(false); }} className="w-full px-4 py-3 rounded-full border border-slate-300 text-slate-600 font-semibold text-center text-sm truncate">
                                     Onboarding Assistance
                                 </button>
-                                <a href="https://anytoany.xyz" target="_blank" rel="noopener noreferrer" className="bg-black text-white px-6 py-3 rounded-full font-semibold text-center">
+                                <a href="https://anytoany.xyz" target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white px-4 py-3 rounded-full font-semibold text-center text-sm">
                                     Launch App
                                 </a>
                             </div>

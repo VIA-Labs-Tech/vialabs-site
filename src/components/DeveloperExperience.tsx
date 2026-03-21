@@ -80,7 +80,7 @@ export function DeveloperExperience() {
     }, [isTyping]);
 
     return (
-        <section className="bg-slate-900 py-32 text-white relative overflow-hidden">
+        <section className="bg-slate-900 py-16 md:py-32 text-white relative overflow-hidden">
             {/* Background Decoration */}
             <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-via-teal/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none" />
 

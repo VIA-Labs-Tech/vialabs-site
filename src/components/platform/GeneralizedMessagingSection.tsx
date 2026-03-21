@@ -65,10 +65,10 @@ export default function GeneralizedMessagingSection() {
           </div>
         </div>
 
-        {/* The Graphic: Engineered Data Pipeline */}
+        {/* The Graphic: Engineered Data Pipeline — hidden on mobile */}
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="relative h-[400px] bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden flex items-center justify-center"
+          className="relative h-[400px] bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden items-center justify-center hidden lg:flex"
         >
 
           {/* Background Grid inside card */}

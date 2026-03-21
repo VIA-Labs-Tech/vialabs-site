@@ -4,7 +4,7 @@ import { AnimatedGridBackground } from './ui/AnimatedGridBackground';
 
 export function HeroSection() {
     return (
-        <section className="relative w-full min-h-[90vh] flex flex-col justify-center pt-32 pb-20 overflow-hidden bg-[#F5F5F7]">
+        <section className="relative w-full min-h-[85vh] md:min-h-[90vh] flex flex-col justify-center pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-[#F5F5F7]">
             <AnimatedGridBackground />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
@@ -71,12 +71,12 @@ export function HeroSection() {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="flex flex-col sm:flex-row items-center gap-4"
                 >
-                    <button className="h-12 px-8 rounded-full bg-slate-900 text-white font-semibold flex items-center gap-2 hover:bg-slate-800 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-via-teal/20">
+                    <a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="h-12 px-8 rounded-full bg-slate-900 text-white font-semibold flex items-center gap-2 hover:bg-slate-800 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-via-teal/20">
                         Start Building <ArrowRight size={18} />
-                    </button>
-                    <button className="h-12 px-8 rounded-full bg-white text-slate-700 font-semibold border border-slate-200 hover:border-slate-300 transition-all hover:shadow-md active:scale-95">
+                    </a>
+                    <a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="h-12 px-8 rounded-full bg-white text-slate-700 font-semibold border border-slate-200 hover:border-slate-300 transition-all hover:shadow-md active:scale-95 flex items-center">
                         Read Docs
-                    </button>
+                    </a>
                 </motion.div>
 
             </div>

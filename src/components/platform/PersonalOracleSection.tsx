@@ -22,7 +22,7 @@ export default function PersonalOracleSection() {
 
   return (
     <div className="w-full">
-      <div className="text-center max-w-3xl mx-auto mb-16">
+      <div className="text-center max-w-3xl mx-auto mb-8 md:mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
           Your Own Lane. <br />
           <span className="text-via-pink">Exclusively Yours.</span>
@@ -34,11 +34,11 @@ export default function PersonalOracleSection() {
 
       <motion.div
         whileHover={{ scale: 1.02 }}
-        className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row min-h-[500px]"
+        className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row min-h-[350px] md:min-h-[500px]"
       >
 
-        {/* Controls / Sidebar */}
-        <div className="w-full md:w-1/3 bg-slate-50 border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col justify-center gap-6">
+        {/* Controls / Sidebar — hidden on mobile */}
+        <div className="hidden md:flex w-full md:w-1/3 bg-slate-50 border-b md:border-b-0 md:border-r border-slate-200 p-8 flex-col justify-center gap-6">
           <div className="space-y-2">
             <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Select Network Architecture</h3>
 
@@ -94,7 +94,7 @@ export default function PersonalOracleSection() {
         </div>
 
         {/* Visualization Canvas */}
-        <div className="relative w-full md:w-2/3 bg-slate-900 overflow-hidden flex items-center justify-center">
+        <div className="relative w-full md:w-2/3 bg-slate-900 overflow-hidden flex items-center justify-center min-h-[350px] md:min-h-0">
           {/* Background Grid - Dark Mode for Contrast */}
           <div className="absolute inset-0 opacity-20"
             style={{
@@ -105,7 +105,7 @@ export default function PersonalOracleSection() {
 
           {/* Shared Network Visualization - Synchronized Chaos */}
           {activeTab === 'shared' && (
-            <div className="relative w-full h-full">
+            <div className="absolute inset-0 w-full h-full">
               {/* 
                   We generate a set of deterministic nodes. 
                   Some are connected to the center (Lock), some are just floating.
@@ -187,7 +187,7 @@ export default function PersonalOracleSection() {
               <motion.div
                 animate={{ opacity: [1, 0.6, 1] }}
                 transition={{ duration: 1.5, repeat: Infinity }}
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-red-500/20 border border-red-500/50 text-red-200 px-3 py-1 rounded-full text-xs font-mono whitespace-nowrap z-30"
+                className="hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 bg-red-500/20 border border-red-500/50 text-red-200 px-3 py-1 rounded-full text-[10px] sm:text-xs font-mono whitespace-nowrap z-30"
               >
                 NETWORK CONGESTION DETECTED
               </motion.div>
@@ -196,7 +196,7 @@ export default function PersonalOracleSection() {
 
           {/* Personal Oracle Visualization */}
           {activeTab === 'personal' && (
-            <div className="relative w-full h-full flex items-center justify-center">
+            <div className="absolute inset-0 w-full h-full flex items-center justify-center">
               {/* The Protected Zone Ring - Static Background */}
               <motion.div
                 initial={{ scale: 0.8, opacity: 0 }}
@@ -265,8 +265,7 @@ export default function PersonalOracleSection() {
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ delay: 0.5 }}
-                // Added -ml-24 per user request to fix visual centering
-                className="absolute bottom-6 left-1/2 -translate-x-1/2 -ml-24 bg-via-teal/20 border border-via-teal/50 text-via-teal px-3 py-1 rounded-full text-xs font-mono whitespace-nowrap z-30"
+                className="hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 bg-via-teal/20 border border-via-teal/50 text-via-teal px-3 py-1 rounded-full text-xs font-mono whitespace-nowrap z-30"
               >
                 SECURE • DEDICATED • FAST
               </motion.div>

@@ -27,7 +27,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
     };
 
     return (
-        <div className="relative w-[112%] -ml-[6%] h-[400px] flex flex-col items-center justify-center">
+        <div className="relative w-[112%] -ml-[6%] h-[400px] hidden md:flex flex-col items-center justify-center">
             {/* Background Container Card */}
             <div className="absolute inset-0 bg-white rounded-3xl shadow-clean border border-slate-200 overflow-hidden">
                 {/* Internal Grid */}

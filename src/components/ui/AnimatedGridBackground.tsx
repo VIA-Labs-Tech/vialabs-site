@@ -12,19 +12,33 @@ const WAVE_FREQUENCY = 0.02;
 const WAVE_SPEED = 0.05;
 const WAVE_DECAY = 0.006;
 
-const SPAWN_DELAY_BETWEEN_LOGOS = 600;
+const SPAWN_DELAY_BETWEEN_LOGOS = 600; // Stagger delay for 2nd logo in each pair (animation timing)
 const LINE_START_DELAY = 1000;
 const LINE_DURATION = 1000;
 
 // Lifecycle timings
 const FADE_IN_DURATION = 800; // Quick fade/pop in
 const POP_OUT_DURATION = 400; // Quick pop out (scale down)
-// Synced Exit: No stagger delay for exit scaling logic, both start popping out at same time
-// But the total active duration controls when this exit phase begins
 const TOTAL_ACTIVE_TIME = 2500;
 const LIFECYCLE_DURATION = LINE_START_DELAY + LINE_DURATION + TOTAL_ACTIVE_TIME + POP_OUT_DURATION;
 
-const MAX_CONCURRENT = 8; // Increased frequency (approx 50% more than 5)
+// Responsive configuration — scales bubble count and spawn rate with screen width
+function getResponsiveConfig() {
+    const w = typeof window !== 'undefined' ? window.innerWidth : 1280;
+    if (w <= 480) {
+        return { maxConcurrent: 3, spawnDelay: 1400 };
+    } else if (w <= 768) {
+        return { maxConcurrent: 4, spawnDelay: 1000 };
+    } else if (w <= 1024) {
+        return { maxConcurrent: 6, spawnDelay: 800 };
+    }
+    return { maxConcurrent: 8, spawnDelay: 600 };
+}
+
+let _responsiveConfig = getResponsiveConfig();
+if (typeof window !== 'undefined') {
+    window.addEventListener('resize', () => { _responsiveConfig = getResponsiveConfig(); });
+}
 
 interface ActivePair {
     id: number;
@@ -177,7 +191,7 @@ export function AnimatedGridBackground() {
 
             // Spawn new pair logic
             // Increased frequency means spawning more often
-            if (state.current.pairs.length < MAX_CONCURRENT && now - state.current.lastSpawn > 600) {
+            if (state.current.pairs.length < _responsiveConfig.maxConcurrent && now - state.current.lastSpawn > _responsiveConfig.spawnDelay) {
                 spawnPair(now);
                 state.current.lastSpawn = now;
             }

@@ -18,10 +18,10 @@ export function Platform() {
     }, [hash]);
 
     return (
-        <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+        <div className="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 max-w-7xl mx-auto">
 
             {/* Header Section */}
-            <div className="mb-20 text-center">
+            <div className="mb-12 md:mb-20 text-center">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -43,12 +43,12 @@ export function Platform() {
             </div>
 
             {/* Problem / Solution Section - Made Alive with Hover Effects */}
-            <div className="mb-32">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div className="mb-16 md:mb-32">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16">
                     {/* The Fragmentation Problem */}
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="bg-slate-50 rounded-3xl p-10 border border-slate-200 transition-shadow hover:shadow-xl"
+                        className="bg-slate-50 rounded-3xl p-6 md:p-10 border border-slate-200 transition-shadow hover:shadow-xl"
                     >
                         <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6">
                             <Unplug className="text-red-500" size={28} />
@@ -73,7 +73,7 @@ export function Platform() {
                     {/* The VIA Solution */}
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="bg-slate-900 text-white rounded-3xl p-10 shadow-2xl relative overflow-hidden transition-all hover:shadow-via-teal/20"
+                        className="bg-slate-900 text-white rounded-3xl p-6 md:p-10 shadow-2xl relative overflow-hidden transition-all hover:shadow-via-teal/20"
                     >
                         <div className="absolute top-0 right-0 w-64 h-64 bg-via-teal/10 blur-[80px]" />
                         <div className="w-12 h-12 bg-via-teal/20 rounded-xl flex items-center justify-center mb-6 relative z-10">
@@ -99,7 +99,7 @@ export function Platform() {
             </div>
 
             {/* Existing Sections (Context) */}
-            <div className="space-y-32 mb-32">
+            <div className="space-y-16 md:space-y-32 mb-16 md:mb-32">
                 {/* Section 1: Generalized Messaging */}
                 <GeneralizedMessagingSection />
 
@@ -108,7 +108,7 @@ export function Platform() {
             </div>
 
             {/* Security Section - Updated content with Interactive Visualizer */}
-            <div className="mt-32 border-t border-slate-200 scroll-mt-32" id="security">
+            <div className="mt-16 md:mt-32 border-t border-slate-200 scroll-mt-32" id="security">
                 <SecuritySection />
             </div>
 

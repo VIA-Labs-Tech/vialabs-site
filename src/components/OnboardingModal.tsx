@@ -93,10 +93,10 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-y-auto relative"
+                            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative mx-2 sm:mx-4"
                         >
                             {/* Header */}
-                            <div className="px-8 py-6 border-b border-slate-100 flex justify-between items-center bg-white">
+                            <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 flex justify-between items-center bg-white">
 
                                 {isSuccess ? (
                                     <div className="flex items-center gap-2 text-green-600">
@@ -105,12 +105,12 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                     </div>
                                 ) : (
                                     <div>
-                                        <h2 className="text-xl font-bold text-slate-900">Onboarding Assistance</h2>
+                                        <h2 className="text-lg sm:text-xl font-bold text-slate-900">Onboarding Assistance</h2>
                                         <div className="flex gap-1 mt-2">
                                             {[1, 2, 3, 4, 5, 6, 7].map(i => (
                                                 <div
                                                     key={i}
-                                                    className={`h-1.5 w-8 rounded-full transition-colors ${i <= step ? 'bg-via-teal' : 'bg-slate-200'}`}
+                                                    className={`h-1.5 w-5 sm:w-8 rounded-full transition-colors ${i <= step ? 'bg-via-teal' : 'bg-slate-200'}`}
                                                 />
                                             ))}
                                         </div>
@@ -125,7 +125,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                             </div>
 
                             {/* Body */}
-                            <div className="p-8 min-h-[400px] flex flex-col">
+                            <div className="p-4 sm:p-8 min-h-[300px] sm:min-h-[400px] flex flex-col">
                                 {isSuccess ? (
                                     <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
                                         <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-green-600 mb-2">
@@ -319,7 +319,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {step === 7 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
                                                 <h3 className="text-2xl font-semibold text-slate-800">How did you hear about VIA Labs?</h3>
-                                                <div className="grid grid-cols-2 gap-3">
+                                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                     {[
                                                         'X / Twitter',
                                                         'Conference',
@@ -328,16 +328,16 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                         'Direct Referral',
                                                         'Other'
                                                     ].map((option) => (
-                                                        <label key={option} className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all ${formData.referralSource === option ? 'border-via-teal bg-via-teal/5 ring-1 ring-via-teal' : 'border-slate-200 hover:border-via-teal/50'}`}>
+                                                        <label key={option} className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border cursor-pointer transition-all ${formData.referralSource === option ? 'border-via-teal bg-via-teal/5 ring-1 ring-via-teal' : 'border-slate-200 hover:border-via-teal/50'}`}>
                                                             <input
                                                                 type="radio"
                                                                 name="referralSource"
                                                                 value={option}
                                                                 checked={formData.referralSource === option}
                                                                 onChange={(e) => updateField('referralSource', e.target.value)}
-                                                                className="w-5 h-5 accent-via-teal"
+                                                                className="w-5 h-5 accent-via-teal flex-shrink-0"
                                                             />
-                                                            <span className="text-lg text-slate-700">{option}</span>
+                                                            <span className="text-base sm:text-lg text-slate-700">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
@@ -359,7 +359,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
                             {/* Footer */}
                             {!isSuccess && (
-                                <div className="px-8 py-6 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                                <div className="px-4 sm:px-8 py-4 sm:py-6 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
                                     <button
                                         onClick={handleBack}
                                         disabled={step === 1}
@@ -368,18 +368,18 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                             : 'text-slate-600 hover:bg-slate-200'
                                             }`}
                                     >
-                                        <ArrowLeft size={18} /> Back
+                                        <ArrowLeft size={18} /> <span className="hidden sm:inline">Back</span>
                                     </button>
 
                                     <button
                                         onClick={handleNext}
                                         disabled={!isStepValid() || isSubmitting}
-                                        className={`flex items-center gap-2 px-8 py-3 rounded-full font-semibold text-white transition-all shadow-lg ${!isStepValid() || isSubmitting
+                                        className={`flex items-center gap-2 px-5 sm:px-8 py-3 rounded-full font-semibold text-white text-sm sm:text-base transition-all shadow-lg ${!isStepValid() || isSubmitting
                                             ? 'bg-slate-300 cursor-not-allowed shadow-none'
                                             : 'bg-via-teal hover:bg-via-teal/90 hover:scale-105 shadow-via-teal/30'
                                             }`}
                                     >
-                                        {isSubmitting ? 'Sending...' : step === 7 ? 'Submit Application' : 'Next'}
+                                        {isSubmitting ? 'Sending...' : step === 7 ? 'Submit' : 'Next'}
                                         {!isSubmitting && <ArrowRight size={18} />}
                                     </button>
                                 </div>

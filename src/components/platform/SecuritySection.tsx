@@ -60,7 +60,7 @@ export default function SecuritySection() {
                     isSimulating={isSimulating}
                 />
 
-                {/* Right Column: Visualizer */}
+                {/* Right Column: Visualizer — hidden on mobile */}
                 <SecurityVisualizer
                     chainEnabled={chainEnabled}
                     projectEnabled={projectEnabled}

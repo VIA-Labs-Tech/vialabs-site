@@ -30,7 +30,7 @@ export function Footer() {
                             <a href="https://github.com/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black hover:-translate-y-1 transition-all duration-300">
                                 <Github size={20} />
                             </a>
-                            <a href="https://discord.gg/VIA-labs-Tech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black hover:-translate-y-1 transition-all duration-300">
+                            <a href="https://discord.gg/h4rBhukkWz" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black hover:-translate-y-1 transition-all duration-300">
                                 <DiscordIcon size={20} />
                             </a>
                             <a href="https://t.me/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black hover:-translate-y-1 transition-all duration-300">
@@ -57,7 +57,7 @@ export function Footer() {
                     <div>
                         <h4 className="font-semibold mb-4 text-slate-900">Developers</h4>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><Link to="#" className="hover:text-black transition-colors">Documentation</Link></li>
+                            <li><a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Documentation</a></li>
                             <li><a href="https://github.com/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">GitHub</a></li>
                         </ul>
                     </div>
@@ -65,7 +65,7 @@ export function Footer() {
                     <div>
                         <h4 className="font-semibold mb-4 text-slate-900">Community</h4>
                         <ul className="space-y-3 text-sm text-slate-500">
-                            <li><a href="https://discord.gg/VIA-labs-Tech" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Discord</a></li>
+                            <li><a href="https://discord.gg/h4rBhukkWz" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Discord</a></li>
                             <li><a href="https://t.me/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Telegram</a></li>
                             <li><a href="https://x.com/VIA_Labs" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Twitter / X</a></li>
                         </ul>

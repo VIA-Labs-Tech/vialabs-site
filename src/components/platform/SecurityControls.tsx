@@ -77,7 +77,10 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                         <div className="flex-1">
                             <div className="flex items-center justify-between mb-1">
                                 <h3 className={`font-bold transition-colors ${chainEnabled ? 'text-slate-900' : 'text-slate-400'}`}>Chain Layer</h3>
-                                <Toggle enabled={chainEnabled} onChange={setChainEnabled} disabled={isSimulating} />
+                                {/* Toggle hidden on mobile */}
+                                <div className="hidden md:block">
+                                    <Toggle enabled={chainEnabled} onChange={setChainEnabled} disabled={isSimulating} />
+                                </div>
                             </div>
                             <p className="text-sm text-slate-500 leading-relaxed">
                                 Utilizes source and destination chain security. Waits for block finality before propagation.
@@ -87,15 +90,18 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                 </div>
 
                 {/* Layer 3: Project */}
-                <div className={`p-6 bg-white rounded-2xl border transition-all duration-300 shadow-sm ${projectEnabled ? 'border-slate-300 ring-1 ring-slate-200' : 'border-slate-200 opacity-80'}`}>
+                <div className={`p-6 bg-white rounded-2xl border transition-all duration-300 shadow-sm ${projectEnabled ? 'border-slate-300 ring-1 ring-slate-200' : 'border-slate-200 md:opacity-80'}`}>
                     <div className="flex items-start gap-4">
-                        <div className={`p-3 rounded-full border transition-colors ${projectEnabled ? 'bg-slate-50 border-slate-200 text-slate-900' : 'bg-slate-50 border-slate-100 text-slate-400'}`}>
+                        <div className={`p-3 rounded-full border transition-colors ${projectEnabled ? 'bg-slate-50 border-slate-200 text-slate-900' : 'bg-slate-50 border-slate-100 text-slate-900 md:text-slate-400'}`}>
                             <ShieldCheck className="w-6 h-6" />
                         </div>
                         <div className="flex-1">
                             <div className="flex items-center justify-between mb-1">
-                                <h3 className={`font-bold transition-colors ${projectEnabled ? 'text-slate-900' : 'text-slate-400'}`}>Project Layer</h3>
-                                <Toggle enabled={projectEnabled} onChange={setProjectEnabled} disabled={isSimulating} />
+                                <h3 className={`font-bold transition-colors ${projectEnabled ? 'text-slate-900' : 'text-slate-900 md:text-slate-400'}`}>Project Layer</h3>
+                                {/* Toggle hidden on mobile */}
+                                <div className="hidden md:block">
+                                    <Toggle enabled={projectEnabled} onChange={setProjectEnabled} disabled={isSimulating} />
+                                </div>
                             </div>
                             <p className="text-sm text-slate-500 leading-relaxed">
                                 Application-specific validation logic, whitelists, and rate limits. Operated by the integrating team.
@@ -105,8 +111,8 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                 </div>
             </div>
 
-            {/* Action Area */}
-            <div className="pt-2">
+            {/* Action Area — hidden on mobile */}
+            <div className="pt-2 hidden md:block">
                 <button
                     onClick={onSimulate}
                     disabled={isSimulating}
