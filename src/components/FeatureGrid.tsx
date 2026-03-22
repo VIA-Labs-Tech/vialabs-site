@@ -12,9 +12,9 @@ export function FeatureGrid() {
                 </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto lg:auto-rows-[300px]">
                 {/* Stats Row - Captivating Animation & Aliveness */}
-                <div className="md:col-span-3 grid grid-cols-2 gap-4 sm:gap-6 p-6 sm:p-8 bg-slate-900 rounded-3xl text-white mb-6 relative overflow-hidden group hover:shadow-xl hover:shadow-via-teal/10 hover:-translate-y-1 transition-all duration-300">
+                <div className="md:col-span-3 grid grid-cols-2 gap-4 sm:gap-6 p-6 sm:p-8 bg-slate-900 rounded-3xl text-white mb-2 md:mb-6 relative overflow-hidden group hover:shadow-xl hover:shadow-via-teal/10 hover:-translate-y-1 transition-all duration-300">
                     {/* Background glow effects - Optimized for performance */}
                     <div className="absolute top-0 left-1/4 w-64 h-64 bg-via-teal/10 blur-3xl group-hover:bg-via-teal/20 transition-colors duration-1000" />
                     <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-via-pink/10 blur-3xl group-hover:bg-via-pink/20 transition-colors duration-1000" />
@@ -45,7 +45,7 @@ export function FeatureGrid() {
 
                 {/* Card 1: General Message Passing (Large) */}
                 <Card className="md:col-span-2 relative group hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                    <div className="absolute top-8 left-8 z-20">
+                    <div className="relative lg:absolute lg:top-8 lg:left-8 z-20">
                         <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <Cpu className="text-via-teal" />
                         </div>

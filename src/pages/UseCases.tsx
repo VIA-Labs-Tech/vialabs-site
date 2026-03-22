@@ -3,7 +3,7 @@ import { Gamepad2, Coins, UserCheck, Layers, ShoppingBag, Activity } from 'lucid
 
 export function UseCases() {
     return (
-        <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+        <div className="pt-20 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 max-w-7xl mx-auto">
             <div className="mb-20 text-center">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}

@@ -4,7 +4,7 @@ import { AnimatedGridBackground } from './ui/AnimatedGridBackground';
 
 export function HeroSection() {
     return (
-        <section className="relative w-full min-h-[85vh] md:min-h-[90vh] flex flex-col justify-center pt-24 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-[#F5F5F7]">
+        <section className="relative w-full min-h-[85vh] md:min-h-[90vh] flex flex-col justify-center pt-20 md:pt-32 pb-12 md:pb-20 overflow-hidden bg-[#F5F5F7]">
             <AnimatedGridBackground />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col items-center text-center">
@@ -36,7 +36,7 @@ export function HeroSection() {
                             }
                         }
                     }}
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-8 cursor-default"
+                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 shadow-sm mb-4 md:mb-8 cursor-default"
                 >
                     <span className="w-2 h-2 rounded-full bg-via-teal animate-pulse" />
                     <span className="text-sm font-medium text-slate-600">Cardano Testnet Now Live</span>

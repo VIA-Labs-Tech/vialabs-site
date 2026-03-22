@@ -63,12 +63,42 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
     };
 
     const handleSubmit = async () => {
+        // Anti-grief: 10-minute cooldown between submissions
+        const lastSubmit = localStorage.getItem('via-onboarding-last-submit');
+        if (lastSubmit) {
+            const elapsed = Date.now() - parseInt(lastSubmit, 10);
+            const cooldownMs = 10 * 60 * 1000; // 10 minutes
+            if (elapsed < cooldownMs) {
+                const minutesLeft = Math.ceil((cooldownMs - elapsed) / 60000);
+                alert(`Please wait ${minutesLeft} minute${minutesLeft > 1 ? 's' : ''} before submitting again.`);
+                return;
+            }
+        }
+
         setIsSubmitting(true);
-        // Simulate API call
-        console.log("Submitting Onboarding Form:", formData);
-        await new Promise(resolve => setTimeout(resolve, 1500));
-        setIsSubmitting(false);
-        setIsSuccess(true);
+        try {
+            const body = new URLSearchParams({
+                'form-name': 'onboarding',
+                'bot-field': '', // honeypot — must be empty for legit submissions
+                ...formData
+            });
+
+            const response = await fetch('/', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: body.toString()
+            });
+
+            if (!response.ok) throw new Error('Submission failed');
+
+            localStorage.setItem('via-onboarding-last-submit', Date.now().toString());
+            setIsSuccess(true);
+        } catch (err) {
+            console.error('Form submission error:', err);
+            alert('Something went wrong. Please try again or contact us directly at hello@vialabs.tech');
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     const updateField = (field: string, value: string) => {

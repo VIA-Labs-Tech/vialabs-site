@@ -22,7 +22,7 @@ export default function PersonalOracleSection() {
 
   return (
     <div className="w-full">
-      <div className="text-center max-w-3xl mx-auto mb-8 md:mb-16">
+      <div className="text-center max-w-3xl mx-auto mb-4 md:mb-16">
         <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
           Your Own Lane. <br />
           <span className="text-via-pink">Exclusively Yours.</span>
@@ -34,7 +34,7 @@ export default function PersonalOracleSection() {
 
       <motion.div
         whileHover={{ scale: 1.02 }}
-        className="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden max-w-5xl mx-auto flex flex-col md:flex-row min-h-[350px] md:min-h-[500px]"
+        className="hidden md:flex bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden max-w-5xl mx-auto flex-col md:flex-row min-h-[500px]"
       >
 
         {/* Controls / Sidebar — hidden on mobile */}
@@ -93,8 +93,8 @@ export default function PersonalOracleSection() {
           </div>
         </div>
 
-        {/* Visualization Canvas */}
-        <div className="relative w-full md:w-2/3 bg-slate-900 overflow-hidden flex items-center justify-center min-h-[350px] md:min-h-0">
+        {/* Visualization Canvas — hidden on mobile, same breakpoint as sidebar */}
+        <div className="hidden md:flex relative w-full md:w-2/3 bg-slate-900 overflow-hidden items-center justify-center min-h-0">
           {/* Background Grid - Dark Mode for Contrast */}
           <div className="absolute inset-0 opacity-20"
             style={{
@@ -261,15 +261,21 @@ export default function PersonalOracleSection() {
                 <Radio className="w-8 h-8 text-slate-900" />
               </div>
 
-              <motion.div
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.5 }}
-                className="hidden md:block absolute bottom-4 left-1/2 -translate-x-1/2 bg-via-teal/20 border border-via-teal/50 text-via-teal px-3 py-1 rounded-full text-xs font-mono whitespace-nowrap z-30"
-              >
-                SECURE • DEDICATED • FAST
-              </motion.div>
             </div>
+          )}
+
+          {/* Badge — positioned relative to the canvas div, not the flex wrapper */}
+          {activeTab === 'personal' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="hidden md:flex absolute bottom-4 left-0 right-0 justify-center z-30"
+            >
+              <span className="bg-via-teal/20 border border-via-teal/50 text-via-teal px-3 py-1 rounded-full text-xs font-mono whitespace-nowrap">
+                SECURE • DEDICATED • FAST
+              </span>
+            </motion.div>
           )}
         </div>
 

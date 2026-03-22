@@ -2,7 +2,7 @@ export function TrustedBy() {
 
 
     return (
-        <section className="w-full py-12 border-y border-slate-200 bg-white">
+        <section className="w-full py-8 md:py-12 border-y border-slate-200 bg-white">
             <div className="max-w-7xl mx-auto px-6 text-center">
                 <p className="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-8">
                     Trusted by leading chains & protocols

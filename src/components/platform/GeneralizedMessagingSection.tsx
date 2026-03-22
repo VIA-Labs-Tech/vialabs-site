@@ -28,7 +28,7 @@ export default function GeneralizedMessagingSection() {
 
   return (
     <div className="w-full">
-      <div className="grid lg:grid-cols-2 gap-16 items-center">
+      <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
 
         {/* Text Content */}
         <div>

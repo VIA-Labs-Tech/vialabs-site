@@ -6,15 +6,15 @@ import logoUrl from '../assets/company_logo/Logo_300-02_b.png';
 
 export function Footer() {
     return (
-        <footer className="bg-white border-t border-slate-200 py-16">
-            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12">
+        <footer className="bg-white border-t border-slate-200 py-10 md:py-16">
+            <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
 
                 {/* Brand Column */}
                 <div className="col-span-1 md:col-span-1 flex flex-col justify-between h-full">
                     <div>
-                        <div className="flex items-center gap-2 mb-6">
+                        <div className="flex items-center gap-2 mb-4 md:mb-6">
                             {/* Logo Image Only - Scaled Up 2x */}
-                            <img src={logoUrl} alt="VIA Labs" className="h-[120px] w-auto" />
+                            <img src={logoUrl} alt="VIA Labs" className="h-[80px] md:h-[120px] w-auto" />
                         </div>
                         <p className="text-slate-500 text-sm mb-6 max-w-xs">
                             The universal cross-chain infrastructure for the next generation of dApps.

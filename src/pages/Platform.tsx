@@ -18,10 +18,10 @@ export function Platform() {
     }, [hash]);
 
     return (
-        <div className="pt-24 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 max-w-7xl mx-auto">
+        <div className="pt-20 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 max-w-7xl mx-auto">
 
             {/* Header Section */}
-            <div className="mb-12 md:mb-20 text-center">
+            <div className="mb-8 md:mb-20 text-center">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -43,7 +43,7 @@ export function Platform() {
             </div>
 
             {/* Problem / Solution Section - Made Alive with Hover Effects */}
-            <div className="mb-16 md:mb-32">
+            <div className="mb-10 md:mb-20">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-16">
                     {/* The Fragmentation Problem */}
                     <motion.div
@@ -99,16 +99,20 @@ export function Platform() {
             </div>
 
             {/* Existing Sections (Context) */}
-            <div className="space-y-16 md:space-y-32 mb-16 md:mb-32">
+            <div className="space-y-10 md:space-y-20 mb-10 md:mb-20">
                 {/* Section 1: Generalized Messaging */}
-                <GeneralizedMessagingSection />
+                <div className="border-t border-slate-200 pt-10 md:pt-20">
+                    <GeneralizedMessagingSection />
+                </div>
 
                 {/* Section 2: Personal Oracle Networks */}
-                <PersonalOracleSection />
+                <div className="border-t border-slate-200 pt-10 md:pt-20">
+                    <PersonalOracleSection />
+                </div>
             </div>
 
             {/* Security Section - Updated content with Interactive Visualizer */}
-            <div className="mt-16 md:mt-32 border-t border-slate-200 scroll-mt-32" id="security">
+            <div className="mt-10 md:mt-20 border-t border-slate-200 scroll-mt-32" id="security">
                 <SecuritySection />
             </div>
 
