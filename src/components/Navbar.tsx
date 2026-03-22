@@ -3,11 +3,14 @@ import { Menu, X, ChevronDown, ExternalLink, ShieldCheck, Zap, Book, Code, Send,
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { OnboardingModal } from './OnboardingModal';
+import { ThemeToggle } from './ThemeToggle';
+import { useIsDark } from '../hooks/useIsDark';
 import { XIcon } from './icons/XIcon';
 import { DiscordIcon } from './icons/DiscordIcon';
 
 // Assets
-import logoUrl from '../assets/company_logo/Logo_300-02_b.png';
+import logoDark from '../assets/company_logo/Logo_300-02_b.png';
+import logoWhite from '../assets/company_logo/Logo_300-02.png';
 
 const navLinks = {
     platform: [
@@ -29,6 +32,8 @@ const navLinks = {
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [showOnboarding, setShowOnboarding] = useState(false);
+    const isDark = useIsDark();
+    const logoUrl = isDark ? logoWhite : logoDark;
 
     return (
         <nav className="fixed top-0 left-0 right-0 z-50 glass-nav">
@@ -40,17 +45,17 @@ export function Navbar() {
                 </Link>
 
                 {/* 2. Desktop Links */}
-                <div className="hidden lg:flex items-center gap-8 ml-10 text-sm font-medium text-slate-600">
+                <div className="hidden lg:flex items-center gap-8 ml-10 text-sm font-medium text-slate-600 dark:text-slate-400">
 
                     {/* Platform Dropdown */}
                     <div className="relative group h-16 md:h-28 flex items-center">
-                        <button className="flex items-center gap-1 hover:text-black transition-colors focus:outline-none">
+                        <button className="flex items-center gap-1 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
                             Platform <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
                         </button>
-                        <div className="absolute top-24 left-0 w-56 bg-white border border-slate-100 shadow-lg rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top -translate-y-2 group-hover:translate-y-0">
+                        <div className="absolute top-24 left-0 w-56 bg-white dark:bg-[#1a1b23] border border-slate-100 dark:border-slate-700 shadow-lg rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top -translate-y-2 group-hover:translate-y-0">
                             <div className="p-2 flex flex-col gap-1">
                                 {navLinks.platform.map(link => (
-                                    <Link key={link.name} to={link.href} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-black">
+                                    <Link key={link.name} to={link.href} className="flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
                                         <link.icon size={16} className="text-via-teal" />
                                         <span>{link.name}</span>
                                     </Link>
@@ -63,13 +68,13 @@ export function Navbar() {
 
                     {/* Developers Dropdown */}
                     <div className="relative group h-16 md:h-28 flex items-center">
-                        <button className="flex items-center gap-1 hover:text-black transition-colors focus:outline-none">
+                        <button className="flex items-center gap-1 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
                             Developers <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
                         </button>
-                        <div className="absolute top-24 left-0 w-56 bg-white border border-slate-100 shadow-lg rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top -translate-y-2 group-hover:translate-y-0">
+                        <div className="absolute top-24 left-0 w-56 bg-white dark:bg-[#1a1b23] border border-slate-100 dark:border-slate-700 shadow-lg rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top -translate-y-2 group-hover:translate-y-0">
                             <div className="p-2 flex flex-col gap-1">
                                 {navLinks.developers.map(link => (
-                                    <a key={link.name} href={link.href} className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-black">
+                                    <a key={link.name} href={link.href} className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
                                         <div className="flex items-center gap-3">
                                             <link.icon size={16} className="text-via-teal" />
                                             <span>{link.name}</span>
@@ -85,13 +90,13 @@ export function Navbar() {
 
                     {/* Community Dropdown */}
                     <div className="relative group h-16 md:h-28 flex items-center">
-                        <button className="flex items-center gap-1 hover:text-black transition-colors focus:outline-none">
+                        <button className="flex items-center gap-1 hover:text-black dark:hover:text-white transition-colors focus:outline-none">
                             Community <ChevronDown size={14} className="group-hover:rotate-180 transition-transform" />
                         </button>
-                        <div className="absolute top-24 left-0 w-56 bg-white border border-slate-100 shadow-lg rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top -translate-y-2 group-hover:translate-y-0">
+                        <div className="absolute top-24 left-0 w-56 bg-white dark:bg-[#1a1b23] border border-slate-100 dark:border-slate-700 shadow-lg rounded-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all transform origin-top -translate-y-2 group-hover:translate-y-0">
                             <div className="p-2 flex flex-col gap-1">
                                 {navLinks.community.map(link => (
-                                    <a key={link.name} href={link.href} className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-50 text-slate-600 hover:text-black">
+                                    <a key={link.name} href={link.href} className="flex items-center justify-between px-4 py-3 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-black dark:hover:text-white">
                                         <div className="flex items-center gap-3">
                                             <link.icon size={16} className="text-via-teal" />
                                             <span>{link.name}</span>
@@ -104,7 +109,7 @@ export function Navbar() {
                     </div>
 
                     {/* Explorer Link (Right side) */}
-                    <a href="https://scan.vialabs.io" target="_blank" rel="noopener noreferrer" className="hover:text-black transition-colors">Explorer</a>
+                    <a href="https://scan.vialabs.io" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Explorer</a>
 
                 </div>
 
@@ -112,25 +117,18 @@ export function Navbar() {
 
                 {/* 3. CTA Buttons */}
                 <div className="hidden md:flex items-center gap-4 ml-auto">
+                    <ThemeToggle />
                     <button
                         onClick={() => setShowOnboarding(true)}
-                        className="px-5 py-2 rounded-full border border-slate-300 text-slate-600 text-xs font-semibold hover:border-slate-800 hover:text-black transition-all"
+                        className="px-5 py-2 rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 text-xs font-semibold hover:border-slate-800 dark:hover:border-slate-400 hover:text-black dark:hover:text-white transition-all"
                     >
                         Onboarding Assistance
                     </button>
-                    <a
-                        href="https://anytoany.xyz"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-black text-white px-6 py-2.5 rounded-full text-sm font-semibold hover:bg-slate-800 transition-all hover:shadow-[0_0_15px_rgba(0,229,229,0.3)] block"
-                    >
-                        Launch App
-                    </a>
                 </div>
 
                 {/* Mobile Menu Toggle */}
                 <button
-                    className="lg:hidden p-2 text-slate-600 ml-auto"
+                    className="lg:hidden p-2 text-slate-600 dark:text-slate-400 ml-auto"
                     onClick={() => setIsOpen(!isOpen)}
                 >
                     {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -144,14 +142,14 @@ export function Navbar() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        className="lg:hidden bg-white border-t border-slate-100 overflow-hidden"
+                        className="lg:hidden bg-white dark:bg-[#1a1b23] border-t border-slate-100 dark:border-slate-700 overflow-hidden"
                     >
                         <div className="flex flex-col p-4 sm:p-6 space-y-3 max-w-full overflow-hidden">
                             {/* Platform sub-links */}
                             <div className="space-y-1">
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2">Platform</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2">Platform</p>
                                 {navLinks.platform.map(link => (
-                                    <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 hover:text-black rounded-lg hover:bg-slate-50">
+                                    <Link key={link.name} to={link.href} onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
                                         <link.icon size={16} className="text-via-teal flex-shrink-0" />
                                         <span>{link.name}</span>
                                     </Link>
@@ -160,9 +158,9 @@ export function Navbar() {
 
                             {/* Developers sub-links */}
                             <div className="space-y-1">
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2">Developers</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2">Developers</p>
                                 {navLinks.developers.map(link => (
-                                    <a key={link.name} href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 hover:text-black rounded-lg hover:bg-slate-50">
+                                    <a key={link.name} href={link.href} target={link.external ? "_blank" : undefined} rel={link.external ? "noopener noreferrer" : undefined} onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
                                         <link.icon size={16} className="text-via-teal flex-shrink-0" />
                                         <span>{link.name}</span>
                                         {link.external && <ExternalLink size={12} className="text-slate-400 ml-auto flex-shrink-0" />}
@@ -172,9 +170,9 @@ export function Navbar() {
 
                             {/* Community sub-links */}
                             <div className="space-y-1">
-                                <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider px-2">Community</p>
+                                <p className="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider px-2">Community</p>
                                 {navLinks.community.map(link => (
-                                    <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 hover:text-black rounded-lg hover:bg-slate-50">
+                                    <a key={link.name} href={link.href} target="_blank" rel="noopener noreferrer" onClick={() => setIsOpen(false)} className="flex items-center gap-3 px-2 py-2 text-base font-medium text-slate-700 dark:text-slate-300 hover:text-black dark:hover:text-white rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800">
                                         <link.icon size={16} className="text-via-teal flex-shrink-0" />
                                         <span>{link.name}</span>
                                         <ExternalLink size={12} className="text-slate-400 ml-auto flex-shrink-0" />
@@ -182,14 +180,14 @@ export function Navbar() {
                                 ))}
                             </div>
 
-                            <hr className="border-slate-100" />
+                            <hr className="border-slate-100 dark:border-slate-700" />
                             <div className="flex flex-col gap-3 pt-1">
-                                <button onClick={() => { setShowOnboarding(true); setIsOpen(false); }} className="w-full px-4 py-3 rounded-full border border-slate-300 text-slate-600 font-semibold text-center text-sm truncate">
+                                <div className="flex items-center justify-center">
+                                    <ThemeToggle />
+                                </div>
+                                <button onClick={() => { setShowOnboarding(true); setIsOpen(false); }} className="w-full px-4 py-3 rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 font-semibold text-center text-sm truncate">
                                     Onboarding Assistance
                                 </button>
-                                <a href="https://anytoany.xyz" target="_blank" rel="noopener noreferrer" className="w-full bg-black text-white px-4 py-3 rounded-full font-semibold text-center text-sm">
-                                    Launch App
-                                </a>
                             </div>
                         </div>
                     </motion.div>

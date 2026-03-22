@@ -227,7 +227,8 @@ export function AnimatedGridBackground() {
             }
 
             // 2. Draw Grid Lines
-            ctx.strokeStyle = 'rgba(203, 213, 225, 0.5)'; // slate-300 with opacity
+            const dark = document.documentElement.classList.contains('dark');
+            ctx.strokeStyle = dark ? 'rgba(51, 65, 85, 0.3)' : 'rgba(203, 213, 225, 0.5)';
             ctx.lineWidth = 1;
             ctx.beginPath();
 
@@ -345,19 +346,20 @@ function easeInBack(x: number): number {
 
 function drawIcon(ctx: CanvasRenderingContext2D, img: HTMLImageElement, x: number, y: number, opacity: number, scale: number = 1) {
     if (opacity <= 0 || scale <= 0) return;
+    const dark = document.documentElement.classList.contains('dark');
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(scale, scale);
     ctx.globalAlpha = opacity;
-    ctx.shadowColor = 'rgba(0,0,0,0.1)';
+    ctx.shadowColor = dark ? 'rgba(0,0,0,0.3)' : 'rgba(0,0,0,0.1)';
     ctx.shadowBlur = 10;
 
     // Size increased by 50% (20px radius -> 30px radius)
     ctx.beginPath();
     ctx.arc(0, 0, 30, 0, Math.PI * 2);
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = dark ? '#1a1b23' : '#ffffff';
     ctx.fill();
-    ctx.strokeStyle = '#f1f5f9';
+    ctx.strokeStyle = dark ? '#334155' : '#f1f5f9';
     ctx.stroke();
 
     // Image (24px -> 36px)

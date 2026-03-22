@@ -25,7 +25,7 @@ export function Platform() {
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 mb-6"
+                    className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6"
                 >
                     The Universal <br />
                     {/* Ensure solid color, no fade */}
@@ -35,7 +35,7 @@ export function Platform() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
-                    className="text-xl text-slate-500 max-w-3xl mx-auto"
+                    className="text-xl text-slate-500 dark:text-slate-400 max-w-3xl mx-auto"
                 >
                     A secure, developer-first infrastructure for Generalized Cross-Chain Messaging.
                     Connect any contract, any asset, on any chain.
@@ -48,13 +48,13 @@ export function Platform() {
                     {/* The Fragmentation Problem */}
                     <motion.div
                         whileHover={{ scale: 1.02 }}
-                        className="bg-slate-50 rounded-3xl p-6 md:p-10 border border-slate-200 transition-shadow hover:shadow-xl"
+                        className="bg-slate-50 dark:bg-[#1a1b23] rounded-3xl p-6 md:p-10 border border-slate-200 dark:border-slate-700 transition-shadow hover:shadow-xl"
                     >
                         <div className="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center mb-6">
                             <Unplug className="text-red-500" size={28} />
                         </div>
-                        <h2 className="text-3xl font-bold mb-4 text-slate-900">The Problem: Fragmentation</h2>
-                        <ul className="space-y-4 text-slate-600">
+                        <h2 className="text-3xl font-bold mb-4 text-slate-900 dark:text-white">The Problem: Fragmentation</h2>
+                        <ul className="space-y-4 text-slate-600 dark:text-slate-400">
                             <li className="flex gap-3">
                                 <div className="mt-1.5 w-2 h-2 rounded-full bg-red-400 shrink-0" />
                                 <p><strong>Disconnected Experience:</strong> Users must switch networks, wallets, and bridges constantly.</p>
@@ -101,18 +101,18 @@ export function Platform() {
             {/* Existing Sections (Context) */}
             <div className="space-y-10 md:space-y-20 mb-10 md:mb-20">
                 {/* Section 1: Generalized Messaging */}
-                <div className="border-t border-slate-200 pt-10 md:pt-20">
+                <div className="border-t border-slate-200 dark:border-slate-700 pt-10 md:pt-20">
                     <GeneralizedMessagingSection />
                 </div>
 
                 {/* Section 2: Personal Oracle Networks */}
-                <div className="border-t border-slate-200 pt-10 md:pt-20">
+                <div className="border-t border-slate-200 dark:border-slate-700 pt-10 md:pt-20">
                     <PersonalOracleSection />
                 </div>
             </div>
 
             {/* Security Section - Updated content with Interactive Visualizer */}
-            <div className="mt-10 md:mt-20 border-t border-slate-200 scroll-mt-32" id="security">
+            <div className="mt-10 md:mt-20 border-t border-slate-200 dark:border-slate-700 scroll-mt-32" id="security">
                 <SecuritySection />
             </div>
 

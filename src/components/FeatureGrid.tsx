@@ -1,13 +1,14 @@
 import { Card } from './ui/Card';
 import { ShieldCheck, Zap, Cpu, Blocks } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useIsDark } from '../hooks/useIsDark';
 
 export function FeatureGrid() {
     return (
         <section className="py-12 md:py-24 px-4 md:px-6 max-w-7xl mx-auto">
             <div className="mb-8 md:mb-16">
-                <h2 className="text-4xl font-bold tracking-tight mb-4">Infrastructure for the <span className="text-via-teal">new internet</span>.</h2>
-                <p className="text-xl text-slate-500 max-w-2xl">
+                <h2 className="text-4xl font-bold tracking-tight mb-4 text-slate-900 dark:text-white">Infrastructure for the <span className="text-via-teal">new internet</span>.</h2>
+                <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl">
                     Everything you need to build cross-chain applications without the complexity.
                 </p>
             </div>
@@ -49,8 +50,8 @@ export function FeatureGrid() {
                         <div className="w-12 h-12 bg-black rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
                             <Cpu className="text-via-teal" />
                         </div>
-                        <h3 className="text-2xl font-bold mb-2">General Message Passing</h3>
-                        <p className="text-slate-500 max-w-sm">Send arbitrary data between any supported chains. EVM, non-EVM, and private chains supported out of the box.</p>
+                        <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">General Message Passing</h3>
+                        <p className="text-slate-500 dark:text-slate-400 max-w-sm">Send arbitrary data between any supported chains. EVM, non-EVM, and private chains supported out of the box.</p>
                     </div>
                     {/* Graphic placed absolutely to right */}
                     <div className="hidden lg:block absolute right-0 bottom-0 w-[350px] h-[300px] z-10 opacity-90">
@@ -71,11 +72,11 @@ export function FeatureGrid() {
 
                 {/* Card 3: Security */}
                 <Card className="md:col-span-1 group hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
-                    <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-slate-200 transition-colors">
-                        <ShieldCheck className="text-slate-700" />
+                    <div className="w-12 h-12 bg-slate-100 dark:bg-slate-800 rounded-xl flex items-center justify-center mb-4 group-hover:bg-slate-200 dark:group-hover:bg-slate-700 transition-colors">
+                        <ShieldCheck className="text-slate-700 dark:text-slate-300" />
                     </div>
-                    <h3 className="text-2xl font-bold mb-2">Decentralized Trust</h3>
-                    <p className="text-slate-500 text-sm">Secured by a decentralized peer-to-peer mesh network.</p>
+                    <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Decentralized Trust</h3>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm">Secured by a decentralized peer-to-peer mesh network.</p>
                 </Card>
 
                 {/* Card 4: Digital Asset Transfers */}
@@ -85,8 +86,8 @@ export function FeatureGrid() {
                             <div className="w-12 h-12 bg-via-teal/10 rounded-xl flex items-center justify-center mb-4">
                                 <Zap className="text-via-teal" />
                             </div>
-                            <h3 className="text-2xl font-bold mb-2">Digital Asset Transfers</h3>
-                            <p className="text-slate-500 max-w-sm">Teleport assets across chains with finality in seconds, not minutes.</p>
+                            <h3 className="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Digital Asset Transfers</h3>
+                            <p className="text-slate-500 dark:text-slate-400 max-w-sm">Teleport assets across chains with finality in seconds, not minutes.</p>
                         </div>
                         {/* Graphic Container */}
                         <div className="flex-1 relative h-full min-h-[200px] hidden lg:block">
@@ -101,7 +102,11 @@ export function FeatureGrid() {
 
 // --- Internal Graphic Components ---
 
-const MessagePassingGraphic: React.FC = () => {
+const MessagePassingGraphic = () => {
+    const isDark = useIsDark();
+    const diamondFill = isDark ? 'rgba(26, 27, 35, 0.8)' : 'rgba(241, 245, 249, 0.5)';
+    const diamondStroke = isDark ? '#334155' : '#cbd5e1';
+    const gradientEdge = isDark ? '#334155' : '#e2e8f0';
     // Ball movement: [140, 40, 140] over 8s linear
     // Nodes: Bottom (140), Middle (90), Top (40)
     const diamondPath = "M0 30 L-60 0 L0 -30 L60 0 Z";
@@ -113,8 +118,8 @@ const MessagePassingGraphic: React.FC = () => {
                 <g transform="translate(150, 140)">
                     <motion.path
                         d={diamondPath}
-                        fill="rgba(241, 245, 249, 0.5)"
-                        stroke="#cbd5e1"
+                        fill={diamondFill}
+                        stroke={diamondStroke}
                         strokeWidth="2"
                     />
                     <motion.path
@@ -140,8 +145,8 @@ const MessagePassingGraphic: React.FC = () => {
                 <g transform="translate(150, 90)">
                     <motion.path
                         d={diamondPath}
-                        fill="rgba(241, 245, 249, 0.5)"
-                        stroke="#cbd5e1"
+                        fill={diamondFill}
+                        stroke={diamondStroke}
                         strokeWidth="2"
                     />
                     <motion.path
@@ -184,8 +189,8 @@ const MessagePassingGraphic: React.FC = () => {
                 <g transform="translate(150, 40)">
                     <motion.path
                         d={diamondPath}
-                        fill="rgba(241, 245, 249, 0.5)"
-                        stroke="#cbd5e1"
+                        fill={diamondFill}
+                        stroke={diamondStroke}
                         strokeWidth="2"
                     />
                     <motion.path
@@ -225,9 +230,9 @@ const MessagePassingGraphic: React.FC = () => {
 
                 <defs>
                     <linearGradient id="beam-gradient" x1="150" y1="140" x2="150" y2="40" gradientUnits="userSpaceOnUse">
-                        <stop stopColor="#e2e8f0" stopOpacity="0.2" />
+                        <stop stopColor={gradientEdge} stopOpacity="0.2" />
                         <stop offset="0.5" stopColor="#00E5E5" stopOpacity="0.8" />
-                        <stop offset="1" stopColor="#e2e8f0" stopOpacity="0.2" />
+                        <stop offset="1" stopColor={gradientEdge} stopOpacity="0.2" />
                     </linearGradient>
                 </defs>
             </svg>
@@ -235,7 +240,7 @@ const MessagePassingGraphic: React.FC = () => {
     );
 };
 
-const SettlementGraphic: React.FC = () => {
+const SettlementGraphic = () => {
     // Two chain nodes with a teleport/portal effect in the center
     // Assets fade out on left, materialize on right
     const duration = 3.5;

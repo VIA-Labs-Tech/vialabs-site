@@ -105,6 +105,14 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
+    // Shared input classes
+    const inputClass = "w-full text-lg p-4 bg-slate-50 dark:bg-[#0F1117] border border-slate-200 dark:border-slate-700 rounded-xl focus:border-via-teal focus:ring-2 focus:ring-via-teal/20 outline-none transition-all text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
+    const smallInputClass = "w-full p-3 bg-slate-50 dark:bg-[#0F1117] border border-slate-200 dark:border-slate-700 rounded-xl focus:border-via-teal outline-none text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500";
+    const questionClass = "text-2xl font-semibold text-slate-800 dark:text-white";
+    const radioLabelBase = "flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all";
+    const radioLabelActive = "border-via-teal bg-via-teal/5 ring-1 ring-via-teal";
+    const radioLabelInactive = "border-slate-200 dark:border-slate-700 hover:border-via-teal/50";
+
     return createPortal(
         <AnimatePresence>
             {isOpen && (
@@ -123,24 +131,24 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.95, opacity: 0 }}
                             onClick={(e) => e.stopPropagation()}
-                            className="bg-white rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative mx-2 sm:mx-4"
+                            className="bg-white dark:bg-[#1a1b23] rounded-2xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto relative mx-2 sm:mx-4"
                         >
                             {/* Header */}
-                            <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 flex justify-between items-center bg-white">
+                            <div className="px-4 sm:px-8 py-4 sm:py-6 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center bg-white dark:bg-[#1a1b23]">
 
                                 {isSuccess ? (
-                                    <div className="flex items-center gap-2 text-green-600">
+                                    <div className="flex items-center gap-2 text-green-600 dark:text-green-400">
                                         <CheckCircle2 size={24} />
                                         <span className="font-bold text-lg">Submission Received</span>
                                     </div>
                                 ) : (
                                     <div>
-                                        <h2 className="text-lg sm:text-xl font-bold text-slate-900">Onboarding Assistance</h2>
+                                        <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">Onboarding Assistance</h2>
                                         <div className="flex gap-1 mt-2">
                                             {[1, 2, 3, 4, 5, 6, 7].map(i => (
                                                 <div
                                                     key={i}
-                                                    className={`h-1.5 w-5 sm:w-8 rounded-full transition-colors ${i <= step ? 'bg-via-teal' : 'bg-slate-200'}`}
+                                                    className={`h-1.5 w-5 sm:w-8 rounded-full transition-colors ${i <= step ? 'bg-via-teal' : 'bg-slate-200 dark:bg-slate-700'}`}
                                                 />
                                             ))}
                                         </div>
@@ -148,7 +156,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                 )}
 
                                 {!isSuccess && (
-                                    <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full text-slate-400 hover:text-slate-600 transition-colors">
+                                    <button onClick={onClose} className="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-full text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition-colors">
                                         <X size={20} />
                                     </button>
                                 )}
@@ -158,29 +166,29 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                             <div className="p-4 sm:p-8 min-h-[300px] sm:min-h-[400px] flex flex-col">
                                 {isSuccess ? (
                                     <div className="flex-1 flex flex-col items-center justify-center text-center space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-                                        <div className="w-20 h-20 rounded-full bg-green-100 flex items-center justify-center text-green-600 mb-2">
+                                        <div className="w-20 h-20 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-400 mb-2">
                                             <CheckCircle2 size={40} />
                                         </div>
                                         <div>
-                                            <h3 className="text-2xl font-bold text-slate-900 mb-2">Thank you!</h3>
-                                            <p className="text-slate-600 max-w-md mx-auto">
+                                            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Thank you!</h3>
+                                            <p className="text-slate-600 dark:text-slate-400 max-w-md mx-auto">
                                                 Your information has been forwarded to the VIA Labs team. We'll be in touch shortly via your preferred communication method.
                                             </p>
                                         </div>
 
                                         <div className="pt-4 w-full max-w-sm">
-                                            <p className="text-sm text-slate-500 mb-3 uppercase tracking-wider font-semibold">Want to talk sooner?</p>
+                                            <p className="text-sm text-slate-500 dark:text-slate-400 mb-3 uppercase tracking-wider font-semibold">Want to talk sooner?</p>
                                             <a
                                                 href="https://calendly.com/via_labs"
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="block w-full py-4 bg-slate-900 text-white rounded-xl font-bold hover:bg-slate-800 transition-all hover:scale-[1.02] shadow-xl hover:shadow-2xl"
+                                                className="block w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-xl font-bold hover:bg-slate-800 dark:hover:bg-slate-100 transition-all hover:scale-[1.02] shadow-xl hover:shadow-2xl"
                                             >
                                                 Book a Call on Calendly
                                             </a>
                                         </div>
 
-                                        <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-sm mt-8">
+                                        <button onClick={onClose} className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 text-sm mt-8">
                                             Close Window
                                         </button>
                                     </div>
@@ -189,13 +197,13 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 1: Project Name */}
                                         {step === 1 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">What is the name of your project or company?</h3>
+                                                <h3 className={questionClass}>What is the name of your project or company?</h3>
                                                 <input
                                                     type="text"
                                                     value={formData.projectName}
                                                     onChange={(e) => updateField('projectName', e.target.value)}
                                                     placeholder="Project Name"
-                                                    className="w-full text-lg p-4 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal focus:ring-2 focus:ring-via-teal/20 outline-none transition-all"
+                                                    className={inputClass}
                                                     autoFocus
                                                 />
                                             </div>
@@ -204,13 +212,13 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 2: Description */}
                                         {step === 2 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">Tell us what you're building.</h3>
-                                                <p className="text-slate-500">Share your vision and include any relevant links if available.</p>
+                                                <h3 className={questionClass}>Tell us what you're building.</h3>
+                                                <p className="text-slate-500 dark:text-slate-400">Share your vision and include any relevant links if available.</p>
                                                 <textarea
                                                     value={formData.description}
                                                     onChange={(e) => updateField('description', e.target.value)}
                                                     placeholder="We are building..."
-                                                    className="w-full h-40 text-lg p-4 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal focus:ring-2 focus:ring-via-teal/20 outline-none transition-all resize-none"
+                                                    className={`${inputClass} h-40 resize-none`}
                                                     autoFocus
                                                 />
                                             </div>
@@ -219,10 +227,10 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 3: Build Plans */}
                                         {step === 3 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">How do you plan to build this?</h3>
+                                                <h3 className={questionClass}>How do you plan to build this?</h3>
                                                 <div className="space-y-3">
                                                     {['We plan to build this ourselves', 'We want it built for us', 'Other'].map((option) => (
-                                                        <label key={option} className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all ${formData.buildType === option ? 'border-via-teal bg-via-teal/5 ring-1 ring-via-teal' : 'border-slate-200 hover:border-via-teal/50'}`}>
+                                                        <label key={option} className={`${radioLabelBase} ${formData.buildType === option ? radioLabelActive : radioLabelInactive}`}>
                                                             <input
                                                                 type="radio"
                                                                 name="buildType"
@@ -231,7 +239,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                                 onChange={(e) => updateField('buildType', e.target.value)}
                                                                 className="w-5 h-5 accent-via-teal"
                                                             />
-                                                            <span className="text-lg text-slate-700">{option}</span>
+                                                            <span className="text-lg text-slate-700 dark:text-slate-300">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
@@ -241,7 +249,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                         value={formData.buildTypeDetails}
                                                         onChange={(e) => updateField('buildTypeDetails', e.target.value)}
                                                         placeholder="Please explain..."
-                                                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal outline-none"
+                                                        className={smallInputClass}
                                                         autoFocus
                                                     />
                                                 )}
@@ -251,7 +259,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 4: Category */}
                                         {step === 4 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">What category best fits your project?</h3>
+                                                <h3 className={questionClass}>What category best fits your project?</h3>
                                                 <div className="grid grid-cols-1 gap-3">
                                                     {[
                                                         'Cross-Chain Tokens or Stablecoins',
@@ -260,7 +268,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                         'Chain Integration',
                                                         'Other'
                                                     ].map((option) => (
-                                                        <label key={option} className={`flex items-center gap-4 p-4 rounded-xl border cursor-pointer transition-all ${formData.category === option ? 'border-via-teal bg-via-teal/5 ring-1 ring-via-teal' : 'border-slate-200 hover:border-via-teal/50'}`}>
+                                                        <label key={option} className={`${radioLabelBase} ${formData.category === option ? radioLabelActive : radioLabelInactive}`}>
                                                             <input
                                                                 type="radio"
                                                                 name="category"
@@ -269,7 +277,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                                 onChange={(e) => updateField('category', e.target.value)}
                                                                 className="w-5 h-5 accent-via-teal"
                                                             />
-                                                            <span className="text-lg text-slate-700">{option}</span>
+                                                            <span className="text-lg text-slate-700 dark:text-slate-300">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
@@ -279,13 +287,13 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 5: Communication */}
                                         {step === 5 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">How should we contact you?</h3>
+                                                <h3 className={questionClass}>How should we contact you?</h3>
                                                 <div className="flex flex-wrap gap-3">
                                                     {['Telegram', 'Discord', 'Slack', 'Email'].map((method) => (
                                                         <button
                                                             key={method}
                                                             onClick={() => updateField('communicationMethod', method)}
-                                                            className={`px-6 py-3 rounded-xl border font-medium transition-all ${formData.communicationMethod === method ? 'bg-slate-900 text-white border-slate-900' : 'bg-white text-slate-600 border-slate-200 hover:border-slate-400'}`}
+                                                            className={`px-6 py-3 rounded-xl border font-medium transition-all ${formData.communicationMethod === method ? 'bg-slate-900 dark:bg-white text-white dark:text-slate-900 border-slate-900 dark:border-white' : 'bg-white dark:bg-[#0F1117] text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500'}`}
                                                         >
                                                             {method}
                                                         </button>
@@ -294,7 +302,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
                                                 {formData.communicationMethod && (
                                                     <div className="animate-in fade-in duration-300">
-                                                        <label className="block text-sm font-medium text-slate-700 mb-2">
+                                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                                                             {formData.communicationMethod === 'Telegram' ? 'Your Telegram Handle' :
                                                                 formData.communicationMethod === 'Discord' ? 'Your Discord Username' :
                                                                     formData.communicationMethod === 'Slack' ? 'Your Email Address' :
@@ -309,7 +317,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                                     formData.communicationMethod === 'Discord' ? 'username' :
                                                                         'name@example.com'
                                                             }
-                                                            className="w-full text-lg p-4 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal focus:ring-2 focus:ring-via-teal/20 outline-none transition-all"
+                                                            className={inputClass}
                                                             autoFocus
                                                         />
                                                     </div>
@@ -320,25 +328,25 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 6: User Info */}
                                         {step === 6 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">Tell us a bit about yourself.</h3>
+                                                <h3 className={questionClass}>Tell us a bit about yourself.</h3>
                                                 <div className="space-y-4">
                                                     <div>
-                                                        <label className="block text-sm font-medium text-slate-700 mb-2">Your Name</label>
+                                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Your Name</label>
                                                         <input
                                                             type="text"
                                                             value={formData.userName}
                                                             onChange={(e) => updateField('userName', e.target.value)}
-                                                            className="w-full text-lg p-4 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal focus:ring-2 focus:ring-via-teal/20 outline-none transition-all"
+                                                            className={inputClass}
                                                         />
                                                     </div>
                                                     <div>
-                                                        <label className="block text-sm font-medium text-slate-700 mb-2">Your Role</label>
+                                                        <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Your Role</label>
                                                         <input
                                                             type="text"
                                                             value={formData.userRole}
                                                             onChange={(e) => updateField('userRole', e.target.value)}
                                                             placeholder="Founder, Developer, Product Manager..."
-                                                            className="w-full text-lg p-4 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal focus:ring-2 focus:ring-via-teal/20 outline-none transition-all"
+                                                            className={inputClass}
                                                         />
                                                     </div>
                                                 </div>
@@ -348,7 +356,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         {/* Step 7: Referral Source */}
                                         {step === 7 && (
                                             <div className="space-y-6 animate-in fade-in slide-in-from-right-8 duration-300">
-                                                <h3 className="text-2xl font-semibold text-slate-800">How did you hear about VIA Labs?</h3>
+                                                <h3 className={questionClass}>How did you hear about VIA Labs?</h3>
                                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                                     {[
                                                         'X / Twitter',
@@ -358,7 +366,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                         'Direct Referral',
                                                         'Other'
                                                     ].map((option) => (
-                                                        <label key={option} className={`flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-xl border cursor-pointer transition-all ${formData.referralSource === option ? 'border-via-teal bg-via-teal/5 ring-1 ring-via-teal' : 'border-slate-200 hover:border-via-teal/50'}`}>
+                                                        <label key={option} className={`${radioLabelBase} gap-3 sm:gap-4 p-3 sm:p-4 ${formData.referralSource === option ? radioLabelActive : radioLabelInactive}`}>
                                                             <input
                                                                 type="radio"
                                                                 name="referralSource"
@@ -367,7 +375,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                                 onChange={(e) => updateField('referralSource', e.target.value)}
                                                                 className="w-5 h-5 accent-via-teal flex-shrink-0"
                                                             />
-                                                            <span className="text-base sm:text-lg text-slate-700">{option}</span>
+                                                            <span className="text-base sm:text-lg text-slate-700 dark:text-slate-300">{option}</span>
                                                         </label>
                                                     ))}
                                                 </div>
@@ -377,7 +385,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                                         value={formData.referralDetails}
                                                         onChange={(e) => updateField('referralDetails', e.target.value)}
                                                         placeholder="Who referred you?"
-                                                        className="w-full p-3 bg-slate-50 border border-slate-200 rounded-xl focus:border-via-teal outline-none mt-2"
+                                                        className={`${smallInputClass} mt-2`}
                                                         autoFocus
                                                     />
                                                 )}
@@ -389,13 +397,13 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
 
                             {/* Footer */}
                             {!isSuccess && (
-                                <div className="px-4 sm:px-8 py-4 sm:py-6 bg-slate-50 border-t border-slate-100 flex justify-between items-center">
+                                <div className="px-4 sm:px-8 py-4 sm:py-6 bg-slate-50 dark:bg-[#0F1117] border-t border-slate-100 dark:border-slate-700 flex justify-between items-center">
                                     <button
                                         onClick={handleBack}
                                         disabled={step === 1}
                                         className={`flex items-center gap-2 px-6 py-3 rounded-full font-medium transition-all ${step === 1
                                             ? 'opacity-0 pointer-events-none'
-                                            : 'text-slate-600 hover:bg-slate-200'
+                                            : 'text-slate-600 dark:text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800'
                                             }`}
                                     >
                                         <ArrowLeft size={18} /> <span className="hidden sm:inline">Back</span>
@@ -405,7 +413,7 @@ export function OnboardingModal({ isOpen, onClose }: OnboardingModalProps) {
                                         onClick={handleNext}
                                         disabled={!isStepValid() || isSubmitting}
                                         className={`flex items-center gap-2 px-5 sm:px-8 py-3 rounded-full font-semibold text-white text-sm sm:text-base transition-all shadow-lg ${!isStepValid() || isSubmitting
-                                            ? 'bg-slate-300 cursor-not-allowed shadow-none'
+                                            ? 'bg-slate-300 dark:bg-slate-700 cursor-not-allowed shadow-none'
                                             : 'bg-via-teal hover:bg-via-teal/90 hover:scale-105 shadow-via-teal/30'
                                             }`}
                                     >

@@ -32,12 +32,12 @@ export default function GeneralizedMessagingSection() {
 
         {/* Text Content */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
+          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
             More Than Just <br />
             <span className="text-via-teal">Token Bridging.</span>
           </h2>
-          <p className="text-lg text-slate-500 mb-8 leading-relaxed">
-            VIA Labs provides more than just asset transfers. We enable <span className="font-bold text-slate-900">arbitrary data transfer</span> between contracts on different blockchains.
+          <p className="text-lg text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+            VIA Labs provides more than just asset transfers. We enable <span className="font-bold text-slate-900 dark:text-white">arbitrary data transfer</span> between contracts on different blockchains.
             Send messages, trigger functions, and synchronize state seamlessly.
           </p>
 
@@ -49,16 +49,16 @@ export default function GeneralizedMessagingSection() {
                 whileHover={{ scale: 1.02, x: 5 }}
                 whileTap={{ scale: 0.98 }}
                 className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left ${idx === activePacket
-                  ? 'bg-white border-via-teal shadow-lg shadow-via-teal/5 scale-105'
-                  : 'bg-[#F5F5F7] border-transparent opacity-60 hover:opacity-100 hover:bg-white hover:border-slate-200'
+                  ? 'bg-white dark:bg-[#1a1b23] border-via-teal shadow-lg shadow-via-teal/5 scale-105'
+                  : 'bg-[#F5F5F7] dark:bg-[#0F1117] border-transparent opacity-60 hover:opacity-100 hover:bg-white dark:hover:bg-[#1a1b23] hover:border-slate-200 dark:hover:border-slate-700'
                   }`}
               >
-                <div className={`p-2 rounded-lg ${idx === activePacket ? 'bg-via-teal/10' : 'bg-slate-200'}`}>
-                  <p.icon className={`w-5 h-5 ${idx === activePacket ? 'text-via-teal' : 'text-slate-500'}`} />
+                <div className={`p-2 rounded-lg ${idx === activePacket ? 'bg-via-teal/10' : 'bg-slate-200 dark:bg-slate-700'}`}>
+                  <p.icon className={`w-5 h-5 ${idx === activePacket ? 'text-via-teal' : 'text-slate-500 dark:text-slate-400'}`} />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900 text-sm">{p.type}</h4>
-                  <p className="text-xs text-slate-500">Example: {p.label}</p>
+                  <h4 className="font-bold text-slate-900 dark:text-white text-sm">{p.type}</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">Example: {p.label}</p>
                 </div>
               </motion.button>
             ))}
@@ -68,11 +68,11 @@ export default function GeneralizedMessagingSection() {
         {/* The Graphic: Engineered Data Pipeline — hidden on mobile */}
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="relative h-[400px] bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden items-center justify-center hidden lg:flex"
+          className="relative h-[400px] bg-white dark:bg-[#1a1b23] rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden items-center justify-center hidden lg:flex"
         >
 
           {/* Background Grid inside card */}
-          <div className="absolute inset-0 opacity-30"
+          <div className="absolute inset-0 opacity-30 dark:opacity-10"
             style={{
               backgroundImage: "linear-gradient(#e2e8f0 1px, transparent 1px), linear-gradient(90deg, #e2e8f0 1px, transparent 1px)",
               backgroundSize: "20px 20px"
@@ -80,19 +80,19 @@ export default function GeneralizedMessagingSection() {
           </div>
 
           {/* Source Chain Node */}
-          <div className="absolute left-10 top-1/2 -translate-y-1/2 w-24 h-32 bg-slate-50 rounded-xl border-2 border-slate-200 shadow-sm flex flex-col items-center justify-center z-10 group">
-            <div className="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center mb-2">
-              <div className="w-3 h-3 bg-slate-900 rounded-sm"></div>
+          <div className="absolute left-10 top-1/2 -translate-y-1/2 w-24 h-32 bg-slate-50 dark:bg-[#0F1117] rounded-xl border-2 border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center justify-center z-10 group">
+            <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-2">
+              <div className="w-3 h-3 bg-slate-900 dark:bg-slate-300 rounded-sm"></div>
             </div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Chain A</span>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Chain A</span>
           </div>
 
           {/* Destination Chain Node */}
-          <div className="absolute right-10 top-1/2 -translate-y-1/2 w-24 h-32 bg-slate-50 rounded-xl border-2 border-slate-200 shadow-sm flex flex-col items-center justify-center z-10">
-            <div className="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center mb-2">
+          <div className="absolute right-10 top-1/2 -translate-y-1/2 w-24 h-32 bg-slate-50 dark:bg-[#0F1117] rounded-xl border-2 border-slate-200 dark:border-slate-700 shadow-sm flex flex-col items-center justify-center z-10">
+            <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-2">
               <div className="w-3 h-3 bg-via-teal rounded-sm"></div>
             </div>
-            <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">Chain B</span>
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Chain B</span>
           </div>
 
           {/* Connection Line */}
@@ -103,6 +103,7 @@ export default function GeneralizedMessagingSection() {
               stroke="#e2e8f0"
               strokeWidth="2"
               strokeDasharray="6 6"
+              className="dark:stroke-slate-700"
             />
           </svg>
 
@@ -131,7 +132,7 @@ export default function GeneralizedMessagingSection() {
                 ></div>
 
                 {/* The Packet Body */}
-                <div className="relative w-16 h-16 bg-white rounded-xl border shadow-lg flex items-center justify-center overflow-hidden" style={{ borderColor: currentPacket.color }}>
+                <div className="relative w-16 h-16 bg-white dark:bg-[#1a1b23] rounded-xl border shadow-lg flex items-center justify-center overflow-hidden" style={{ borderColor: currentPacket.color }}>
                   {/* Inner graphical representation of data */}
                   <div className="absolute inset-0 opacity-10" style={{ backgroundColor: currentPacket.color }}></div>
                   <currentPacket.icon className="w-8 h-8" style={{ color: currentPacket.color }} />

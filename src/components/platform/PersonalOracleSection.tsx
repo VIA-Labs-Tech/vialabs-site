@@ -23,38 +23,38 @@ export default function PersonalOracleSection() {
   return (
     <div className="w-full">
       <div className="text-center max-w-3xl mx-auto mb-4 md:mb-16">
-        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 tracking-tight">
+        <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
           Your Own Lane. <br />
           <span className="text-via-pink">Exclusively Yours.</span>
         </h2>
-        <p className="text-lg text-slate-500 leading-relaxed">
-          Move away from shared, congested validator sets. VIA Labs introduces <span className="font-bold text-slate-900">Personal Oracle Networks</span> that belong exclusively to your application. No queues, no gas wars, just pure performance.
+        <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed">
+          Move away from shared, congested validator sets. VIA Labs introduces <span className="font-bold text-slate-900 dark:text-white">Personal Oracle Networks</span> that belong exclusively to your application. No queues, no gas wars, just pure performance.
         </p>
       </div>
 
       <motion.div
         whileHover={{ scale: 1.02 }}
-        className="hidden md:flex bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden max-w-5xl mx-auto flex-col md:flex-row min-h-[500px]"
+        className="hidden md:flex bg-white dark:bg-[#1a1b23] rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden max-w-5xl mx-auto flex-col md:flex-row min-h-[500px]"
       >
 
         {/* Controls / Sidebar — hidden on mobile */}
-        <div className="hidden md:flex w-full md:w-1/3 bg-slate-50 border-b md:border-b-0 md:border-r border-slate-200 p-8 flex-col justify-center gap-6">
+        <div className="hidden md:flex w-full md:w-1/3 bg-slate-50 dark:bg-[#0F1117] border-b md:border-b-0 md:border-r border-slate-200 dark:border-slate-700 p-8 flex-col justify-center gap-6">
           <div className="space-y-2">
-            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-4">Select Network Architecture</h3>
+            <h3 className="text-sm font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-4">Select Network Architecture</h3>
 
             <motion.button
               onClick={() => handleManualSelect('shared')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden group ${activeTab === 'shared' ? 'bg-white border-slate-300 shadow-md' : 'bg-transparent border-transparent hover:bg-slate-100'}`}
+              className={`w-full text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden group ${activeTab === 'shared' ? 'bg-white dark:bg-[#1a1b23] border-slate-300 dark:border-slate-600 shadow-md' : 'bg-transparent border-transparent hover:bg-slate-100 dark:hover:bg-slate-800'}`}
             >
               <div className="flex items-center gap-3 relative z-10">
-                <div className={`p-2 rounded-lg ${activeTab === 'shared' ? 'bg-amber-100 text-amber-600' : 'bg-slate-200 text-slate-500'}`}>
+                <div className={`p-2 rounded-lg ${activeTab === 'shared' ? 'bg-amber-100 dark:bg-amber-900/30 text-amber-600' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
                   <Users className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Shared Network</h4>
-                  <p className="text-xs text-slate-500 mt-1">Congested & Public</p>
+                  <h4 className="font-bold text-slate-900 dark:text-white">Shared Network</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Congested & Public</p>
                 </div>
               </div>
             </motion.button>
@@ -63,15 +63,15 @@ export default function PersonalOracleSection() {
               onClick={() => handleManualSelect('personal')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              className={`w-full text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden group ${activeTab === 'personal' ? 'bg-white border-via-teal shadow-md ring-1 ring-via-teal/20' : 'bg-transparent border-transparent hover:bg-slate-100'}`}
+              className={`w-full text-left p-4 rounded-xl border transition-all duration-300 relative overflow-hidden group ${activeTab === 'personal' ? 'bg-white dark:bg-[#1a1b23] border-via-teal shadow-md ring-1 ring-via-teal/20' : 'bg-transparent border-transparent hover:bg-slate-100 dark:hover:bg-slate-800'}`}
             >
               <div className="flex items-center gap-3 relative z-10">
-                <div className={`p-2 rounded-lg ${activeTab === 'personal' ? 'bg-via-teal/10 text-via-teal' : 'bg-slate-200 text-slate-500'}`}>
+                <div className={`p-2 rounded-lg ${activeTab === 'personal' ? 'bg-via-teal/10 text-via-teal' : 'bg-slate-200 dark:bg-slate-700 text-slate-500 dark:text-slate-400'}`}>
                   <Shield className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="font-bold text-slate-900">Personal Oracle</h4>
-                  <p className="text-xs text-slate-500 mt-1">Dedicated & Exclusive</p>
+                  <h4 className="font-bold text-slate-900 dark:text-white">Personal Oracle</h4>
+                  <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Dedicated & Exclusive</p>
                 </div>
               </div>
               {activeTab === 'personal' && (
@@ -80,8 +80,8 @@ export default function PersonalOracleSection() {
             </motion.button>
           </div>
 
-          <div className="mt-4 p-4 rounded-xl bg-white border border-slate-100 text-xs text-slate-500">
-            <div className="flex items-center gap-2 mb-2 font-semibold text-slate-900">
+          <div className="mt-4 p-4 rounded-xl bg-white dark:bg-[#1a1b23] border border-slate-100 dark:border-slate-700 text-xs text-slate-500 dark:text-slate-400">
+            <div className="flex items-center gap-2 mb-2 font-semibold text-slate-900 dark:text-white">
               <Activity className="w-4 h-4" />
               Network Status
             </div>
