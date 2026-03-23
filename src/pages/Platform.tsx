@@ -10,6 +10,7 @@ import SecuritySection from '../components/platform/SecuritySection';
 export function Platform() {
     const { hash } = useLocation();
 
+    useEffect(() => { document.title = 'Platform Overview | VIA Labs'; }, []);
     useEffect(() => {
         if (hash) {
             const el = document.getElementById(hash.replace('#', ''));
