@@ -41,7 +41,7 @@ export function Navbar() {
 
                 {/* 1. Logo */}
                 <Link to="/" className="flex items-center gap-3">
-                    <img src={logoUrl} alt="VIA Labs" className="h-[44px] md:h-[90px] w-auto hover:opacity-80 transition-opacity" />
+                    <img src={logoUrl} alt="VIA Labs" className="h-[56px] md:h-[90px] w-auto hover:opacity-80 transition-opacity" />
                 </Link>
 
                 {/* 2. Desktop Links */}
@@ -126,13 +126,16 @@ export function Navbar() {
                     </button>
                 </div>
 
-                {/* Mobile Menu Toggle */}
-                <button
-                    className="lg:hidden p-2 text-slate-600 dark:text-slate-400 ml-auto"
-                    onClick={() => setIsOpen(!isOpen)}
-                >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
+                {/* Mobile: Theme Toggle + Menu Toggle */}
+                <div className="lg:hidden flex items-center gap-2 ml-auto">
+                    <ThemeToggle />
+                    <button
+                        className="p-2 text-slate-600 dark:text-slate-400"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        {isOpen ? <X size={24} /> : <Menu size={24} />}
+                    </button>
+                </div>
             </div>
 
             {/* Mobile Menu */}
@@ -182,9 +185,6 @@ export function Navbar() {
 
                             <hr className="border-slate-100 dark:border-slate-700" />
                             <div className="flex flex-col gap-3 pt-1">
-                                <div className="flex items-center justify-center">
-                                    <ThemeToggle />
-                                </div>
                                 <button onClick={() => { setShowOnboarding(true); setIsOpen(false); }} className="w-full px-4 py-3 rounded-full border border-slate-300 dark:border-slate-600 text-slate-600 dark:text-slate-400 font-semibold text-center text-sm truncate">
                                     Onboarding Assistance
                                 </button>

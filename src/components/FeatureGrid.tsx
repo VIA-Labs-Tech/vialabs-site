@@ -15,7 +15,7 @@ export function FeatureGrid() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 auto-rows-auto lg:auto-rows-[300px]">
                 {/* Stats Row - Captivating Animation & Aliveness */}
-                <div className="md:col-span-3 grid grid-cols-2 gap-4 sm:gap-6 p-6 sm:p-8 bg-slate-900 rounded-3xl text-white mb-2 md:mb-6 relative overflow-hidden group hover:shadow-xl hover:shadow-via-teal/10 hover:-translate-y-1 transition-all duration-300">
+                <div className="md:col-span-3 grid grid-cols-2 gap-2 sm:gap-6 p-4 sm:p-8 bg-slate-900 rounded-3xl text-white mb-2 md:mb-6 relative overflow-hidden group hover:shadow-xl hover:shadow-via-teal/10 hover:-translate-y-1 transition-all duration-300">
                     {/* Background glow effects - Optimized for performance */}
                     <div className="absolute top-0 left-1/4 w-64 h-64 bg-via-teal/10 blur-3xl group-hover:bg-via-teal/20 transition-colors duration-1000" />
                     <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-via-pink/10 blur-3xl group-hover:bg-via-pink/20 transition-colors duration-1000" />
@@ -24,11 +24,11 @@ export function FeatureGrid() {
                         <motion.div
                             initial={{ scale: 0.9, opacity: 0 }}
                             whileInView={{ scale: 1, opacity: 1 }}
-                            className="text-4xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-via-teal to-emerald-400 mb-2 drop-shadow-[0_0_15px_rgba(20,184,166,0.5)] group-hover:scale-105 transition-transform duration-300 origin-center md:origin-left"
+                            className="text-3xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-via-teal to-emerald-400 mb-2 drop-shadow-[0_0_15px_rgba(20,184,166,0.5)] group-hover:scale-105 transition-transform duration-300 origin-center md:origin-left"
                         >
                             20M+
                         </motion.div>
-                        <div className="text-[10px] sm:text-sm md:text-base text-slate-300 font-bold uppercase tracking-widest border-t border-slate-700 pt-3 sm:pt-4 w-fit px-2 group-hover:text-white transition-colors">Cross-Chain Messages</div>
+                        <div className="text-[10px] sm:text-sm md:text-base text-slate-300 font-bold uppercase tracking-wider sm:tracking-widest border-t border-slate-700 pt-3 sm:pt-4 w-fit px-1 sm:px-2 group-hover:text-white transition-colors">Cross-Chain Messages</div>
                     </div>
 
                     <div className="relative z-10 text-center md:text-left flex flex-col justify-center items-center md:items-start pl-0 md:pl-12 border-l border-slate-800">
@@ -36,11 +36,11 @@ export function FeatureGrid() {
                             initial={{ scale: 0.9, opacity: 0 }}
                             whileInView={{ scale: 1, opacity: 1 }}
                             transition={{ delay: 0.1 }}
-                            className="text-4xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-via-pink to-rose-400 mb-2 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)] group-hover:scale-105 transition-transform duration-300 origin-center md:origin-left"
+                            className="text-3xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-via-pink to-rose-400 mb-2 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)] group-hover:scale-105 transition-transform duration-300 origin-center md:origin-left"
                         >
                             140+
                         </motion.div>
-                        <div className="text-[10px] sm:text-sm md:text-base text-slate-300 font-bold uppercase tracking-widest border-t border-slate-700 pt-3 sm:pt-4 w-fit px-2 group-hover:text-white transition-colors">Connected Blockchains</div>
+                        <div className="text-[10px] sm:text-sm md:text-base text-slate-300 font-bold uppercase tracking-wider sm:tracking-widest border-t border-slate-700 pt-3 sm:pt-4 w-fit px-1 sm:px-2 group-hover:text-white transition-colors">Connected Blockchains</div>
                     </div>
                 </div>
 

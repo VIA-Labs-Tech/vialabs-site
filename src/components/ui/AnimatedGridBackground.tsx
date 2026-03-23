@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { useInView } from 'framer-motion';
 
-// Load assets
-const chainModules = import.meta.glob('../../assets/chains/*.{svg,png,jpg,jpeg}', { eager: true });
-const chainUrls = Object.values(chainModules).map((mod: any) => mod.default);
+// Load assets — separate light and dark mode logo sets
+const lightModules = import.meta.glob('../../assets/chains/lightmode/*.{svg,png,jpg,jpeg}', { eager: true });
+const darkModules = import.meta.glob('../../assets/chains/darkmode/*.{svg,png,jpg,jpeg}', { eager: true });
+const lightUrls = Object.values(lightModules).map((mod: any) => mod.default);
+const darkUrls = Object.values(darkModules).map((mod: any) => mod.default);
 
 // Configuration
 const GRID_SIZE = 40;
@@ -53,8 +55,9 @@ export function AnimatedGridBackground() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    // State for rendering
-    const [images, setImages] = useState<HTMLImageElement[]>([]);
+    // State for rendering — separate light and dark image sets
+    const [lightImages, setLightImages] = useState<HTMLImageElement[]>([]);
+    const [darkImages, setDarkImages] = useState<HTMLImageElement[]>([]);
 
     // Simulation State (refs for performance in loop)
     const state = useRef({
@@ -69,21 +72,23 @@ export function AnimatedGridBackground() {
         rows: 0
     });
 
-    // 1. Preload Images
+    // 1. Preload Images (both sets)
     useEffect(() => {
-        const loaded: HTMLImageElement[] = [];
-        let count = 0;
-        chainUrls.forEach(url => {
-            const img = new Image();
-            img.src = url;
-            img.onload = () => {
-                count++;
-                loaded.push(img);
-                if (count === chainUrls.length) {
-                    setImages(loaded);
-                }
-            };
-        });
+        const loadSet = (urls: string[], cb: (imgs: HTMLImageElement[]) => void) => {
+            const loaded: HTMLImageElement[] = [];
+            let count = 0;
+            urls.forEach(url => {
+                const img = new Image();
+                img.src = url;
+                img.onload = () => {
+                    count++;
+                    loaded.push(img);
+                    if (count === urls.length) cb(loaded);
+                };
+            });
+        };
+        loadSet(lightUrls, setLightImages);
+        loadSet(darkUrls, setDarkImages);
     }, []);
 
     // 2. Mouse Listener (Window level for strict tracking)
@@ -120,7 +125,7 @@ export function AnimatedGridBackground() {
     // 4. Canvas Loop
     useEffect(() => {
         const canvas = canvasRef.current;
-        if (!canvas || images.length < 2 || !isInView) return; // Pause if not visible
+        if (!canvas || lightImages.length < 2 || darkImages.length < 2 || !isInView) return; // Pause if not visible
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
@@ -151,6 +156,10 @@ export function AnimatedGridBackground() {
         const spawnPair = (now: number) => {
             const { cols, rows } = state.current;
             if (cols === 0) return;
+
+            // Pick the correct image set based on current theme
+            const dark = document.documentElement.classList.contains('dark');
+            const images = dark ? darkImages : lightImages;
 
             // Distinct Logos
             let idx1 = Math.floor(Math.random() * images.length);
@@ -321,7 +330,7 @@ export function AnimatedGridBackground() {
             cancelAnimationFrame(animId);
             window.removeEventListener('resize', resize);
         };
-    }, [images, isInView]);
+    }, [lightImages, darkImages, isInView]);
 
     return (
         <div ref={containerRef} className="absolute inset-0 overflow-hidden pointer-events-none z-0">

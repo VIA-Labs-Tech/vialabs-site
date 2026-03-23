@@ -104,7 +104,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
                 </div>
 
                 {/* --- DESTINATION --- */}
-                <div className="flex flex-col items-center relative pt-6 w-28 md:w-32">
+                <div className="flex flex-col items-center relative z-20 pt-6 w-28 md:w-32">
                     <motion.div
                         className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors duration-500 ${animationStep === 'complete' ? 'delay-500' : ''}
                   ${animationStep === 'complete'
