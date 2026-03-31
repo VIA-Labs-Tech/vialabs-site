@@ -1,0 +1,21 @@
+# VIA Labs
+
+> Universal cross-chain infrastructure for blockchain interoperability.
+
+VIA Labs builds the messaging layer that enables any blockchain to communicate with any other blockchain. The protocol handles message formatting, routing, delivery guarantees, and multi-layer security validation through a permissionless validator network.
+
+## Key Pages
+
+- https://vialabs.tech/ — Homepage
+- https://vialabs.tech/overview — Platform overview and architecture
+- https://vialabs.tech/use-cases — Supported use cases (token bridges, NFT transfers, cross-chain governance, etc.)
+
+## Documentation
+
+- https://developer.vialabs.tech/ — Developer documentation (coming soon)
+
+## Social
+
+- https://x.com/VIA_Labs
+- https://github.com/VIALabs-io
+- https://discord.gg/vialabs

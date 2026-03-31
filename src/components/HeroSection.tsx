@@ -38,8 +38,8 @@ export function HeroSection() {
                     }}
                     className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white dark:bg-[#1a1b23] border border-slate-200 dark:border-slate-700 shadow-sm mb-4 md:mb-8 cursor-default"
                 >
-                    <span className="w-2 h-2 rounded-full bg-via-teal animate-pulse" />
-                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Cardano Testnet Now Live</span>
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                    <span className="text-sm font-medium text-slate-600 dark:text-slate-400">Cardano Testnet Coming Soon</span>
                 </motion.div>
 
                 {/* Headline */}

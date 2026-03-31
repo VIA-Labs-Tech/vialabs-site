@@ -3,14 +3,23 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FileCode, Database, CreditCard } from 'lucide-react';
 
 const packets = [
-  { type: 'Token', icon: CreditCard, color: '#FF00FF', label: 'USDC Transfer' },
-  { type: 'NFT', icon: FileCode, color: '#00E5E5', label: 'NFT Metadata' },
-  { type: 'Arbitrary Data', icon: Database, color: '#0f172a', label: 'Contract State' },
+  { type: 'Token', icon: CreditCard, color: '#FF00FF', darkColor: '#FF00FF', label: 'USDC Transfer' },
+  { type: 'NFT', icon: FileCode, color: '#00E5E5', darkColor: '#00E5E5', label: 'NFT Metadata' },
+  { type: 'Arbitrary Data', icon: Database, color: '#0f172a', darkColor: '#e2e8f0', label: 'Contract State' },
 ];
 
 export default function GeneralizedMessagingSection() {
   const [activePacket, setActivePacket] = useState(0);
   const [timerKey, setTimerKey] = useState(0);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDark(document.documentElement.classList.contains('dark'));
+    check();
+    const observer = new MutationObserver(check);
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -25,10 +34,11 @@ export default function GeneralizedMessagingSection() {
   };
 
   const currentPacket = packets[activePacket];
+  const packetColor = isDark ? currentPacket.darkColor : currentPacket.color;
 
   return (
     <div className="w-full">
-      <div className="grid lg:grid-cols-2 gap-8 md:gap-16 items-center">
+      <div className="grid min-[1116px]:grid-cols-2 gap-8 md:gap-16 items-center">
 
         {/* Text Content */}
         <div>
@@ -68,7 +78,7 @@ export default function GeneralizedMessagingSection() {
         {/* The Graphic: Engineered Data Pipeline — hidden on mobile */}
         <motion.div
           whileHover={{ scale: 1.02 }}
-          className="relative h-[400px] bg-white dark:bg-[#1a1b23] rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden items-center justify-center hidden lg:flex"
+          className="relative h-[400px] bg-white dark:bg-[#1a1b23] rounded-3xl border border-slate-200 dark:border-slate-700 shadow-xl overflow-hidden items-center justify-center hidden min-[1116px]:flex"
         >
 
           {/* Background Grid inside card */}
@@ -128,14 +138,14 @@ export default function GeneralizedMessagingSection() {
                 {/* Glow effect */}
                 <div
                   className="absolute inset-0 blur-xl opacity-50"
-                  style={{ backgroundColor: currentPacket.color }}
+                  style={{ backgroundColor: packetColor }}
                 ></div>
 
                 {/* The Packet Body */}
-                <div className="relative w-16 h-16 bg-white dark:bg-[#1a1b23] rounded-xl border shadow-lg flex items-center justify-center overflow-hidden" style={{ borderColor: currentPacket.color }}>
+                <div className="relative w-16 h-16 bg-white dark:bg-[#1a1b23] rounded-xl border shadow-lg flex items-center justify-center overflow-hidden" style={{ borderColor: packetColor }}>
                   {/* Inner graphical representation of data */}
-                  <div className="absolute inset-0 opacity-10" style={{ backgroundColor: currentPacket.color }}></div>
-                  <currentPacket.icon className="w-8 h-8" style={{ color: currentPacket.color }} />
+                  <div className="absolute inset-0 opacity-10" style={{ backgroundColor: packetColor }}></div>
+                  <currentPacket.icon className="w-8 h-8" style={{ color: packetColor }} />
 
                   {/* Technical bits animation */}
                   <motion.div
@@ -152,7 +162,7 @@ export default function GeneralizedMessagingSection() {
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 bg-slate-900 text-white text-[10px] font-bold rounded-full"
+                  className="absolute -bottom-8 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-bold rounded-full"
                 >
                   {currentPacket.label}
                 </motion.div>

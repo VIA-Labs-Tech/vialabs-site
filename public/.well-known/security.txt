@@ -1,0 +1,3 @@
+Contact: mailto:security@vialabs.tech
+Preferred-Languages: en
+Canonical: https://vialabs.tech/.well-known/security.txt

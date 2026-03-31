@@ -108,7 +108,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
                     <motion.div
                         className={`w-12 h-12 rounded-full flex items-center justify-center border-2 transition-colors duration-500 ${animationStep === 'complete' ? 'delay-500' : ''}
                   ${animationStep === 'complete'
-                                ? 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-500 text-emerald-600 dark:text-emerald-400 shadow-lg shadow-emerald-100 dark:shadow-emerald-900/20'
+                                ? 'bg-emerald-50 dark:bg-[#1a2332] border-emerald-500 text-emerald-600 dark:text-emerald-400 shadow-lg shadow-emerald-100 dark:shadow-emerald-900/20'
                                 : 'bg-white dark:bg-[#1a1b23] border-slate-200 dark:border-slate-700 text-slate-300 dark:text-slate-600'}`}
                     >
                         <CheckCircle2 className="w-6 h-6" />
