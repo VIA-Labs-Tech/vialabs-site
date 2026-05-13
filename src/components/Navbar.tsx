@@ -109,7 +109,7 @@ export function Navbar() {
                     </div>
 
                     {/* Explorer Link (Right side) */}
-                    <a href="https://scan.vialabs.io" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Explorer</a>
+                    <Link to="/explorer" className="hover:text-black dark:hover:text-white transition-colors">Explorer</Link>
 
                 </div>
 
