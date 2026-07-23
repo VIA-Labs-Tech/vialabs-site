@@ -114,7 +114,7 @@ export function HeroSection() {
                     transition={{ duration: 0.5, delay: 0.3 }}
                     className="flex flex-col sm:flex-row items-center gap-4"
                 >
-                    <a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="h-12 px-8 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold flex items-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-via-teal/20">
+                    <a href="https://developer.vialabs.tech/docs/examples/hello-world" target="_blank" rel="noopener noreferrer" className="h-12 px-8 rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold flex items-center gap-2 hover:bg-slate-800 dark:hover:bg-slate-100 transition-all hover:scale-105 active:scale-95 shadow-lg shadow-via-teal/20">
                         Start Building
                         <motion.span
                             className="inline-flex"
@@ -124,7 +124,7 @@ export function HeroSection() {
                             <ArrowRight size={18} />
                         </motion.span>
                     </a>
-                    <a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="h-12 px-8 rounded-full bg-white dark:bg-[#1a1b23] text-slate-700 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-500 transition-all hover:shadow-md active:scale-95 flex items-center">
+                    <a href="https://developer.vialabs.tech/docs/" target="_blank" rel="noopener noreferrer" className="h-12 px-8 rounded-full bg-white dark:bg-[#1a1b23] text-slate-700 dark:text-slate-300 font-semibold border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-500 transition-all hover:shadow-md active:scale-95 flex items-center">
                         Read Docs
                     </a>
                 </motion.div>
