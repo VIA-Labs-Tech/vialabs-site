@@ -14,6 +14,10 @@ const WAVE_FREQUENCY = 0.02;
 const WAVE_SPEED = 0.05;
 const WAVE_DECAY = 0.006;
 
+// Chains that spawn more often than the rest, matched against the logo filename
+const BOOSTED_CHAINS = ['midnight', 'cardano'];
+const BOOST = 1.4; // 40% more appearances than an even split would give them
+
 const SPAWN_DELAY_BETWEEN_LOGOS = 600; // Stagger delay for 2nd logo in each pair (animation timing)
 const LINE_START_DELAY = 1000;
 const LINE_DURATION = 1000;
@@ -129,6 +133,9 @@ export function AnimatedGridBackground() {
         const ctx = canvas.getContext('2d');
         if (!ctx) return;
 
+        const lightWeights = buildWeights(lightImages);
+        const darkWeights = buildWeights(darkImages);
+
         let animId: number;
         let width = 0;
         let height = 0;
@@ -160,12 +167,13 @@ export function AnimatedGridBackground() {
             // Pick the correct image set based on current theme
             const dark = document.documentElement.classList.contains('dark');
             const images = dark ? darkImages : lightImages;
+            const weights = dark ? darkWeights : lightWeights;
 
             // Distinct Logos
-            let idx1 = Math.floor(Math.random() * images.length);
-            let idx2 = Math.floor(Math.random() * images.length);
+            let idx1 = pickWeighted(weights);
+            let idx2 = pickWeighted(weights);
             while (idx2 === idx1 && images.length > 1) {
-                idx2 = Math.floor(Math.random() * images.length);
+                idx2 = pickWeighted(weights);
             }
 
             const p1 = { col: Math.floor(Math.random() * (cols - 2)) + 1, row: Math.floor(Math.random() * (rows - 2)) + 1 };
@@ -339,6 +347,26 @@ export function AnimatedGridBackground() {
             </div>
         </div>
     );
+}
+
+// Spawn weight per logo. Boosted chains get BOOST x their even share (1/N) and the
+// remaining logos split what's left, so the boost is an exact frequency increase.
+function buildWeights(images: HTMLImageElement[]): number[] {
+    const boosted = images.map(img => BOOSTED_CHAINS.some(name => img.src.toLowerCase().includes(name)));
+    const boostedCount = boosted.filter(Boolean).length;
+    const rest = boostedCount === 0
+        ? 1
+        : (images.length - boostedCount * BOOST) / (images.length - boostedCount);
+    return boosted.map(b => (b ? BOOST : rest));
+}
+
+function pickWeighted(weights: number[]): number {
+    let r = Math.random() * weights.reduce((a, b) => a + b, 0);
+    for (let i = 0; i < weights.length; i++) {
+        r -= weights[i];
+        if (r <= 0) return i;
+    }
+    return weights.length - 1;
 }
 
 function easeOutBack(x: number): number {

@@ -64,7 +64,7 @@ export function HeroSection() {
                     className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white dark:bg-[#1a1b23] border border-slate-200 dark:border-slate-700 shadow-sm mb-4 md:mb-8 hover:bg-yellow-300 dark:hover:bg-yellow-300 hover:border-yellow-500 dark:hover:border-yellow-500 hover:shadow-lg transition-colors duration-200 cursor-pointer"
                 >
                     <span className="text-sm md:text-base font-semibold text-slate-700 dark:text-slate-300 group-hover:text-slate-900 transition-colors">
-                        Cardano &amp; Midnight Testnets Now Live
+                        Cardano &amp; Midnight Mainnets Now Live
                     </span>
                 </motion.a>
 
