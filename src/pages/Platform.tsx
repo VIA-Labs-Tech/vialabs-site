@@ -84,7 +84,7 @@ export function Platform() {
                         <ul className="space-y-4 text-slate-300 relative z-10">
                             <li className="flex gap-3">
                                 <div className="mt-1.5 w-2 h-2 rounded-full bg-via-teal shrink-0" />
-                                <p><strong className="text-white">Unified Connectivity:</strong> Write once, deploy everywhere. One standard for 140+ chains.</p>
+                                <p><strong className="text-white">Unified Connectivity:</strong> Write once, deploy everywhere. One standard for 150+ chains.</p>
                             </li>
                             <li className="flex gap-3">
                                 <div className="mt-1.5 w-2 h-2 rounded-full bg-via-teal shrink-0" />

@@ -38,7 +38,7 @@ export function FeatureGrid() {
                             transition={{ delay: 0.1 }}
                             className="text-3xl sm:text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-via-pink to-rose-400 mb-2 drop-shadow-[0_0_15px_rgba(236,72,153,0.5)] group-hover:scale-105 transition-transform duration-300 origin-center md:origin-left"
                         >
-                            140+
+                            150+
                         </motion.div>
                         <div className="text-[10px] sm:text-sm md:text-base text-slate-300 font-bold uppercase tracking-wider sm:tracking-widest border-t border-slate-700 pt-3 sm:pt-4 w-fit px-1 sm:px-2 group-hover:text-white transition-colors">Connected Blockchains</div>
                     </div>
