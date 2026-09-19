@@ -44,7 +44,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                     Definable Security
                 </h2>
                 <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
-                    Configure your security stack. VIA Labs allows you to aggregate validation layers for maximum finality.
+                    The VIA Layer signs every message. You choose what else must sign it.
                 </p>
             </div>
 
@@ -62,7 +62,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                                 <span className="text-[10px] font-bold tracking-wider text-via-teal bg-via-teal/10 px-2 py-0.5 rounded-full uppercase">Always On</span>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                The fundamental transport layer. Handles message formatting, routing, and delivery guarantees by a permissionless validator network.
+                                Signers run by VIA Labs. They check every message on its source chain, then sign it.
                             </p>
                         </div>
                     </div>
@@ -83,7 +83,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                                 </div>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                Utilizes source and destination chain security. Waits for block finality before propagation.
+                                Add signers run by the chain itself. Messages need their signature too.
                             </p>
                         </div>
                     </div>
@@ -104,7 +104,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                                 </div>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
-                                Application-specific validation logic, whitelists, and rate limits. Operated by the integrating team.
+                                Add signers run by your team. Nothing reaches your contract without your signature.
                             </p>
                         </div>
                     </div>
@@ -134,7 +134,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                     )}
                 </button>
                 <p className="text-center text-xs text-slate-400 dark:text-slate-500 mt-4">
-                    Validators function as separate confirmations. If one fails, the message is dropped.
+                    Every active layer must sign. If one does not, the message is rejected.
                 </p>
             </div>
         </div>

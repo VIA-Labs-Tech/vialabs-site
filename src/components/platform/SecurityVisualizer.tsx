@@ -59,7 +59,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
                     icon={<Globe className="w-6 h-6" />}
                     status={getNodeState('via')}
                     isActive={true}
-                    description="Routing & Delivery Guarantees"
+                    description="Signed by VIA Labs"
                 />
 
                 {/* --- CHAIN NODE (Optional) --- */}
@@ -79,7 +79,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
                         status={getNodeState('chain')}
                         isActive={chainEnabled}
                         isOptional={true}
-                        description="Chain-level Security"
+                        description="Signed by the chain"
                     />
                 </div>
 
@@ -99,7 +99,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
                         status={getNodeState('project')}
                         isActive={projectEnabled}
                         isOptional={true}
-                        description="Multi-Ecosystem Security"
+                        description="Signed by your team"
                     />
                 </div>
 
