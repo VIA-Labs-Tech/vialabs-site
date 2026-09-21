@@ -52,6 +52,12 @@ function routeHtml(): Plugin {
                 out = swapOnce(out, /<meta name="twitter:description" content="[^"]*"\s*\/?>/g, `<meta name="twitter:description" content="${description}" />`)
                 this.emitFile({ type: 'asset', fileName: page.file, source: out })
             }
+
+            // Netlify serves 404.html, with a 404 status, for any address that has no file.
+            // The app then shows its "Page not found" view.
+            let notFound = swapOnce(html, /<title>[^<]*<\/title>/g, '<title>Page Not Found | VIA Labs</title>')
+            notFound = swapOnce(notFound, /<link rel="canonical" href="[^"]*"\s*\/?>/g, '<meta name="robots" content="noindex" />')
+            this.emitFile({ type: 'asset', fileName: '404.html', source: notFound })
         },
     }
 }

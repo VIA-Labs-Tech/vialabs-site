@@ -6,6 +6,7 @@ import { Home } from './pages/Home';
 import { Platform } from './pages/Platform';
 import { UseCases } from './pages/UseCases';
 import { Explorer } from './pages/Explorer';
+import { NotFound } from './pages/NotFound';
 
 // ScrollToTop component to reset scroll on route change
 function ScrollToTop() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="overview" element={<Platform />} />
           <Route path="use-cases" element={<UseCases />} />
           <Route path="explorer" element={<Explorer />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>
