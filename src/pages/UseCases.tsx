@@ -39,7 +39,7 @@ export function UseCases() {
                         <div className={`w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center mb-6 ${useCase.color}`}>
                             <useCase.icon size={28} />
                         </div>
-                        <h3 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">{useCase.title}</h3>
+                        <h2 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">{useCase.title}</h2>
                         <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
                             {useCase.desc}
                         </p>
