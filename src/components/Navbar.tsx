@@ -24,7 +24,7 @@ const navLinks = {
     ],
     community: [
         { name: "Discord", href: "https://discord.gg/h4rBhukkWz", icon: DiscordIcon, external: true },
-        { name: "Telegram", href: "https://t.me/VIA-Labs-Tech", icon: Send, external: true },
+        { name: "Telegram", href: "https://t.me/VIA_Labs_Tech", icon: Send, external: true },
         { name: "Twitter / X", href: "https://x.com/VIA_Labs", icon: XIcon, external: true }
     ]
 };
