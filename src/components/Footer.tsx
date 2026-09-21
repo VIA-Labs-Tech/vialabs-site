@@ -28,16 +28,16 @@ export function Footer() {
                     <div className="flex flex-col gap-4">
                         {/* Social Icons */}
                         <div className="flex items-center gap-4">
-                            <a href="https://x.com/VIA_Labs" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
+                            <a href="https://x.com/VIA_Labs" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
                                 <XIcon size={20} />
                             </a>
-                            <a href="https://github.com/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
+                            <a href="https://github.com/VIA-Labs-Tech" aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
                                 <Github size={20} />
                             </a>
-                            <a href="https://discord.gg/h4rBhukkWz" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
+                            <a href="https://discord.gg/h4rBhukkWz" aria-label="Discord" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
                                 <DiscordIcon size={20} />
                             </a>
-                            <a href="https://t.me/VIA_Labs_Tech" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
+                            <a href="https://t.me/VIA_Labs_Tech" aria-label="Telegram" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
                                 <Send size={20} />
                             </a>
                         </div>
@@ -62,6 +62,9 @@ export function Footer() {
                         <h4 className="font-semibold mb-4 text-slate-900 dark:text-white">Developers</h4>
                         <ul className="space-y-3 text-sm text-slate-500 dark:text-slate-400">
                             <li><a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Documentation</a></li>
+                            <li><a href="https://developer.vialabs.tech/docs/general/supported-networks" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Supported Networks</a></li>
+                            <li><a href="https://developer.vialabs.tech/docs/general/audits" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Audits</a></li>
+                            <li><a href="https://developer.vialabs.tech/docs/general/faq" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">FAQ</a></li>
                             <li><a href="https://github.com/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">GitHub</a></li>
                         </ul>
                     </div>
