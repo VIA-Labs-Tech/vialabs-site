@@ -1,8 +1,7 @@
 User-agent: *
 Allow: /
-Sitemap: https://vialabs.tech/sitemap.xml
 
-# AI agent discoverability
+# AI agent discoverability: https://vialabs.tech/llms.txt
 # See https://llmstxt.org
-User-agent: *
-Allow: /llms.txt
+
+Sitemap: https://vialabs.tech/sitemap.xml

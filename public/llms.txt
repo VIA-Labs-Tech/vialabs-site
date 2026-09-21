@@ -2,20 +2,28 @@
 
 > Universal cross-chain infrastructure for blockchain interoperability.
 
-VIA Labs builds the messaging layer that enables any blockchain to communicate with any other blockchain. The protocol handles message formatting, routing, delivery guarantees, and multi-layer security validation through a permissionless validator network.
+VIA Labs runs a cross-chain messaging network. A smart contract on one chain sends a message to a smart contract on another chain. Signers run by VIA Labs check every message on its source chain, then sign it. Chains and projects can add their own signers. Every active layer must sign before a message is delivered.
 
 ## Key Pages
 
 - https://vialabs.tech/ — Homepage
 - https://vialabs.tech/overview — Platform overview and architecture
-- https://vialabs.tech/use-cases — Supported use cases (token bridges, NFT transfers, cross-chain governance, etc.)
+- https://vialabs.tech/use-cases — Use cases: gaming, DeFi, identity, NFTs, governance, data streams
 
 ## Documentation
 
-- https://developer.vialabs.tech/ — Developer documentation (coming soon)
+- https://developer.vialabs.tech/ — Developer documentation
+- https://developer.vialabs.tech/docs/general/technology-overview — How VIA works
+- https://developer.vialabs.tech/docs/general/supported-networks — Supported networks
+- https://developer.vialabs.tech/docs/general/audits — Security audits
+- https://developer.vialabs.tech/docs/general/faq — FAQ
+
+## Explorer
+
+- https://scan.vialabs.tech/ — VIA Scan, the cross-chain explorer
 
 ## Social
 
 - https://x.com/VIA_Labs
-- https://github.com/VIALabs-io
-- https://discord.gg/vialabs
+- https://github.com/VIA-Labs-Tech
+- https://discord.gg/h4rBhukkWz
