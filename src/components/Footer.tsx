@@ -2,83 +2,102 @@ import { Github, Send } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { XIcon } from './icons/XIcon';
 import { DiscordIcon } from './icons/DiscordIcon';
-import { useIsDark } from '../hooks/useIsDark';
-import logoDark from '../assets/company_logo/Logo_300-02_b.png';
-import logoWhite from '../assets/company_logo/Logo_300-02.png';
+import { Logo } from './Logo';
+import { AUDITS, DISCORD, DOCS_FAQ, DOCS_HOME, EMAIL, GITHUB, SCAN, SUPPORTED_NETWORKS, TELEGRAM, X } from '../links';
+
+interface FooterLink {
+    name: string;
+    href: string;
+    internal?: boolean;
+}
+
+const columns: { title: string; links: FooterLink[] }[] = [
+    {
+        title: 'Platform',
+        links: [
+            { name: 'How VIA works', href: '/overview', internal: true },
+            { name: 'Security', href: '/overview#security', internal: true },
+            { name: 'Use cases', href: '/use-cases', internal: true },
+            { name: 'About', href: '/about', internal: true },
+            { name: 'VIA Scan', href: SCAN },
+        ],
+    },
+    {
+        title: 'Developers',
+        links: [
+            { name: 'Documentation', href: DOCS_HOME },
+            { name: 'Supported networks', href: SUPPORTED_NETWORKS },
+            { name: 'Audits', href: AUDITS },
+            { name: 'FAQ', href: DOCS_FAQ },
+            { name: 'GitHub', href: GITHUB },
+        ],
+    },
+    {
+        title: 'Community',
+        links: [
+            { name: 'Discord', href: DISCORD },
+            { name: 'Telegram', href: TELEGRAM },
+            { name: 'X', href: X },
+        ],
+    },
+];
+
+const socials = [
+    { label: 'X', href: X, icon: XIcon },
+    { label: 'GitHub', href: GITHUB, icon: Github },
+    { label: 'Discord', href: DISCORD, icon: DiscordIcon },
+    { label: 'Telegram', href: TELEGRAM, icon: Send },
+];
+
+const linkClass = 'text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors';
 
 export function Footer() {
-    const isDark = useIsDark();
-    const logoUrl = isDark ? logoWhite : logoDark;
     return (
-        <footer className="bg-white dark:bg-[#1a1b23] border-t border-slate-200 dark:border-slate-700 py-10 md:py-16">
-            <div className="max-w-7xl mx-auto px-4 md:px-6 grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12">
-
-                {/* Brand Column */}
-                <div className="col-span-1 md:col-span-1 flex flex-col justify-between h-full">
-                    <div>
-                        <div className="flex items-center gap-2 mb-4 md:mb-6">
-                            {/* Logo Image Only - Scaled Up 2x */}
-                            <img src={logoUrl} alt="VIA Labs" className="h-[80px] md:h-[120px] w-auto" />
-                        </div>
-                        <p className="text-slate-500 dark:text-slate-400 text-sm mb-6 max-w-xs">
-                            The universal cross-chain infrastructure for the next generation of dApps.
-                        </p>
-                    </div>
-
-                    <div className="flex flex-col gap-4">
-                        {/* Social Icons */}
-                        <div className="flex items-center gap-4">
-                            <a href="https://x.com/VIA_Labs" aria-label="Twitter / X" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
-                                <XIcon size={20} />
+        <footer className="border-t hairline bg-white dark:bg-ink-900">
+            <div className="container-x py-14 md:py-20 grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div className="md:col-span-5 space-y-5">
+                    <Logo className="h-7" />
+                    <p className="text-body max-w-sm">
+                        VIA Labs is a cross-chain messaging protocol that connects EVM and non-EVM blockchains natively.
+                    </p>
+                    <a href={`mailto:${EMAIL}`} className="link-inline text-[15px]">{EMAIL}</a>
+                    <div className="flex items-center gap-2 pt-1">
+                        {socials.map(({ label, href, icon: Icon }) => (
+                            <a
+                                key={label}
+                                href={href}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                aria-label={label}
+                                className="p-2 -ml-2 rounded-full text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors"
+                            >
+                                <Icon size={19} />
                             </a>
-                            <a href="https://github.com/VIA-Labs-Tech" aria-label="GitHub" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
-                                <Github size={20} />
-                            </a>
-                            <a href="https://discord.gg/h4rBhukkWz" aria-label="Discord" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
-                                <DiscordIcon size={20} />
-                            </a>
-                            <a href="https://t.me/VIA_Labs_Tech" aria-label="Telegram" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-black dark:hover:text-white hover:-translate-y-1 transition-all duration-300">
-                                <Send size={20} />
-                            </a>
-                        </div>
-                        <p className="text-xs text-slate-400 dark:text-slate-500">
-                            © 2026 VIA Labs. All rights reserved.
-                        </p>
+                        ))}
                     </div>
                 </div>
 
-                {/* Links Grid - Matches Header Categories */}
-                <div className="col-span-1 md:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-8">
-                    <div>
-                        <h4 className="font-semibold mb-4 text-slate-900 dark:text-white">Platform</h4>
-                        <ul className="space-y-3 text-sm text-slate-500 dark:text-slate-400">
-                            <li><Link to="/overview" className="hover:text-black dark:hover:text-white transition-colors">Overview</Link></li>
-                            <li><Link to="/use-cases" className="hover:text-black dark:hover:text-white transition-colors">Use Cases</Link></li>
-                            <li><Link to="/overview#security" className="hover:text-black dark:hover:text-white transition-colors">Security</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-semibold mb-4 text-slate-900 dark:text-white">Developers</h4>
-                        <ul className="space-y-3 text-sm text-slate-500 dark:text-slate-400">
-                            <li><a href="https://developer.vialabs.tech" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Documentation</a></li>
-                            <li><a href="https://developer.vialabs.tech/docs/general/supported-networks" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Supported Networks</a></li>
-                            <li><a href="https://developer.vialabs.tech/docs/general/audits" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Audits</a></li>
-                            <li><a href="https://developer.vialabs.tech/docs/general/faq" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">FAQ</a></li>
-                            <li><a href="https://github.com/VIA-Labs-Tech" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">GitHub</a></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-semibold mb-4 text-slate-900 dark:text-white">Community</h4>
-                        <ul className="space-y-3 text-sm text-slate-500 dark:text-slate-400">
-                            <li><a href="https://discord.gg/h4rBhukkWz" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Discord</a></li>
-                            <li><a href="https://t.me/VIA_Labs_Tech" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Telegram</a></li>
-                            <li><a href="https://x.com/VIA_Labs" target="_blank" rel="noopener noreferrer" className="hover:text-black dark:hover:text-white transition-colors">Twitter / X</a></li>
-                        </ul>
-                    </div>
+                <div className="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+                    {columns.map((col) => (
+                        <div key={col.title}>
+                            <h2 className="text-sm font-semibold text-slate-900 dark:text-white mb-4">{col.title}</h2>
+                            <ul className="space-y-3">
+                                {col.links.map((link) => (
+                                    <li key={link.name}>
+                                        {link.internal ? (
+                                            <Link to={link.href} className={linkClass}>{link.name}</Link>
+                                        ) : (
+                                            <a href={link.href} target="_blank" rel="noopener noreferrer" className={linkClass}>{link.name}</a>
+                                        )}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
                 </div>
-
+            </div>
+            <div className="border-t hairline">
+                <p className="container-x py-6 text-sm text-muted">© 2026 VIA Labs LLC. All rights reserved.</p>
             </div>
         </footer>
     );

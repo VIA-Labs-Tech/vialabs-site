@@ -125,7 +125,7 @@ export const SecurityVisualizer: React.FC<SecurityVisualizerProps> = ({ chainEna
     const delivered = running && !fading && elapsed >= timeline.destArrive;
 
     return (
-        <div className="relative w-[112%] -ml-[6%] h-[400px] hidden md:flex flex-col items-center justify-center">
+        <div className="relative w-full lg:w-[112%] lg:-ml-[6%] h-[400px] hidden md:flex flex-col items-center justify-center">
             {/* Background Container Card */}
             <div className="absolute inset-0 bg-white dark:bg-[#1a1b23] rounded-3xl shadow-clean border border-slate-200 dark:border-slate-700 overflow-hidden">
                 {/* Internal Grid */}
@@ -280,7 +280,7 @@ const Node: React.FC<NodeProps> = ({ title, description, icon, status, ping, cir
                     {description}
                 </p>
                 {isOptional && (
-                    <span className="inline-block mt-2 text-[10px] font-medium tracking-wider text-slate-400 dark:text-slate-500 uppercase bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-full">
+                    <span className="inline-block mt-2 text-xs font-medium text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-white/[0.06] px-2.5 py-0.5 rounded-full">
                         {isActive ? 'Active' : 'Bypassed'}
                     </span>
                 )}

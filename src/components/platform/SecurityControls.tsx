@@ -40,8 +40,8 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
     return (
         <div className="space-y-8 flex flex-col justify-center h-full">
             <div className="space-y-4">
-                <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
-                    Definable Security
+                <h2 className="h-section">
+                    Definable security
                 </h2>
                 <p className="text-slate-500 dark:text-slate-400 text-lg leading-relaxed">
                     The VIA Layer signs every message. You choose what else must sign it.
@@ -50,8 +50,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
 
             <div className="space-y-4">
                 {/* Layer 1: VIA */}
-                <div className="group relative p-6 bg-white dark:bg-[#1a1b23] rounded-2xl border border-slate-200 dark:border-slate-700 shadow-sm transition-all hover:shadow-md hover:border-slate-300 dark:hover:border-slate-600 overflow-hidden">
-                    <div className="absolute left-0 top-0 bottom-0 w-1 bg-via-teal" />
+                <div className="card p-6">
                     <div className="flex items-start gap-4">
                         <div className="p-3 rounded-full bg-slate-50 dark:bg-[#0F1117] border border-slate-100 dark:border-slate-700 text-via-teal">
                             <Globe className="w-6 h-6" />
@@ -59,7 +58,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                         <div className="flex-1">
                             <div className="flex items-center justify-between mb-1">
                                 <h3 className="font-bold text-slate-900 dark:text-white">VIA Layer</h3>
-                                <span className="text-[10px] font-bold tracking-wider text-via-teal bg-via-teal/10 px-2 py-0.5 rounded-full uppercase">Always On</span>
+                                <span className="text-xs font-medium rounded-full px-2.5 py-1 bg-slate-100 text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">Always on</span>
                             </div>
                             <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
                                 Signers run by VIA Labs. They check every message on its source chain, then sign it.
@@ -69,7 +68,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                 </div>
 
                 {/* Layer 2: Chain */}
-                <div className={`p-6 bg-white dark:bg-[#1a1b23] rounded-2xl border transition-all duration-300 shadow-sm ${chainEnabled ? 'border-slate-300 dark:border-slate-600 ring-1 ring-slate-200 dark:ring-slate-700' : 'border-slate-200 dark:border-slate-700 opacity-80'}`}>
+                <div className={`card p-6 transition-all duration-300 ${chainEnabled ? 'ring-1 ring-slate-300 dark:ring-white/15' : 'opacity-80'}`}>
                     <div className="flex items-start gap-4">
                         <div className={`p-3 rounded-full border transition-colors ${chainEnabled ? 'bg-slate-50 dark:bg-[#0F1117] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white' : 'bg-slate-50 dark:bg-[#0F1117] border-slate-100 dark:border-slate-700 text-slate-400'}`}>
                             <LinkIcon className="w-6 h-6" />
@@ -90,7 +89,7 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                 </div>
 
                 {/* Layer 3: Project */}
-                <div className={`p-6 bg-white dark:bg-[#1a1b23] rounded-2xl border transition-all duration-300 shadow-sm ${projectEnabled ? 'border-slate-300 dark:border-slate-600 ring-1 ring-slate-200 dark:ring-slate-700' : 'border-slate-200 dark:border-slate-700 md:opacity-80'}`}>
+                <div className={`card p-6 transition-all duration-300 ${projectEnabled ? 'ring-1 ring-slate-300 dark:ring-white/15' : 'md:opacity-80'}`}>
                     <div className="flex items-start gap-4">
                         <div className={`p-3 rounded-full border transition-colors ${projectEnabled ? 'bg-slate-50 dark:bg-[#0F1117] border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white' : 'bg-slate-50 dark:bg-[#0F1117] border-slate-100 dark:border-slate-700 text-slate-900 dark:text-white md:text-slate-400 md:dark:text-slate-500'}`}>
                             <ShieldCheck className="w-6 h-6" />
@@ -124,11 +123,11 @@ export const SecurityControls: React.FC<SecurityControlsProps> = ({
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            Verifying Message...
+                            Verifying the message
                         </span>
                     ) : (
                         <>
-                            <span>Simulate Transaction</span>
+                            <span>Simulate a message</span>
                             <Play className="w-5 h-5 text-via-teal group-hover:translate-x-1 transition-transform fill-via-teal" />
                         </>
                     )}

@@ -3,9 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FileCode, Database, CreditCard } from 'lucide-react';
 
 const packets = [
-  { type: 'Token', icon: CreditCard, color: '#FF00FF', darkColor: '#FF00FF', label: 'USDC Transfer' },
-  { type: 'NFT', icon: FileCode, color: '#00E5E5', darkColor: '#00E5E5', label: 'NFT Metadata' },
-  { type: 'Arbitrary Data', icon: Database, color: '#0f172a', darkColor: '#e2e8f0', label: 'Contract State' },
+  { type: 'Tokens', icon: CreditCard, color: '#FF00FF', darkColor: '#FF00FF', label: 'USDC transfer' },
+  { type: 'NFTs', icon: FileCode, color: '#00E5E5', darkColor: '#00E5E5', label: 'NFT metadata' },
+  { type: 'Any data', icon: Database, color: '#0f172a', darkColor: '#e2e8f0', label: 'Contract state' },
 ];
 
 export default function GeneralizedMessagingSection() {
@@ -42,13 +42,11 @@ export default function GeneralizedMessagingSection() {
 
         {/* Text Content */}
         <div>
-          <h2 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-6 tracking-tight">
-            More Than Just <br />
-            <span className="text-via-teal">Token Bridging.</span>
+          <h2 className="h-section mb-6">
+            Tokens, NFTs, and any data
           </h2>
           <p className="text-lg text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
-            VIA Labs provides more than just asset transfers. We enable <span className="font-bold text-slate-900 dark:text-white">arbitrary data transfer</span> between contracts on different blockchains.
-            Send messages, trigger functions, and synchronize state seamlessly.
+            VIA carries any data your contract can encode. A message can move a token, update an NFT, or carry contract state to another chain.
           </p>
 
           <div className="space-y-4">
@@ -59,7 +57,7 @@ export default function GeneralizedMessagingSection() {
                 whileHover={{ scale: 1.02, x: 5 }}
                 whileTap={{ scale: 0.98 }}
                 className={`w-full flex items-center gap-4 p-4 rounded-xl border transition-all duration-300 text-left ${idx === activePacket
-                  ? 'bg-white dark:bg-[#1a1b23] border-via-teal shadow-lg shadow-via-teal/5 scale-105'
+                  ? 'bg-white dark:bg-ink-800 border-via-teal shadow-lg shadow-via-teal/5'
                   : 'bg-[#F5F5F7] dark:bg-[#0F1117] border-transparent opacity-60 hover:opacity-100 hover:bg-white dark:hover:bg-[#1a1b23] hover:border-slate-200 dark:hover:border-slate-700'
                   }`}
               >
@@ -94,7 +92,7 @@ export default function GeneralizedMessagingSection() {
             <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-2">
               <div className="w-3 h-3 bg-slate-900 dark:bg-slate-300 rounded-sm"></div>
             </div>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Chain A</span>
+            <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">Chain A</span>
           </div>
 
           {/* Destination Chain Node */}
@@ -102,7 +100,7 @@ export default function GeneralizedMessagingSection() {
             <div className="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center mb-2">
               <div className="w-3 h-3 bg-via-teal rounded-sm"></div>
             </div>
-            <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Chain B</span>
+            <span className="text-sm font-semibold text-slate-500 dark:text-slate-400">Chain B</span>
           </div>
 
           {/* Connection Line */}

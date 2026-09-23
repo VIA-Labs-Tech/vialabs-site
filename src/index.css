@@ -2,7 +2,6 @@
 @import "@fontsource/inter/500.css";
 @import "@fontsource/inter/600.css";
 @import "@fontsource/inter/700.css";
-@import "@fontsource/inter/900.css";
 
 @tailwind base;
 @tailwind components;
@@ -10,20 +9,83 @@
 
 @layer base {
   body {
-    @apply antialiased text-slate-900 bg-[#F5F5F7] selection:bg-via-teal/20 selection:text-slate-900;
+    @apply antialiased text-slate-900 bg-paper selection:bg-via-teal/20 selection:text-slate-900;
+    font-feature-settings: "cv11", "ss01";
+  }
+  .dark body {
+    @apply bg-ink text-white selection:bg-via-teal/30 selection:text-white;
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 }
 
-.glass-nav {
-  @apply bg-white/70 backdrop-blur-md border-b border-white/20;
+@layer components {
+  .container-x {
+    @apply max-w-7xl mx-auto px-5 md:px-8;
+  }
+
+  .glass-nav {
+    @apply bg-paper/75 backdrop-blur-xl border-b border-slate-200/70;
+  }
+  .dark .glass-nav {
+    @apply bg-ink/75 border-white/[0.07];
+  }
+
+  /* Text */
+  .text-body {
+    @apply text-slate-600 dark:text-slate-400 leading-relaxed;
+  }
+  .text-muted {
+    @apply text-slate-500 dark:text-slate-500;
+  }
+  .h-display {
+    @apply font-semibold tracking-tightest text-slate-900 dark:text-white;
+  }
+  .h-section {
+    @apply text-3xl md:text-[2.75rem] md:leading-[1.1] font-semibold tracking-tight text-slate-900 dark:text-white;
+  }
+
+  /* Surfaces with depth */
+  .card {
+    @apply rounded-2xl bg-white border border-slate-200/80 shadow-card
+      dark:bg-ink-800 dark:border-white/[0.07] dark:shadow-card-dark;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-0.5 hover:shadow-card-hover dark:hover:border-white/[0.12];
+  }
+  .panel {
+    @apply rounded-[1.75rem] bg-white/55 border border-slate-200/70 p-2 md:p-3 backdrop-blur-sm
+      dark:bg-white/[0.025] dark:border-white/[0.06];
+  }
+  .hairline {
+    @apply border-slate-200 dark:border-white/10;
+  }
+
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 h-12 px-6 rounded-full text-[15px] font-semibold transition-all duration-200
+      focus:outline-none focus-visible:ring-2 focus-visible:ring-via-teal focus-visible:ring-offset-2 focus-visible:ring-offset-paper
+      dark:focus-visible:ring-offset-ink active:scale-[0.98];
+  }
+  .btn-primary {
+    @apply btn bg-ink-900 text-white shadow-[0_10px_30px_-12px_rgba(15,17,23,0.6)] hover:bg-ink-700
+      dark:bg-white dark:text-ink-900 dark:hover:bg-slate-100 dark:shadow-[0_10px_30px_-12px_rgba(0,229,229,0.35)];
+  }
+  .btn-secondary {
+    @apply btn bg-white/70 text-slate-800 border border-slate-300/80 hover:border-slate-400 hover:bg-white
+      dark:bg-white/[0.04] dark:text-slate-200 dark:border-white/15 dark:hover:border-white/30 dark:hover:bg-white/[0.07];
+  }
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-semibold text-slate-900 dark:text-white hover:text-cyan-700 dark:hover:text-via-teal transition-colors;
+  }
+  .link-inline {
+    @apply font-medium text-slate-900 dark:text-white underline decoration-slate-300 dark:decoration-slate-600 underline-offset-4 hover:decoration-via-teal transition-colors;
+  }
 }
 
-.dark .glass-nav {
-  @apply bg-[#0F1117]/80 backdrop-blur-md border-b border-slate-800;
-}
-
-@layer base {
-  .dark body {
-    @apply bg-[#0F1117] text-white selection:bg-via-teal/30 selection:text-white;
+@media (prefers-reduced-motion: reduce) {
+  .animate-fade-up {
+    animation: none;
   }
 }

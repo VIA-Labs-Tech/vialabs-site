@@ -7,16 +7,17 @@ VIA Labs runs a cross-chain messaging network. A smart contract on one chain sen
 ## Key Pages
 
 - https://vialabs.tech/ — Homepage
-- https://vialabs.tech/overview — Platform overview and architecture
-- https://vialabs.tech/use-cases — Use cases: gaming, DeFi, identity, NFTs, governance, data streams
+- https://vialabs.tech/overview — How VIA works: the path of a message, security, fees, and delivery time
+- https://vialabs.tech/use-cases — Use cases: liquidity transfers, data feeds, AI agents, tokens, DeFi, and more
+- https://vialabs.tech/about — About VIA Labs: services, team, key facts, and FAQ
 
 ## Documentation
 
 - https://developer.vialabs.tech/ — Developer documentation
-- https://developer.vialabs.tech/docs/general/technology-overview — How VIA works
-- https://developer.vialabs.tech/docs/general/supported-networks — Supported networks
-- https://developer.vialabs.tech/docs/general/audits — Security audits
-- https://developer.vialabs.tech/docs/general/faq — FAQ
+- https://developer.vialabs.tech/docs/general/technology-overview/ — How VIA works
+- https://developer.vialabs.tech/docs/general/supported-networks/ — Supported networks
+- https://developer.vialabs.tech/docs/general/audits/ — Security audits
+- https://developer.vialabs.tech/docs/general/faq/ — FAQ
 
 ## Explorer
 

@@ -1,51 +1,108 @@
-import { useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Gamepad2, Coins, UserCheck, Layers, ShoppingBag, Activity } from 'lucide-react';
+import { ArrowLeftRight, BadgeCheck, Bot, Building2, Coins, Database, Gamepad2, Image, Landmark, LineChart, Lock, Vote } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import { CtaBand, PageHero, Section } from '../components/ui';
+
+const cases: { icon: LucideIcon; title: string; text: string[] }[] = [
+    {
+        icon: ArrowLeftRight,
+        title: 'Liquidity transfers',
+        text: [
+            'Move liquidity between chains for trading, lending, and treasury needs. You choose how many confirmations each transfer waits for, from fast to cautious.',
+        ],
+    },
+    {
+        icon: Database,
+        title: 'Oracles and data feeds',
+        text: [
+            'Bring data from outside the blockchain into your contracts. You run the data source, and VIA delivers the data to any connected chain. Examples include prices, sports results, flight status, and sensor readings.',
+        ],
+    },
+    {
+        icon: Bot,
+        title: 'AI agents',
+        text: [
+            'Give AI agents a way to act across chains. An agent can send instructions from one chain to contracts on others. It can also feed them data from outside the blockchain.',
+        ],
+    },
+    {
+        icon: Coins,
+        title: 'Stablecoins and tokens',
+        text: [
+            'Launch one token on many chains and keep one total supply. Choose burn and mint, lock and mint, or lock and release.',
+            "Chains can also launch USDC with Circle's Bridged USDC Standard, and VIA Labs helps with the launch.",
+            'USDM, the fiat-backed stablecoin from Moneta, moves between Cardano and Midnight using VIA.',
+        ],
+    },
+    {
+        icon: LineChart,
+        title: 'DeFi',
+        text: [
+            'Build lending, liquidity, and trading apps that work across chains. A contract on one chain can send its state to a contract on another chain, which acts on it.',
+        ],
+    },
+    {
+        icon: Building2,
+        title: 'Enterprise systems',
+        text: ['Send events from your existing systems into smart contracts, plain or encrypted. Your contracts act on what your backend reports.'],
+    },
+    {
+        icon: Landmark,
+        title: 'Real-world assets',
+        text: ['Carry ownership records and attestations for tokenized assets between chains. The asset can stay on one chain while apps on other chains read its records.'],
+    },
+    {
+        icon: BadgeCheck,
+        title: 'Identity and credentials',
+        text: ["Prove a credential or reputation on one chain, and use it in an app on another. Users don't need to prove it again on each chain."],
+    },
+    {
+        icon: Vote,
+        title: 'Governance',
+        text: ['Collect votes from token holders on many chains, and act on the result on one chain. Holders vote from the chain where they keep their tokens.'],
+    },
+    {
+        icon: Gamepad2,
+        title: 'Gaming',
+        text: ['Move items, progress, and achievements between chains. Players keep what they earn when a game runs on more than one chain.'],
+    },
+    {
+        icon: Image,
+        title: 'NFTs',
+        text: ['Move NFTs between chains, or update their metadata on every chain. One collection can live on several chains and stay in sync.'],
+    },
+    {
+        icon: Lock,
+        title: 'Privacy with Midnight',
+        text: ['Midnight is a blockchain built for data protection. VIA connects Midnight to Cardano, so apps can move tokens and data between the two.'],
+    },
+];
 
 export function UseCases() {
-    useEffect(() => { document.title = 'Use Cases | VIA Labs'; }, []);
     return (
-        <div className="pt-20 md:pt-32 pb-16 md:pb-24 px-4 md:px-6 max-w-7xl mx-auto">
-            <div className="mb-20 text-center">
-                <motion.h1
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="text-5xl md:text-7xl font-bold tracking-tight text-slate-900 dark:text-white mb-6"
-                >
-                    Designed for <br />
-                    <span className="text-via-teal">Any Application</span>
-                </motion.h1>
-                <p className="text-xl text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
-                    VIA Labs infrastructure is chain-agnostic and generalized, enabling use cases across every sector of Web3.
-                </p>
-            </div>
+        <main>
+            <PageHero title="Designed for any application">
+                <p>VIA carries any data between smart contracts, so the list of uses stays open. These examples show where teams often start.</p>
+            </PageHero>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {[
-                    { title: "Gaming", icon: Gamepad2, color: "text-purple-500", desc: "Sync game state, items, and achievements across multiple chains. Build infinite worlds without congestion." },
-                    { title: "DeFi", icon: Coins, color: "text-green-500", desc: "Unified liquidity provision and cross-chain lending. Manage positions on any chain from a single dashboard." },
-                    { title: "Identity", icon: UserCheck, color: "text-blue-500", desc: "One identity, everywhere. Prove reputation or credentials on one chain to access apps on another." },
-                    { title: "NFTs", icon: ShoppingBag, color: "text-pink-500", desc: "True multi-chain collections. Teleport NFTs seamlessly or update metadata globally." },
-                    { title: "Governance", icon: Layers, color: "text-orange-500", desc: "DAO voting across chains. Aggregate votes from holders on any network." },
-                    { title: "Data Streams", icon: Activity, color: "text-cyan-500", desc: "Real-world data onchain. Ship sports, shipping, or flight data to any connected chain reliably." },
-                ].map((useCase, i) => (
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: i * 0.1 }}
-                        key={useCase.title}
-                        className="p-8 rounded-3xl bg-white dark:bg-[#1a1b23] border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl hover:-translate-y-2 transition-all duration-300"
-                    >
-                        <div className={`w-12 h-12 rounded-xl bg-slate-50 dark:bg-slate-800 flex items-center justify-center mb-6 ${useCase.color}`}>
-                            <useCase.icon size={28} />
-                        </div>
-                        <h2 className="text-2xl font-bold mb-3 text-slate-900 dark:text-white">{useCase.title}</h2>
-                        <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
-                            {useCase.desc}
-                        </p>
-                    </motion.div>
-                ))}
-            </div>
-        </div>
+            <Section>
+                <div className="panel">
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
+                        {cases.map(({ icon: Icon, title, text }) => (
+                            <article key={title} className="card card-hover p-7">
+                                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-900 dark:text-via-teal">
+                                    <Icon size={21} aria-hidden="true" />
+                                </span>
+                                <h2 className="mt-6 text-lg font-semibold text-slate-900 dark:text-white">{title}</h2>
+                                <div className="mt-2 text-body space-y-3">
+                                    {text.map((t) => <p key={t}>{t}</p>)}
+                                </div>
+                            </article>
+                        ))}
+                    </div>
+                </div>
+            </Section>
+
+            <CtaBand title="Not on this list?" text="VIA carries any data your contract can encode. Tell us what you want to build." />
+        </main>
     );
 }
