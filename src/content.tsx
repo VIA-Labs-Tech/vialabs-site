@@ -40,7 +40,7 @@ export const faq: Record<string, FaqItem> = {
         a: (
             <p>
                 VIA Labs is a cross-chain messaging protocol. It lets a smart contract on one blockchain send a message to a smart contract on
-                another. It works across 150+ networks, including EVM chains, Cardano, Midnight, and Stellar.
+                another. It works across 150+ chains, including EVM chains, Cardano, Midnight, and Stellar.
             </p>
         ),
     },

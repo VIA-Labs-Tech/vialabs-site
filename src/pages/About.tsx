@@ -1,11 +1,10 @@
-import { ArrowRight, BadgeCheck, Camera, Code2, Coins, Database, DollarSign, KeyRound, Layers, MessagesSquare, Network, Receipt, Search, ShieldCheck } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Code2, Coins, Database, DollarSign, KeyRound, Layers, MessagesSquare, Network, Receipt, Search, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { CtaBand, FaqList, KeyFacts, PageHero, Section, SectionHeading } from '../components/ui';
 import { useReveal } from '../hooks/useReveal';
 import { useOpenOnboarding } from '../onboarding';
 import { faq } from '../content';
 import { DISCORD, DOCS, EMAIL, GITHUB, HELLO_WORLD, SCAN, SUPPORTED_NETWORKS, TELEGRAM, X } from '../links';
-import cletusPhoto from '../assets/team/cletus.webp';
 
 const services: { icon: LucideIcon; title: string; text: string }[] = [
     {
@@ -82,10 +81,10 @@ const users = [
     'Stablecoin and token issuers that want one token on many chains. USDM from Moneta moves between Cardano and Midnight using VIA.',
 ];
 
-// Photos: a real photo per person. Missing ones show a marked spot until the photo arrives.
-const team: { name: string; role: string; text: string; photo?: string }[] = [
-    { name: 'Cletus Pilat', role: 'Chief Executive Officer', text: 'Electrical engineer (BS and MS) with a background in utility-scale solar projects. Based in Michigan.', photo: cletusPhoto },
-    { name: 'Druuu (Andre)', role: 'Chief Technology Officer', text: 'Full-stack engineer with a track record in medical and financial software.' },
+// Team cards are text only for now; Cletus will decide on photos later (2026-09-27).
+const team: { name: string; role: string; text: string }[] = [
+    { name: 'Cletus Pilat', role: 'Chief Executive Officer', text: 'Electrical engineer (BS and MS) with a background in utility-scale solar projects. Based in Michigan.' },
+    { name: 'Druuu', role: 'Chief Technology Officer', text: 'Full-stack engineer with a track record in medical and financial software.' },
     { name: 'Jake Salthouse', role: 'Chief Business Officer', text: 'Former senior conductor on the British railway. Based in London.' },
     { name: 'Brad Simon', role: 'Full-Stack Engineer', text: 'Background in sports science.' },
 ];
@@ -107,7 +106,7 @@ export function About() {
                     Chain teams, token issuers, and app developers build with VIA. What they build on top, whether bridges, DEXs, marketplaces,
                     or oracle feeds, is up to them.
                 </p>
-                <p className="font-semibold text-slate-900 dark:text-white">150+ networks. 20M+ messages delivered. 4+ years in production. Zero exploits.</p>
+                <p className="font-semibold text-slate-900 dark:text-white">150+ chains. 20M+ messages delivered. 4+ years in production. Zero exploits.</p>
             </PageHero>
 
             {/* Services, over a soft wash of the brand colors */}
@@ -180,23 +179,13 @@ export function About() {
                 </div>
                 <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
                     {team.map((m, i) => (
-                        <figure key={m.name} data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
-                            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-200/80 bg-slate-100 shadow-card dark:border-white/[0.07] dark:bg-ink-800 dark:shadow-card-dark">
-                                {m.photo ? (
-                                    <img src={m.photo} alt={`${m.name}, ${m.role}`} width={600} height={750} loading="lazy" className="h-full w-full object-cover" />
-                                ) : (
-                                    <div className="flex h-full flex-col items-center justify-center gap-2 text-sm text-slate-400 dark:text-slate-500">
-                                        <Camera size={22} aria-hidden="true" />
-                                        Photo to come
-                                    </div>
-                                )}
-                            </div>
-                            <figcaption className="mt-5">
+                        <div key={m.name} data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
+                            <div className="card h-full p-7">
                                 <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{m.name}</h3>
                                 <p className="text-sm font-medium text-cyan-700 dark:text-via-teal">{m.role}</p>
                                 <p className="mt-3 text-body">{m.text}</p>
-                            </figcaption>
-                        </figure>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </Section>
@@ -244,7 +233,7 @@ export function About() {
                             ['Services', "Cross-chain messaging, cross-chain tokens, USDC launches with Circle's Bridged USDC Standard, off-chain data delivery, chain integrations, custom development"],
                             ['Pricing', 'One delivery fee per message, paid on the source chain in its native token. Chain integrations are priced per chain.'],
                             ['Supported chains', <>EVM chains, Cardano, Midnight, and Stellar. See {ext(SUPPORTED_NETWORKS, 'Supported networks')} for every gateway.</>],
-                            ['Networks connected', '150+'],
+                            ['Chains connected', '150+'],
                             ['Messages delivered', '20M+'],
                             ['Exploits', 'Zero'],
                             ['Security audits', 'Anastasia Labs, Firepan, Hashlock'],

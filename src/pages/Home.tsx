@@ -15,7 +15,7 @@ import { useOpenOnboarding } from '../onboarding';
 import { AUDITS, HELLO_WORLD, SUPPORTED_NETWORKS } from '../links';
 
 const stats = [
-    { value: '150+', label: 'networks connected' },
+    { value: '150+', label: 'chains connected' },
     { value: '20M+', label: 'messages delivered' },
     { value: '4+ years', label: 'in production' },
     { value: 'Zero', label: 'exploits' },
