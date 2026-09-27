@@ -15,7 +15,7 @@ export const pages: PageMeta[] = [
         path: '/',
         file: 'index.html',
         title: 'VIA Labs | Universal Cross-Chain Infrastructure',
-        description: 'VIA Labs is a cross-chain messaging protocol. It connects smart contracts across 150+ blockchains, EVM and non-EVM.',
+        description: 'VIA is a cross-chain messaging network. Smart contracts on 150+ EVM and non-EVM blockchains send each other tokens, data, and instructions.',
     },
     {
         path: '/overview',

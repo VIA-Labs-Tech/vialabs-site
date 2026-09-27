@@ -84,8 +84,91 @@
   }
 }
 
+/* Scroll reveal (see useReveal): only elements still below the fold are hidden */
+.reveal-pending {
+  opacity: 0;
+  transform: translateY(18px);
+}
+.reveal-pending.is-revealed {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@media print {
+  .reveal-pending {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* FAQ answers fade in as they open */
+details.faq[open] .faq-answer {
+  animation: faq-open 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes faq-open {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* How it works journey: small idle motions, only for visitors who allow motion */
+@keyframes journey-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+@keyframes journey-bob {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .journey-blink {
+    animation: journey-blink 1.4s ease-in-out infinite;
+  }
+  .journey-bob {
+    animation: journey-bob 2.8s ease-in-out infinite;
+  }
+}
+
+/* Live on strip: the list is drawn twice, so moving it by half loops without a seam */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee {
+  mask-image: linear-gradient(to right, transparent, black 7%, black 93%, transparent);
+}
+.marquee-track {
+  animation: marquee 60s linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-fade-up {
+    animation: none;
+  }
+  .marquee {
+    mask-image: none;
+  }
+  .marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+  }
+  .marquee-track [aria-hidden="true"] {
+    display: none;
+  }
+  details.faq[open] .faq-answer {
     animation: none;
   }
 }

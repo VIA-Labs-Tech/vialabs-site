@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Plus } from 'lucide-react';
+import { MeshHero } from './MeshHero';
 import { useOpenOnboarding } from '../onboarding';
 import { chainLogo } from '../chains';
 import { HELLO_WORLD } from '../links';
@@ -45,15 +46,25 @@ export interface FaqItem {
     a: ReactNode;
 }
 
-// Questions stay visible, so readers and search tools see every answer.
+// Each answer opens under its question. The answers stay in the page's HTML, so search tools still read them.
 export function FaqList({ items }: { items: FaqItem[] }) {
     return (
         <div className="border-t hairline">
             {items.map((item) => (
-                <div key={item.q} className="grid md:grid-cols-12 gap-3 md:gap-10 py-8 border-b hairline">
-                    <h3 className="md:col-span-5 text-lg font-semibold text-slate-900 dark:text-white">{item.q}</h3>
-                    <div className="md:col-span-7 text-body space-y-3">{item.a}</div>
-                </div>
+                <details key={item.q} className="faq group border-b hairline">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-6 py-6 [&::-webkit-details-marker]:hidden">
+                        <h3 className="text-lg font-semibold text-slate-900 transition-colors group-hover:text-cyan-700 dark:text-white dark:group-hover:text-via-teal">
+                            {item.q}
+                        </h3>
+                        <span
+                            className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-slate-300/80 text-slate-500 transition-all duration-300 group-open:rotate-45 group-open:border-cyan-500/50 group-open:text-cyan-600 dark:border-white/15 dark:text-slate-400 dark:group-open:text-via-teal"
+                            aria-hidden="true"
+                        >
+                            <Plus size={16} />
+                        </span>
+                    </summary>
+                    <div className="faq-answer max-w-3xl space-y-3 pb-7 pr-14 text-body">{item.a}</div>
+                </details>
             ))}
         </div>
     );
@@ -90,11 +101,16 @@ export function PerspectiveFloor() {
     );
 }
 
-// Header for the inner pages.
+// Header for the inner pages: the home page's moving floor, without logos, behind the words.
 export function PageHero({ title, children }: { title: ReactNode; children?: ReactNode }) {
     return (
         <section className="relative overflow-hidden border-b hairline">
-            <PerspectiveFloor />
+            <MeshHero withLogos={false} />
+            <div
+                className="pointer-events-none absolute inset-0 bg-gradient-to-b from-paper via-paper/80 to-transparent md:bg-gradient-to-r md:from-paper md:via-paper/70 md:to-transparent dark:from-ink dark:via-ink/80 md:dark:via-ink/60"
+                aria-hidden="true"
+            />
+            <div className="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-paper to-transparent dark:from-ink" aria-hidden="true" />
             <div className="container-x relative pt-36 md:pt-44 pb-20 md:pb-28">
                 <h1 className="h-display text-5xl md:text-7xl max-w-4xl animate-fade-up">{title}</h1>
                 {children && <div className="mt-7 max-w-2xl text-lg md:text-xl text-body space-y-4 animate-fade-up [animation-delay:120ms]">{children}</div>}

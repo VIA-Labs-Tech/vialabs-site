@@ -1,6 +1,7 @@
 import { ArrowLeftRight, BadgeCheck, Bot, Building2, Coins, Database, Gamepad2, Image, Landmark, LineChart, Lock, Vote } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { CtaBand, PageHero, Section } from '../components/ui';
+import { useReveal } from '../hooks/useReveal';
 
 const cases: { icon: LucideIcon; title: string; text: string[] }[] = [
     {
@@ -78,6 +79,7 @@ const cases: { icon: LucideIcon; title: string; text: string[] }[] = [
 ];
 
 export function UseCases() {
+    useReveal();
     return (
         <main>
             <PageHero title="Designed for any application">
@@ -87,16 +89,18 @@ export function UseCases() {
             <Section>
                 <div className="panel">
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
-                        {cases.map(({ icon: Icon, title, text }) => (
-                            <article key={title} className="card card-hover p-7">
-                                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-900 dark:text-via-teal">
-                                    <Icon size={21} aria-hidden="true" />
-                                </span>
-                                <h2 className="mt-6 text-lg font-semibold text-slate-900 dark:text-white">{title}</h2>
-                                <div className="mt-2 text-body space-y-3">
-                                    {text.map((t) => <p key={t}>{t}</p>)}
-                                </div>
-                            </article>
+                        {cases.map(({ icon: Icon, title, text }, i) => (
+                            <div key={title} data-reveal style={{ transitionDelay: `${(i % 3) * 80}ms` }}>
+                                <article className="card card-hover h-full p-7">
+                                    <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-50 text-cyan-700 ring-1 ring-inset ring-cyan-600/10 dark:bg-via-teal/10 dark:text-via-teal dark:ring-via-teal/20">
+                                        <Icon size={21} aria-hidden="true" />
+                                    </span>
+                                    <h2 className="mt-6 text-lg font-semibold text-slate-900 dark:text-white">{title}</h2>
+                                    <div className="mt-2 text-body space-y-3">
+                                        {text.map((t) => <p key={t}>{t}</p>)}
+                                    </div>
+                                </article>
+                            </div>
                         ))}
                     </div>
                 </div>

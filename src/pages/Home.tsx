@@ -1,10 +1,17 @@
 import { Link } from 'react-router-dom';
-import { ArrowLeftRight, ArrowRight, Bot, Coins, Database, Globe, Link as LinkIcon, ShieldCheck } from 'lucide-react';
+import type { ComponentType } from 'react';
+import { ArrowRight } from 'lucide-react';
 import { MeshHero } from '../components/MeshHero';
 import { CodeWindow } from '../components/CodeWindow';
-import { ChainMark, CtaBand, ExternalLink, FaqList, Section, SectionHeading, Steps } from '../components/ui';
+import { AppsVisual, AssetsVisual, DataVisual, MessagesVisual, RoutingVisual } from '../components/home/BuildVisuals';
+import { EcosystemRow } from '../components/home/EcosystemRow';
+import type { Ecosystem } from '../components/home/EcosystemRow';
+import { LiveOnMarquee } from '../components/home/LiveOnMarquee';
+import { NetworkGlobe } from '../components/home/NetworkGlobe';
+import { MessageJourney } from '../components/home/MessageJourney';
+import { CtaBand, ExternalLink, Section, SectionHeading } from '../components/ui';
+import { useReveal } from '../hooks/useReveal';
 import { useOpenOnboarding } from '../onboarding';
-import { faq } from '../content';
 import { AUDITS, HELLO_WORLD, SUPPORTED_NETWORKS } from '../links';
 
 const stats = [
@@ -14,34 +21,33 @@ const stats = [
     { value: 'Zero', label: 'exploits' },
 ];
 
-const liveOn = ['Ethereum', 'Arbitrum', 'Avalanche', 'Base', 'BSC', 'Optimism', 'Polygon', 'Cardano', 'Midnight', 'Stellar'];
-
-const capabilities = [
-    { title: 'Native cross-chain assets', text: 'Tokens and NFTs that move between chains and keep one total supply.' },
-    { title: 'Unified dApps', text: 'Extend your app to other chains and virtual machines, so users reach it from the chain they already use.' },
-    { title: 'Universal message passing', text: 'Send any data or contract call between supported chains.' },
-    { title: 'Multi-hop routing', text: 'Send one contract call to many chains in a single action.' },
-    { title: 'Web2 to Web3 data', text: 'Deliver off-chain data, plain or encrypted, directly into smart contracts.' },
+// Chain keys match the logo files in src/assets/chains. 17000 is the Ethereum mark.
+const liveOn: [string, string][] = [
+    ['17000', 'Ethereum'],
+    ['42161', 'Arbitrum'],
+    ['43114', 'Avalanche'],
+    ['8453', 'Base'],
+    ['56', 'BSC'],
+    ['10', 'Optimism'],
+    ['137', 'Polygon'],
+    ['cardano', 'Cardano'],
+    ['midnight', 'Midnight'],
+    ['stellar', 'Stellar'],
 ];
 
-const layers = [
-    { icon: Globe, title: 'VIA Layer', badge: 'Always on', text: 'Signers run by VIA Labs. They check every message on its source chain, then sign it.' },
-    { icon: LinkIcon, title: 'Chain Layer', badge: 'Optional', text: 'Add signers run by the chain itself. Messages need their signature too.' },
-    { icon: ShieldCheck, title: 'Project Layer', badge: 'Optional', text: 'Add signers run by your team. Nothing reaches your contract without your signature.' },
+const capabilities: { title: string; text: string; Visual: ComponentType; wide?: boolean }[] = [
+    { title: 'Native cross-chain assets', text: 'Tokens and NFTs that move between chains and keep one total supply.', Visual: AssetsVisual, wide: true },
+    { title: 'Multi-hop routing', text: 'Send one contract call to many chains in a single action.', Visual: RoutingVisual },
+    { title: 'Universal message passing', text: 'Send any data or contract call between supported chains.', Visual: MessagesVisual },
+    { title: 'Web2 to Web3 data', text: 'Deliver off-chain data, plain or encrypted, directly into smart contracts.', Visual: DataVisual },
+    { title: 'Unified dApps', text: 'Extend your app to other chains and virtual machines, so users reach it from the chain they already use.', Visual: AppsVisual },
 ];
 
-const ecosystems = [
+const ecosystems: Ecosystem[] = [
     { name: 'EVM chains', lang: 'Solidity', marks: [['42161', 'Arbitrum'], ['43114', 'Avalanche'], ['8453', 'Base'], ['10', 'Optimism'], ['137', 'Polygon']] },
     { name: 'Cardano', lang: 'Aiken', marks: [['cardano', 'Cardano']] },
     { name: 'Midnight', lang: 'Compact', marks: [['midnight', 'Midnight']] },
     { name: 'Stellar', lang: 'Rust', marks: [['stellar', 'Stellar']] },
-];
-
-const builds = [
-    { icon: ArrowLeftRight, label: 'Liquidity transfers' },
-    { icon: Database, label: 'Oracle and data feeds' },
-    { icon: Bot, label: 'AI agent integrations' },
-    { icon: Coins, label: 'Cross-chain tokens and apps' },
 ];
 
 function Hero() {
@@ -59,7 +65,7 @@ function Hero() {
                         Move value and data across 150+ blockchains.
                     </h1>
                     <p className="mt-7 text-lg md:text-xl text-body max-w-xl animate-fade-up [animation-delay:120ms]">
-                        VIA Labs is a cross-chain messaging protocol for EVM and non-EVM chains. Your smart contracts send tokens, data, and
+                        VIA is a cross-chain messaging network for EVM and non-EVM chains. Your smart contracts send tokens, data, and
                         instructions to each other. You choose who must sign each message.
                     </p>
                     <div className="mt-10 flex flex-col sm:flex-row gap-3 animate-fade-up [animation-delay:240ms]">
@@ -86,143 +92,97 @@ function Hero() {
 }
 
 export function Home() {
+    useReveal();
     return (
         <main>
             <Hero />
 
             {/* Live on */}
             <section className="border-y hairline bg-white dark:bg-ink-900">
-                <div className="container-x py-8 flex flex-col lg:flex-row lg:items-start gap-5 lg:gap-10">
-                    <p className="text-sm font-semibold text-slate-900 dark:text-white shrink-0 lg:pt-0.5">Live on</p>
-                    <div className="flex-1">
-                        <ul className="flex flex-wrap gap-x-6 gap-y-2 text-[15px] font-medium text-slate-500 dark:text-slate-400">
-                            {liveOn.map((name) => <li key={name}>{name}</li>)}
-                        </ul>
-                        <p className="mt-2 text-sm text-muted">Listed in the Circle Alliance Directory.</p>
-                    </div>
+                <div className="container-x py-7 flex flex-col lg:flex-row lg:items-center gap-5 lg:gap-10">
+                    <p className="text-sm font-semibold text-slate-900 dark:text-white shrink-0">Live on</p>
+                    <LiveOnMarquee chains={liveOn} />
                     <ExternalLink href={SUPPORTED_NETWORKS} className="link-arrow text-sm shrink-0">All networks</ExternalLink>
                 </div>
             </section>
 
             {/* What you can build */}
             <Section>
-                <SectionHeading
-                    title="What you can build with VIA"
-                    intro="We pass data between smart contracts on different chains. What gets built on top, whether bridges, DEXs, marketplaces, or oracle feeds, is up to the developer."
-                />
+                <div data-reveal>
+                    <SectionHeading
+                        title="What you can build with VIA"
+                        intro="The VIA network carries data between smart contracts on different chains. What gets built on top, whether bridges, DEXs, marketplaces, or oracle feeds, is up to the developer."
+                    />
+                </div>
                 <div className="panel">
                     <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2 md:gap-3">
-                        {capabilities.map((c) => (
-                            <div key={c.title} className="card card-hover p-7">
-                                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{c.title}</h3>
-                                <p className="mt-2 text-body">{c.text}</p>
+                        {capabilities.map(({ title, text, Visual, wide }, i) => (
+                            <div key={title} data-reveal style={{ transitionDelay: `${(i % 3) * 80}ms` }} className={wide ? 'sm:col-span-2' : ''}>
+                                <article className="card card-hover h-full overflow-hidden flex flex-col">
+                                    <div className="h-44 border-b hairline bg-slate-50/70 dark:bg-white/[0.015] [background-image:radial-gradient(rgba(15,23,42,0.07)_1px,transparent_1px)] dark:[background-image:radial-gradient(rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:14px_14px]">
+                                        <Visual />
+                                    </div>
+                                    <div className="p-7">
+                                        <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{title}</h3>
+                                        <p className="mt-2 text-body">{text}</p>
+                                    </div>
+                                </article>
                             </div>
                         ))}
-                        <Link to="/use-cases" className="card card-hover p-7 flex flex-col justify-between group">
-                            <p className="text-lg font-semibold text-slate-900 dark:text-white">See what teams build</p>
-                            <span className="link-arrow mt-6">Use cases <ArrowRight size={16} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" /></span>
+                    </div>
+                </div>
+                <Link to="/use-cases" className="link-arrow mt-8">
+                    See what teams build <ArrowRight size={16} aria-hidden="true" />
+                </Link>
+            </Section>
+
+            {/* How it works, as a journey that also covers definable security */}
+            <MessageJourney />
+
+            {/* The network */}
+            <section className="relative overflow-hidden border-y border-white/[0.06] bg-ink-900 text-white">
+                <div className="container-x grid items-center gap-12 py-20 md:py-28 lg:grid-cols-12">
+                    <div className="lg:col-span-5" data-reveal>
+                        <h2 className="text-3xl font-semibold tracking-tight md:text-[2.75rem] md:leading-[1.1]">One network. 150+ chains.</h2>
+                        <p className="mt-5 text-lg text-slate-300 md:text-xl">
+                            When a chain connects to VIA, it joins the whole network. Contracts on any connected chain can send tokens, data, and
+                            calls to contracts on the others.
+                        </p>
+                        <p className="mt-4 text-slate-400">
+                            Teams build liquidity transfers, oracle and data feeds, AI agent integrations, and cross-chain tokens and apps. USDM, the
+                            fiat-backed stablecoin from Moneta, moves between Cardano and Midnight using VIA.
+                        </p>
+                        <Link to="/use-cases" className="mt-8 inline-flex items-center gap-1.5 font-semibold text-white transition-colors hover:text-via-teal">
+                            See use cases <ArrowRight size={16} aria-hidden="true" />
                         </Link>
                     </div>
-                </div>
-            </Section>
-
-            {/* How it works */}
-            <Section tone="white">
-                <div className="grid lg:grid-cols-12 gap-12">
-                    <div className="lg:col-span-5">
-                        <h2 className="h-section">How it works</h2>
-                        <p className="mt-5 text-lg text-body">Three steps carry a message from one chain to another.</p>
-                        <Link to="/overview" className="link-arrow mt-8">See how VIA works <ArrowRight size={16} aria-hidden="true" /></Link>
-                    </div>
-                    <div className="lg:col-span-7">
-                        <Steps
-                            items={[
-                                { title: 'Your contract sends a message.', text: 'It calls the VIA gateway on its chain.' },
-                                { title: 'Signers check it and sign it.', text: 'They confirm the message on the source chain first.' },
-                                { title: 'Your other contract receives it.', text: 'A relayer delivers the signed message to the destination chain.' },
-                            ]}
-                        />
-                    </div>
-                </div>
-            </Section>
-
-            {/* Security */}
-            <Section>
-                <SectionHeading title="Definable security" intro="The VIA Layer signs every message. You choose what else must sign it." />
-                <div className="grid md:grid-cols-3 gap-4">
-                    {layers.map(({ icon: Icon, title, badge, text }) => (
-                        <div key={title} className="card p-7">
-                            <div className="flex items-center justify-between">
-                                <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-900 dark:text-via-teal">
-                                    <Icon size={21} aria-hidden="true" />
-                                </span>
-                                <span className="text-xs font-medium rounded-full px-2.5 py-1 bg-slate-100 text-slate-600 dark:bg-white/[0.06] dark:text-slate-300">{badge}</span>
-                            </div>
-                            <h3 className="mt-6 text-lg font-semibold text-slate-900 dark:text-white">{title}</h3>
-                            <p className="mt-2 text-body">{text}</p>
+                    <div className="lg:col-span-7" data-reveal style={{ transitionDelay: '80ms' }}>
+                        <div className="mx-auto max-w-[620px]">
+                            <NetworkGlobe />
                         </div>
-                    ))}
+                        <p className="mt-2 text-center text-sm text-slate-500">Drag the globe to turn it.</p>
+                    </div>
                 </div>
-                <div className="mt-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <p className="text-body">Every active layer must sign. If one does not, the message is rejected.</p>
-                    <Link to="/overview#security" className="link-arrow shrink-0">Try the security model <ArrowRight size={16} aria-hidden="true" /></Link>
-                </div>
-            </Section>
+            </section>
 
             {/* Ecosystems */}
             <Section tone="white">
-                <SectionHeading
-                    title="Build on EVM and non-EVM chains"
-                    intro="Your message follows the same path on every chain. Projects deploy and own their own cross-chain contracts."
-                />
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {ecosystems.map((e) => (
-                        <div key={e.name} className="card p-7 flex flex-col">
-                            <div className="flex items-center -space-x-1.5">
-                                {e.marks.map(([key, label]) => (
-                                    <span key={key} className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-ink-700 border border-slate-200 dark:border-white/10 shadow-sm">
-                                        <ChainMark chain={key} label={label} className="h-6 w-6" />
-                                    </span>
-                                ))}
-                            </div>
-                            <h3 className="mt-6 text-lg font-semibold text-slate-900 dark:text-white">{e.name}</h3>
-                            <p className="mt-1 text-body">Contracts in {e.lang}</p>
-                        </div>
-                    ))}
+                <div data-reveal>
+                    <SectionHeading
+                        title="Build on EVM and non-EVM chains"
+                        intro="Your message follows the same path on every chain. Projects deploy and own their own cross-chain contracts."
+                    />
                 </div>
+                <EcosystemRow ecosystems={ecosystems} />
                 <div className="mt-8">
                     <ExternalLink href={SUPPORTED_NETWORKS}>See supported networks</ExternalLink>
-                </div>
-            </Section>
-
-            {/* What teams build */}
-            <Section>
-                <div className="grid lg:grid-cols-12 gap-12 items-start">
-                    <div className="lg:col-span-5">
-                        <h2 className="h-section">What teams build</h2>
-                        <p className="mt-5 text-lg text-body">
-                            Teams use VIA for liquidity transfers, oracle and data feeds, AI agent integrations, and cross-chain tokens and apps.
-                        </p>
-                        <p className="mt-4 text-body">USDM, the fiat-backed stablecoin from Moneta, moves between Cardano and Midnight using VIA.</p>
-                        <Link to="/use-cases" className="link-arrow mt-8">See use cases <ArrowRight size={16} aria-hidden="true" /></Link>
-                    </div>
-                    <ul className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-                        {builds.map(({ icon: Icon, label }) => (
-                            <li key={label} className="card p-6 flex items-center gap-4">
-                                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-slate-100 dark:bg-white/[0.06] text-slate-900 dark:text-via-teal">
-                                    <Icon size={21} aria-hidden="true" />
-                                </span>
-                                <span className="text-lg font-semibold text-slate-900 dark:text-white">{label}</span>
-                            </li>
-                        ))}
-                    </ul>
                 </div>
             </Section>
 
             {/* Developers */}
             <section className="bg-ink-900 text-white border-y border-white/[0.06]">
                 <div className="container-x py-20 md:py-28 grid lg:grid-cols-2 gap-14 items-center">
-                    <div>
+                    <div data-reveal>
                         <h2 className="text-3xl md:text-[2.75rem] md:leading-[1.1] font-semibold tracking-tight">For developers</h2>
                         <p className="mt-5 text-lg text-slate-300">Inherit one contract. Override one function.</p>
                         <ol className="mt-8 border-t border-white/10">
@@ -237,45 +197,35 @@ export function Home() {
                             Start with Hello World <ArrowRight size={17} aria-hidden="true" />
                         </a>
                     </div>
-                    <CodeWindow />
+                    <div className="min-w-0" data-reveal style={{ transitionDelay: '80ms' }}>
+                        <CodeWindow />
+                    </div>
                 </div>
             </section>
 
             {/* Audits */}
             <Section>
-                <div className="card p-8 md:p-12 grid md:grid-cols-12 gap-8 items-center">
-                    <div className="md:col-span-7">
-                        <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">Independently audited</h2>
-                        <p className="mt-4 text-lg text-body">
-                            Anastasia Labs, Firepan, and Hashlock audited VIA's contracts on EVM chains, Cardano, Midnight, and Stellar. Every report is public.
-                        </p>
-                    </div>
-                    <div className="md:col-span-5 md:text-right">
-                        <a href={AUDITS} target="_blank" rel="noopener noreferrer" className="btn-secondary">
-                            Read the audits <ArrowRight size={17} aria-hidden="true" />
-                        </a>
+                <div data-reveal>
+                    <div className="card p-8 md:p-12 grid md:grid-cols-12 gap-8 items-center">
+                        <div className="md:col-span-7">
+                            <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">Independently audited</h2>
+                            <p className="mt-4 text-lg text-body">
+                                Anastasia Labs, Firepan, and Hashlock audited VIA's contracts on EVM chains, Cardano, Midnight, and Stellar. Every report is public.
+                            </p>
+                        </div>
+                        <div className="md:col-span-5 md:text-right">
+                            <a href={AUDITS} target="_blank" rel="noopener noreferrer" className="btn-secondary">
+                                Read the audits <ArrowRight size={17} aria-hidden="true" />
+                            </a>
+                        </div>
                     </div>
                 </div>
             </Section>
 
-            {/* Questions */}
-            <Section tone="white">
-                <SectionHeading title="Common questions" />
-                <FaqList
-                    items={[
-                        faq.bridge,
-                        faq.chains,
-                        {
-                            q: 'How much does a message cost?',
-                            a: <p>The sender pays one delivery fee on the source chain, in its native token. It covers delivery on every destination chain except Ethereum.</p>,
-                        },
-                    ]}
-                />
-                <Link to="/about#faq" className="link-arrow mt-8">More questions <ArrowRight size={16} aria-hidden="true" /></Link>
-            </Section>
-
-            <div className="pt-24 md:pt-32" />
-            <CtaBand />
+            <div className="pt-4" />
+            <div data-reveal>
+                <CtaBand />
+            </div>
         </main>
     );
 }

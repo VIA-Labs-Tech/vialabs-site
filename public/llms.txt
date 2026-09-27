@@ -2,7 +2,7 @@
 
 > Universal cross-chain infrastructure for blockchain interoperability.
 
-VIA Labs runs a cross-chain messaging network. A smart contract on one chain sends a message to a smart contract on another chain. Signers run by VIA Labs check every message on its source chain, then sign it. Chains and projects can add their own signers. Every active layer must sign before a message is delivered.
+VIA Labs is a cross-chain messaging protocol. A smart contract on one chain sends a message to a smart contract on another chain. Signers run by VIA Labs check every message on its source chain, then sign it. Chains and projects can add their own signers. Every active layer must sign before a message is delivered.
 
 ## Key Pages
 
