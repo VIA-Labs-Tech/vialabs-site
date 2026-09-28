@@ -1,6 +1,7 @@
 import { ArrowRight, BadgeCheck, Code2, Coins, Database, DollarSign, KeyRound, Layers, MessagesSquare, Network, Receipt, Search, ShieldCheck } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
-import { CtaBand, FaqList, KeyFacts, PageHero, Section, SectionHeading } from '../components/ui';
+import { Aurora, CtaBand, FaqList, KeyFacts, PageHero, Section, SectionHeading, spotlight } from '../components/ui';
+import { GravityField } from '../components/GravityField';
 import { useReveal } from '../hooks/useReveal';
 import { useOpenOnboarding } from '../onboarding';
 import { faq } from '../content';
@@ -81,14 +82,6 @@ const users = [
     'Stablecoin and token issuers that want one token on many chains. USDM from Moneta moves between Cardano and Midnight using VIA.',
 ];
 
-// Team cards are text only for now; Cletus will decide on photos later (2026-09-27).
-const team: { name: string; role: string; text: string }[] = [
-    { name: 'Cletus Pilat', role: 'Chief Executive Officer', text: 'Electrical engineer (BS and MS) with a background in utility-scale solar projects. Based in Michigan.' },
-    { name: 'Druuu', role: 'Chief Technology Officer', text: 'Full-stack engineer with a track record in medical and financial software.' },
-    { name: 'Jake Salthouse', role: 'Chief Business Officer', text: 'Former senior conductor on the British railway. Based in London.' },
-    { name: 'Brad Simon', role: 'Full-Stack Engineer', text: 'Background in sports science.' },
-];
-
 const ext = (href: string, label: string) => (
     <a href={href} target="_blank" rel="noopener noreferrer" className="link-inline">{label}</a>
 );
@@ -109,21 +102,18 @@ export function About() {
                 <p className="font-semibold text-slate-900 dark:text-white">150+ chains. 20M+ messages delivered. 4+ years in production. Zero exploits.</p>
             </PageHero>
 
-            {/* Services, over a soft wash of the brand colors */}
+            {/* Services, over slow light in the brand colors */}
             <section className="relative overflow-hidden">
-                <div
-                    className="pointer-events-none absolute inset-0 bg-[radial-gradient(55%_45%_at_88%_8%,rgba(0,229,229,0.10),transparent_70%),radial-gradient(45%_40%_at_8%_95%,rgba(255,0,255,0.06),transparent_70%)] dark:bg-[radial-gradient(55%_45%_at_88%_8%,rgba(0,229,229,0.12),transparent_70%),radial-gradient(45%_40%_at_8%_95%,rgba(255,0,255,0.09),transparent_70%)]"
-                    aria-hidden="true"
-                />
+                <Aurora />
                 <div className="container-x relative py-20 md:py-28">
                     <div data-reveal>
                         <SectionHeading title="What VIA Labs does" />
                     </div>
                     <div className="panel">
-                        <div className="grid gap-2 sm:grid-cols-2 md:gap-3 lg:grid-cols-3">
+                        <div className="grid gap-2 sm:grid-cols-2 md:gap-3 lg:grid-cols-3" onPointerMove={spotlight}>
                             {services.map(({ icon: Icon, title, text }, i) => (
                                 <div key={title} data-reveal style={{ transitionDelay: `${(i % 3) * 80}ms` }}>
-                                    <div className="card card-hover h-full p-7">
+                                    <div className="card card-hover spotlight h-full p-7">
                                         <span className={iconChip}>
                                             <Icon size={21} aria-hidden="true" />
                                         </span>
@@ -137,22 +127,26 @@ export function About() {
                 </div>
             </section>
 
-            <Section tone="white">
-                <div data-reveal>
-                    <SectionHeading title="What makes VIA different" />
-                </div>
-                <div className="grid gap-x-14 border-t hairline md:grid-cols-2">
-                    {differences.map(({ icon: Icon, title, text }, i) => (
-                        <div key={title} data-reveal style={{ transitionDelay: `${(i % 2) * 80}ms` }} className="flex gap-5 border-b hairline py-8">
-                            <Icon size={22} className="mt-1 shrink-0 text-cyan-600 dark:text-via-teal" aria-hidden="true" />
-                            <div>
-                                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{title}</h3>
-                                <p className="mt-3 text-body">{text}</p>
+            {/* Differences, over a field of dots that bends toward the pointer */}
+            <section className="relative overflow-hidden border-y hairline bg-white dark:bg-ink-900">
+                <GravityField />
+                <div className="container-x relative py-20 md:py-28">
+                    <div data-reveal>
+                        <SectionHeading title="What makes VIA different" />
+                    </div>
+                    <div className="grid gap-x-14 border-t hairline md:grid-cols-2">
+                        {differences.map(({ icon: Icon, title, text }, i) => (
+                            <div key={title} data-reveal style={{ transitionDelay: `${(i % 2) * 80}ms` }} className="flex gap-5 border-b hairline py-8">
+                                <Icon size={22} className="mt-1 shrink-0 text-cyan-600 dark:text-via-teal" aria-hidden="true" />
+                                <div>
+                                    <h3 className="text-xl font-semibold text-slate-900 dark:text-white">{title}</h3>
+                                    <p className="mt-3 text-body">{text}</p>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-            </Section>
+            </section>
 
             <Section>
                 <div className="grid gap-12 lg:grid-cols-12">
@@ -170,54 +164,38 @@ export function About() {
                 </div>
             </Section>
 
-            <Section tone="white">
-                <div data-reveal>
-                    <SectionHeading
-                        title="The team behind VIA Labs"
-                        intro="VIA began as a project to let smart contracts on different chains talk to each other. VIA Labs LLC was founded in 2024 in Michigan to build it. In 2026, VIA Labs launched VG1, the current version of the VIA network."
-                    />
-                </div>
-                <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                    {team.map((m, i) => (
-                        <div key={m.name} data-reveal style={{ transitionDelay: `${i * 80}ms` }}>
-                            <div className="card h-full p-7">
-                                <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{m.name}</h3>
-                                <p className="text-sm font-medium text-cyan-700 dark:text-via-teal">{m.role}</p>
-                                <p className="mt-3 text-body">{m.text}</p>
-                            </div>
+            {/* Working with VIA Labs, over slow light in the brand colors */}
+            <section className="relative overflow-hidden border-y hairline">
+                <Aurora />
+                <div className="container-x relative py-20 md:py-28">
+                    <div data-reveal>
+                        <SectionHeading title="How working with VIA Labs works" />
+                    </div>
+                    <div className="grid gap-4 md:grid-cols-2" onPointerMove={spotlight}>
+                        <div className="card spotlight p-8" data-reveal>
+                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">For developers</h3>
+                            <p className="mt-3 text-body">
+                                Start with the Hello World guide on two testnets. You inherit one contract, override one function, and send your
+                                first message. When you move to mainnet, our team can help you plan the launch.
+                            </p>
+                            <a href={HELLO_WORLD} target="_blank" rel="noopener noreferrer" className="link-arrow mt-6">
+                                Open the Hello World guide <ArrowRight size={16} aria-hidden="true" />
+                            </a>
                         </div>
-                    ))}
-                </div>
-            </Section>
-
-            <Section>
-                <div data-reveal>
-                    <SectionHeading title="How working with VIA Labs works" />
-                </div>
-                <div className="grid gap-4 md:grid-cols-2">
-                    <div className="card p-8" data-reveal>
-                        <h3 className="text-xl font-semibold text-slate-900 dark:text-white">For developers</h3>
-                        <p className="mt-3 text-body">
-                            Start with the Hello World guide on two testnets. You inherit one contract, override one function, and send your first
-                            message. When you move to mainnet, our team can help you plan the launch.
-                        </p>
-                        <a href={HELLO_WORLD} target="_blank" rel="noopener noreferrer" className="link-arrow mt-6">
-                            Open the Hello World guide <ArrowRight size={16} aria-hidden="true" />
-                        </a>
-                    </div>
-                    <div className="card p-8" data-reveal style={{ transitionDelay: '80ms' }}>
-                        <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Communication</h3>
-                        <p className="mt-3 text-body">
-                            Email <a href={`mailto:${EMAIL}`} className="link-inline">{EMAIL}</a>, fill in the onboarding form, or book a video
-                            call. We reply within one business day. You work directly with our engineers and our business team. Our community
-                            talks on Discord and Telegram.
-                        </p>
-                        <button onClick={openOnboarding} className="link-arrow mt-6">
-                            Open the onboarding form <ArrowRight size={16} aria-hidden="true" />
-                        </button>
+                        <div className="card spotlight p-8" data-reveal style={{ transitionDelay: '80ms' }}>
+                            <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Communication</h3>
+                            <p className="mt-3 text-body">
+                                Email <a href={`mailto:${EMAIL}`} className="link-inline">{EMAIL}</a>, fill in the onboarding form, or book a
+                                video call. We reply within one business day. You work directly with our engineers and our business team. Our
+                                community talks on Discord and Telegram.
+                            </p>
+                            <button onClick={openOnboarding} className="link-arrow mt-6">
+                                Open the onboarding form <ArrowRight size={16} aria-hidden="true" />
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </Section>
+            </section>
 
             <Section tone="white">
                 <div data-reveal>

@@ -1,4 +1,5 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef } from 'react';
+import type { PointerEvent as ReactPointerEvent, ReactNode } from 'react';
 import { ArrowRight, Plus } from 'lucide-react';
 import { MeshHero } from './MeshHero';
 import { useOpenOnboarding } from '../onboarding';
@@ -24,21 +25,65 @@ export function SectionHeading({ title, intro, className = '' }: { title: ReactN
     );
 }
 
-// Numbered steps: plain numerals, a title, and detail, separated by hairlines.
-export function Steps({ items }: { items: { title?: ReactNode; text: ReactNode }[] }) {
+// Numbered steps on a line that fills as the reader scrolls. Each number lights up when the line reaches it.
+export function TimelineSteps({ items }: { items: ReactNode[] }) {
+    const ref = useRef<HTMLOListElement>(null);
+    useEffect(() => {
+        const list = ref.current;
+        if (!list) return;
+        const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        const update = () => {
+            const mark = window.innerHeight * 0.62;
+            const r = list.getBoundingClientRect();
+            list.style.setProperty('--fill', String(still ? 1 : Math.min(1, Math.max(0, (mark - r.top) / r.height))));
+            list.querySelectorAll('li').forEach((li) => li.toggleAttribute('data-on', still || li.getBoundingClientRect().top + 18 < mark));
+        };
+        let raf = 0;
+        const onScroll = () => {
+            cancelAnimationFrame(raf);
+            raf = requestAnimationFrame(update);
+        };
+        update();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        window.addEventListener('resize', onScroll);
+        return () => {
+            cancelAnimationFrame(raf);
+            window.removeEventListener('scroll', onScroll);
+            window.removeEventListener('resize', onScroll);
+        };
+    }, []);
     return (
-        <ol className="border-t hairline">
-            {items.map((item, i) => (
-                <li key={i} className="grid grid-cols-[2.5rem_1fr] md:grid-cols-[4rem_1fr] gap-2 py-6 border-b hairline">
-                    <span className="text-lg font-semibold text-slate-400 dark:text-slate-500 tabular-nums">{i + 1}</span>
-                    <div>
-                        {item.title && <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{item.title}</h3>}
-                        <p className={`text-body ${item.title ? 'mt-1' : ''}`}>{item.text}</p>
-                    </div>
+        <ol ref={ref} className="relative border-t hairline">
+            <span className="absolute -left-px top-0 h-full w-0.5 bg-slate-200 dark:bg-white/10" aria-hidden="true" />
+            <span className="absolute -left-px top-0 w-0.5 bg-cyan-600 dark:bg-via-teal" style={{ height: 'calc(100% * var(--fill, 0))' }} aria-hidden="true" />
+            {items.map((text, i) => (
+                <li key={i} className="group grid grid-cols-[2.5rem_1fr] gap-2 border-b hairline py-6 pl-6 md:grid-cols-[4rem_1fr]">
+                    <span className="text-lg font-semibold tabular-nums text-slate-400 transition-colors duration-500 group-data-[on]:text-slate-900 dark:text-slate-500 dark:group-data-[on]:text-white">{i + 1}</span>
+                    <p className="text-lg text-slate-500 transition-colors duration-500 group-data-[on]:text-slate-900 dark:text-slate-400 dark:group-data-[on]:text-white">{text}</p>
                 </li>
             ))}
         </ol>
     );
+}
+
+// Slow light in the brand colors that drifts behind a section. Place it inside a relative, overflow-hidden parent.
+export function Aurora() {
+    return (
+        <div className="aurora" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+        </div>
+    );
+}
+
+// Put on a grid of .spotlight cards: the card under the pointer gets a soft light that follows it.
+export function spotlight(e: ReactPointerEvent<HTMLElement>) {
+    const card = (e.target as HTMLElement).closest<HTMLElement>('.spotlight');
+    if (!card) return;
+    const r = card.getBoundingClientRect();
+    card.style.setProperty('--mx', `${e.clientX - r.left}px`);
+    card.style.setProperty('--my', `${e.clientY - r.top}px`);
 }
 
 export interface FaqItem {

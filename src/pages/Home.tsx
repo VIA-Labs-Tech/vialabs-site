@@ -37,7 +37,7 @@ const liveOn: [string, string][] = [
 
 const capabilities: { title: string; text: string; Visual: ComponentType; wide?: boolean }[] = [
     { title: 'Native cross-chain assets', text: 'Tokens and NFTs that move between chains and keep one total supply.', Visual: AssetsVisual, wide: true },
-    { title: 'Multi-hop routing', text: 'Send one contract call to many chains in a single action.', Visual: RoutingVisual },
+    { title: 'Broadcast', text: 'Send one contract call to many chains in a single action.', Visual: RoutingVisual },
     { title: 'Universal message passing', text: 'Send any data or contract call between supported chains.', Visual: MessagesVisual },
     { title: 'Web2 to Web3 data', text: 'Deliver off-chain data, plain or encrypted, directly into smart contracts.', Visual: DataVisual },
     { title: 'Unified dApps', text: 'Extend your app to other chains and virtual machines, so users reach it from the chain they already use.', Visual: AppsVisual },
@@ -160,7 +160,6 @@ export function Home() {
                         <div className="mx-auto max-w-[620px]">
                             <NetworkGlobe />
                         </div>
-                        <p className="mt-2 text-center text-sm text-slate-500">Drag the globe to turn it.</p>
                     </div>
                 </div>
             </section>

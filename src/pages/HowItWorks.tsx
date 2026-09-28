@@ -1,7 +1,8 @@
 import GeneralizedMessagingSection from '../components/platform/GeneralizedMessagingSection';
 import SecuritySection from '../components/platform/SecuritySection';
-import { CtaBand, ExternalLink, PageHero, Section, SectionHeading, Steps } from '../components/ui';
+import { CtaBand, ExternalLink, PageHero, Section, SectionHeading, TimelineSteps, spotlight } from '../components/ui';
 import { DeliveryTime } from '../content';
+import { useReveal } from '../hooks/useReveal';
 import { AUDITS, FEES, SUPPORTED_NETWORKS } from '../links';
 
 const problems = [
@@ -17,6 +18,7 @@ const answers = [
 ];
 
 export function HowItWorks() {
+    useReveal();
     return (
         <main>
             <PageHero title="How VIA works">
@@ -28,7 +30,7 @@ export function HowItWorks() {
 
             <Section>
                 <div className="grid md:grid-cols-2 gap-4">
-                    <div className="card p-8 md:p-10">
+                    <div className="card p-8 md:p-10" data-reveal>
                         <h2 className="text-2xl font-semibold tracking-tight text-slate-900 dark:text-white">The problem</h2>
                         <ul className="mt-6 space-y-4">
                             {problems.map((p) => (
@@ -39,7 +41,7 @@ export function HowItWorks() {
                             ))}
                         </ul>
                     </div>
-                    <div className="rounded-2xl p-8 md:p-10 bg-ink-900 text-white shadow-panel border border-white/[0.06]">
+                    <div className="glow-border rounded-2xl p-8 md:p-10 bg-ink-900 text-white shadow-panel border border-white/[0.06]" data-reveal style={{ transitionDelay: '80ms' }}>
                         <h2 className="text-2xl font-semibold tracking-tight">What VIA does about it</h2>
                         <ul className="mt-6 space-y-4">
                             {answers.map((a) => (
@@ -56,20 +58,22 @@ export function HowItWorks() {
             <Section tone="white">
                 <div className="grid lg:grid-cols-12 gap-12">
                     <div className="lg:col-span-4">
-                        <h2 className="h-section">The path of a message</h2>
-                        <p className="mt-5 text-lg text-body">Five steps, from your contract on one chain to your contract on another.</p>
+                        <div className="lg:sticky lg:top-28" data-reveal>
+                            <h2 className="h-section">The path of a message</h2>
+                            <p className="mt-5 text-lg text-body">Five steps, from your contract on one chain to your contract on another.</p>
+                        </div>
                     </div>
                     <div className="lg:col-span-8">
-                        <Steps
+                        <TimelineSteps
                             items={[
-                                { text: 'Your contract calls messageSend on the VIA gateway. The gateway records the message on the source chain.' },
-                                { text: 'Signers see the message. They wait for the number of confirmations your message asks for.' },
-                                { text: 'Each signer checks the source transaction again, then signs the message.' },
-                                { text: 'A relayer delivers the message and its signatures to the gateway on the destination chain.' },
-                                { text: 'The destination gateway checks that every active layer signed. Then it calls messageProcess on your contract.' },
+                                'Your contract calls messageSend on the VIA gateway. The gateway records the message on the source chain.',
+                                'Signers see the message. They wait for the number of confirmations your message asks for.',
+                                'Each signer checks the source transaction again, then signs the message.',
+                                'A relayer delivers the message and its signatures to the gateway on the destination chain.',
+                                'The destination gateway checks that every active layer signed. Then it calls messageProcess on your contract.',
                             ]}
                         />
-                        <p className="mt-6 text-body">Relayers can't change a message. The gateway rejects any message without the required signatures.</p>
+                        <p className="mt-10 text-body">Relayers can't change a message. The gateway rejects any message without the required signatures.</p>
                         <p className="mt-3 text-sm text-muted">Midnight can't check signatures on-chain yet. On Midnight, only approved relayers can deliver messages.</p>
                     </div>
                 </div>
@@ -77,12 +81,12 @@ export function HowItWorks() {
 
             <section id="security" className="scroll-mt-24">
                 <SecuritySection />
-                <div className="container-x -mt-6 pb-20 md:pb-28 grid md:grid-cols-2 gap-4">
-                    <div className="card p-7">
+                <div className="container-x -mt-6 pb-20 md:pb-28 grid md:grid-cols-2 gap-4" onPointerMove={spotlight}>
+                    <div className="card card-hover spotlight p-7" data-reveal>
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white">The VIA Layer</h3>
                         <p className="mt-2 text-body">At least two of three VIA signers must sign each message.</p>
                     </div>
-                    <div className="card p-7">
+                    <div className="card card-hover spotlight p-7" data-reveal style={{ transitionDelay: '80ms' }}>
                         <h3 className="text-lg font-semibold text-slate-900 dark:text-white">Two more checks</h3>
                         <p className="mt-2 text-body">
                             Each message can be delivered only once. Your contract accepts messages only from the gateway and only from the contracts you configure.
@@ -131,14 +135,16 @@ export function HowItWorks() {
             </Section>
 
             <Section>
-                <SectionHeading title="Chains and audits" />
-                <div className="grid md:grid-cols-2 gap-4">
-                    <div className="card p-8 flex flex-col">
+                <div data-reveal>
+                    <SectionHeading title="Chains and audits" />
+                </div>
+                <div className="grid md:grid-cols-2 gap-4" onPointerMove={spotlight}>
+                    <div className="card card-hover spotlight p-8 flex flex-col" data-reveal>
                         <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Supported chains</h3>
                         <p className="mt-3 text-body flex-1">VIA runs on EVM chains, Cardano, Midnight, and Stellar.</p>
                         <ExternalLink href={SUPPORTED_NETWORKS} className="link-arrow mt-6">See supported networks</ExternalLink>
                     </div>
-                    <div className="card p-8 flex flex-col">
+                    <div className="card card-hover spotlight p-8 flex flex-col" data-reveal style={{ transitionDelay: '80ms' }}>
                         <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Audits</h3>
                         <p className="mt-3 text-body flex-1">Anastasia Labs, Firepan, and Hashlock audited VIA's contracts. Every report is public.</p>
                         <ExternalLink href={AUDITS} className="link-arrow mt-6">Read the audits</ExternalLink>

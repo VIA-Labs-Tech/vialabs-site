@@ -3,6 +3,7 @@ import { chainLogos } from '../chains';
 
 // A 3D floor mesh that runs into the screen. Chain logos rise from its nodes in pairs,
 // an arc connects each pair, and a pulse travels along the arc like a message.
+// The floor sinks gently under a mouse or pen, like a sheet under a light weight.
 // Everything is drawn on a canvas in the browser; the server renders an empty canvas.
 
 // World, in grid units (one unit = one grid cell)
@@ -14,6 +15,12 @@ const WAVE = 0.11; // height of the surface wave
 const PIN_H = 0.62; // how far a logo rises above the floor
 const DISC_R = 0.34; // logo disc radius
 
+// The dip under the pointer, in grid units. It is deepest at its center and fades out with distance,
+// like a shallow funnel. It eases after the pointer, so it never bounces.
+const PULL_DEPTH = 0.26; // deepest dip, far from the camera; it is shallower near the camera
+const PULL_REACH = 2.8; // how far the dip spreads; it is narrower near the camera
+const PULL_CORE = 0.36; // share of the reach where the dip is half as deep
+
 // Pair timing, in milliseconds
 const POP_IN = 1300;
 const SECOND_DELAY = 760;
@@ -23,6 +30,7 @@ const PULSE = 2000;
 const RING = 1040;
 const LIFE = 11200;
 const POP_OUT = 900;
+const ARRIVED = ARC_START + ARC_DRAW + PULSE; // when the pulse reaches the second logo
 
 // Chains that appear more often, matched against the logo key
 const BOOSTED = ['midnight', 'cardano'];
@@ -43,12 +51,29 @@ interface Pair {
     b: Pin;
     born: number;
 }
+// A projected point on the floor. e is how strongly the dip bends the floor there, 0 to 1.
+interface Pt {
+    sx: number;
+    sy: number;
+    d: number;
+    e: number;
+}
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 const easeOutBack = (x: number) => 1 + 2.70158 * Math.pow(x - 1, 3) + 1.70158 * Math.pow(x - 1, 2);
 const easeInBack = (x: number) => 2.70158 * x * x * x - 1.70158 * x * x;
 const easeInOut = (x: number) => (x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2);
 const randInt = (lo: number, hi: number) => lo + Math.floor(Math.random() * (hi - lo + 1));
+
+// Size of a logo as it pops in, and as its pair fades out
+const growOf = (age: number, delay: number) => {
+    const g = clamp((age - delay) / POP_IN, 0, 1);
+    return g > 0 ? easeOutBack(g) : 0;
+};
+const exitOf = (age: number) => {
+    const q = clamp((age - (LIFE - POP_OUT)) / POP_OUT, 0, 1);
+    return q > 0 ? Math.max(0, 1 - easeInBack(q)) : 1;
+};
 
 // withLogos: false draws the moving floor alone, for the inner pages
 export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
@@ -139,6 +164,61 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
             WAVE * (0.6 * Math.sin(0.45 * x + 0.3 * t) + 0.4 * Math.sin(0.38 * z - 0.475 * t));
         const fog = (d: number) => Math.pow(clamp(1 - (d - Z_NEAR) / (zFar - Z_NEAR), 0, 1), 1.35) * clamp((d - 0.5) / 0.7, 0, 1);
 
+        // --- The dip under the pointer ---
+        // It follows the pointer across the floor and fades in and out
+        let pointer: { x: number; y: number } | null = null; // in window coordinates
+        let pull = 0; // strength of the dip, 0 to 1
+        let pullX = 0, pullZ = 0, pullDepth = 0, pullReach = PULL_REACH;
+        // Floor height at a point, and how strongly the dip bends it there
+        const surface = (x: number, z: number, t: number) => {
+            let sink = 0;
+            if (pull > 0.01) {
+                const dx = x - pullX, dz = z - pullZ;
+                const r2 = dx * dx + dz * dz;
+                const reach2 = pullReach * pullReach;
+                if (r2 < 7 * reach2) {
+                    const core = PULL_CORE * pullReach;
+                    sink = ((pullDepth * pull) / (1 + r2 / (core * core))) * Math.exp(-r2 / (2 * reach2));
+                }
+            }
+            return { y: wave(x, z, t) - sink, e: Math.min(1, 1.4 * sink) };
+        };
+        const at = (x: number, z: number, t: number): Pt => {
+            const s = surface(x, z, t);
+            const p = project(x, s.y, z);
+            return { sx: p.sx, sy: p.sy, d: p.d, e: s.e };
+        };
+        // Where the pointer meets the floor; the dip eases toward it
+        const followPointer = () => {
+            let target = 0;
+            if (pointer && !mobile) {
+                const r = wrap.getBoundingClientRect();
+                const px = pointer.x - r.left;
+                const py = pointer.y - r.top - horizonY;
+                if (px >= 0 && px <= W && py > 6 && pointer.y - r.top <= H) {
+                    const d = (f * CAM_Y) / py;
+                    const xr = ((px - cx) * d) / f;
+                    const x = camX + xr * cosY + d * sinY;
+                    const z = d * cosY - xr * sinY;
+                    // Deeper and wider farther away, so the dip looks about the same size on screen
+                    const depth = clamp(d / 27.5, 0.06, PULL_DEPTH);
+                    const reach = clamp(d / 2.2, 1.1, PULL_REACH);
+                    if (pull < 0.02) {
+                        pullX = x;
+                        pullZ = z;
+                        pullDepth = depth;
+                        pullReach = reach;
+                    }
+                    pullX += (x - pullX) * 0.16;
+                    pullZ += (z - pullZ) * 0.16;
+                    pullDepth += (depth - pullDepth) * 0.16;
+                    pullReach += (reach - pullReach) * 0.16;
+                    target = clamp((zFar * 0.7 - d) / 4, 0, 1); // fades out toward the horizon
+                }
+            }
+            pull += (target - pull) * 0.07;
+        };
+
         // --- Pairs ---
         let pairs: Pair[] = [];
         let lastSpawn = 0;
@@ -228,6 +308,81 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
             ctx.fillRect(0, horizonY - H * 0.12, W, H * 0.22);
             ctx.globalCompositeOperation = 'source-over';
 
+            // A soft light at the bottom of the pointer's dip
+            if (pull > 0.02) {
+                const c = project(pullX, wave(pullX, pullZ, t) - pullDepth * pull, pullZ);
+                if (c.d > 0.8) {
+                    const r = (f * pullReach) / c.d;
+                    ctx.save();
+                    ctx.translate(c.sx, c.sy);
+                    ctx.scale(1, 0.5);
+                    const light = ctx.createRadialGradient(0, 0, 0, 0, 0, r);
+                    light.addColorStop(0, `rgba(0,229,229,${(dark ? 0.1 : 0.06) * pull})`);
+                    light.addColorStop(1, 'rgba(0,229,229,0)');
+                    ctx.fillStyle = light;
+                    ctx.fillRect(-r, -r, 2 * r, 2 * r);
+                    ctx.restore();
+                }
+            }
+
+            // Project each grid node once
+            const zs: number[] = [];
+            for (let j = Math.floor(zLo - Z_NEAR); ; j++) {
+                const z = Z_NEAR + j - offset;
+                if (z > zHi) break;
+                zs.push(z);
+            }
+            const nodes = zs.map((z) => {
+                const row: Pt[] = [];
+                for (let x = xLo; x <= xHi; x++) row.push(at(x, z, t));
+                return row;
+            });
+            // Each line piece fades with its depth, and glows a little where the dip bends the floor.
+            // Pieces are grouped by level, so each group draws in one pass.
+            const lines: number[][] = Array.from({ length: 21 }, () => []);
+            const glow: number[][] = Array.from({ length: 11 }, () => []);
+            const piece = (a: Pt, b: Pt) => {
+                const fade = fog((a.d + b.d) / 2);
+                const k = Math.round(fade * 20);
+                if (k > 0) lines[k].push(a.sx, a.sy, b.sx, b.sy);
+                const g = Math.round(((a.e + b.e) / 2) * fade * 10);
+                if (g > 0) glow[g].push(a.sx, a.sy, b.sx, b.sy);
+            };
+            const seg = (a: Pt, b: Pt, x1: number, z1: number, x2: number, z2: number) => {
+                if (a.d < 0.35 || b.d < 0.35) return;
+                // Skip segments that sit wholly off one side of the screen
+                if ((a.sx < 0 && b.sx < 0) || (a.sx > W && b.sx > W) || (a.sy > H && b.sy > H)) return;
+                if (a.e < 0.01 && b.e < 0.01) {
+                    piece(a, b);
+                    return;
+                }
+                // Where the dip bends the floor, split the segment so the line curves
+                const parts = Math.max(a.e, b.e) > 0.25 ? 8 : 4;
+                let prev = a;
+                for (let n = 1; n <= parts; n++) {
+                    const next = n === parts ? b : at(x1 + ((x2 - x1) * n) / parts, z1 + ((z2 - z1) * n) / parts, t);
+                    piece(prev, next);
+                    prev = next;
+                }
+            };
+            nodes.forEach((row, j) =>
+                row.forEach((p, i) => {
+                    const x = xLo + i;
+                    if (i > 0) seg(row[i - 1], p, x - 1, zs[j], x, zs[j]); // along a row
+                    if (j > 0) seg(nodes[j - 1][i], p, x, zs[j - 1], x, zs[j]); // into the distance
+                }),
+            );
+
+            const strokeAll = (list: number[], alpha: number) => {
+                if (list.length === 0) return;
+                ctx.globalAlpha = alpha;
+                ctx.beginPath();
+                for (let i = 0; i < list.length; i += 4) {
+                    ctx.moveTo(list[i], list[i + 1]);
+                    ctx.lineTo(list[i + 2], list[i + 3]);
+                }
+                ctx.stroke();
+            };
             const stroke = ctx.createLinearGradient(0, 0, W, 0);
             if (dark) {
                 stroke.addColorStop(0, 'rgb(0,229,229)');
@@ -238,45 +393,11 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                 stroke.addColorStop(0.7, 'rgb(15,23,42)');
                 stroke.addColorStop(1, 'rgb(8,145,178)');
             }
-            const base = 0.2;
             ctx.strokeStyle = stroke;
             ctx.lineWidth = 1;
-
-            // Project each grid node once
-            const nodes: ReturnType<typeof project>[][] = [];
-            for (let j = Math.floor(zLo - Z_NEAR); ; j++) {
-                const z = Z_NEAR + j - offset;
-                if (z > zHi) break;
-                const row: ReturnType<typeof project>[] = [];
-                for (let x = xLo; x <= xHi; x++) row.push(project(x, wave(x, z, t), z));
-                nodes.push(row);
-            }
-            // Each line segment fades with its depth. Segments are grouped by fade level, so each group draws in one pass.
-            const buckets: number[][] = Array.from({ length: 21 }, () => []);
-            const seg = (a: ReturnType<typeof project>, b: ReturnType<typeof project>) => {
-                if (a.d < 0.35 || b.d < 0.35) return;
-                // Skip segments that sit wholly off one side of the screen
-                if ((a.sx < 0 && b.sx < 0) || (a.sx > W && b.sx > W) || (a.sy > H && b.sy > H)) return;
-                const k = Math.round(fog((a.d + b.d) / 2) * 20);
-                if (k > 0) buckets[k].push(a.sx, a.sy, b.sx, b.sy);
-            };
-            nodes.forEach((row, j) =>
-                row.forEach((p, i) => {
-                    if (i > 0) seg(row[i - 1], p); // along a row
-                    if (j > 0) seg(nodes[j - 1][i], p); // into the distance
-                }),
-            );
-            for (let k = 1; k <= 20; k++) {
-                const b = buckets[k];
-                if (b.length === 0) continue;
-                ctx.globalAlpha = (base * k) / 20;
-                ctx.beginPath();
-                for (let i = 0; i < b.length; i += 4) {
-                    ctx.moveTo(b[i], b[i + 1]);
-                    ctx.lineTo(b[i + 2], b[i + 3]);
-                }
-                ctx.stroke();
-            }
+            for (let k = 1; k <= 20; k++) strokeAll(lines[k], (0.2 * k) / 20);
+            ctx.strokeStyle = dark ? 'rgb(0,229,229)' : 'rgb(8,145,178)';
+            for (let g = 1; g <= 10; g++) strokeAll(glow[g], ((dark ? 0.6 : 0.5) * g) / 10);
             ctx.globalAlpha = 1;
         };
 
@@ -287,17 +408,17 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
             const sorted = [...pairs].sort((p, q) => far(q) - far(p));
             for (const pair of sorted) {
                 const age = now - pair.born;
-                const exitQ = clamp((age - (LIFE - POP_OUT)) / POP_OUT, 0, 1);
-                const exitScale = exitQ > 0 ? Math.max(0, 1 - easeInBack(exitQ)) : 1;
+                const exitScale = exitOf(age);
 
                 const pinState = (p: Pin, delay: number) => {
                     const z = pinZ(p, age);
-                    const grow = clamp((age - delay) / POP_IN, 0, 1);
-                    const s = (grow > 0 ? easeOutBack(grow) : 0) * exitScale;
-                    const floorY = wave(p.x, z, t);
-                    const topY = floorY + PIN_H * clamp(s, 0, 1.2);
+                    const s = growOf(age, delay) * exitScale;
+                    const floorY = surface(p.x, z, t).y;
+                    // The logo holds its height when the floor under it dips
+                    const topY = wave(p.x, z, t) + PIN_H * clamp(s, 0, 1.2);
                     const foot = project(p.x, floorY, z);
-                    return { z, s, floorY, topY, foot, top: project(p.x, topY, z), depth: Math.max(foot.d, 0.5) };
+                    const top = project(p.x, topY, z);
+                    return { x: p.x, z, s, topY, foot, top, depth: Math.max(foot.d, 0.5) };
                 };
                 const A = pinState(pair.a, 0);
                 const B = pinState(pair.b, SECOND_DELAY);
@@ -305,13 +426,12 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                 // Arc between the two logos, then a pulse that travels along it
                 const arcP = clamp((age - ARC_START) / ARC_DRAW, 0, 1);
                 if (arcP > 0 && exitScale > 0) {
-                    const ax = pair.a.x, bx = pair.b.x;
-                    const dist = Math.hypot(bx - ax, B.z - A.z);
-                    const mid = { x: (ax + bx) / 2, y: Math.max(A.topY, B.topY) + 0.3 * dist + 0.4, z: (A.z + B.z) / 2 };
-                    const at = (u: number) => {
+                    const dist = Math.hypot(B.x - A.x, B.z - A.z);
+                    const mid = { x: (A.x + B.x) / 2, y: Math.max(A.topY, B.topY) + 0.3 * dist + 0.4, z: (A.z + B.z) / 2 };
+                    const onArc = (u: number) => {
                         const v = 1 - u;
                         return project(
-                            v * v * ax + 2 * v * u * mid.x + u * u * bx,
+                            v * v * A.x + 2 * v * u * mid.x + u * u * B.x,
                             v * v * A.topY + 2 * v * u * mid.y + u * u * B.topY,
                             v * v * A.z + 2 * v * u * mid.z + u * u * B.z,
                         );
@@ -328,8 +448,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                     ctx.lineCap = 'round';
                     ctx.beginPath();
                     for (let i = 0; i <= steps; i++) {
-                        const u = (i / steps) * drawn;
-                        const p = at(u);
+                        const p = onArc((i / steps) * drawn);
                         if (i === 0) ctx.moveTo(p.sx, p.sy);
                         else ctx.lineTo(p.sx, p.sy);
                     }
@@ -337,7 +456,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
 
                     const pulseU = clamp((age - ARC_START - ARC_DRAW) / PULSE, 0, 1);
                     if (pulseU > 0 && pulseU < 1) {
-                        const p = at(easeInOut(pulseU));
+                        const p = onArc(easeInOut(pulseU));
                         ctx.shadowColor = 'rgba(0,229,229,0.9)';
                         ctx.shadowBlur = 14;
                         ctx.fillStyle = dark ? '#E6FFFF' : '#00B8C4';
@@ -383,7 +502,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                     const img = imgFor(logo, dark);
                     const d = r * 1.2;
                     if (img && ready(logo, dark)) ctx.drawImage(img, st.top.sx - d / 2, st.top.sy - d / 2, d, d);
-                    // Arrival ring when the pulse lands
+                    // Arrival ring when the pulse arrives
                     if (ringAge > 0 && ringAge < RING) {
                         const q = ringAge / RING;
                         ctx.globalAlpha = (1 - q) * 0.8;
@@ -395,7 +514,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                     }
                     ctx.restore();
                 };
-                const arrival = age - (ARC_START + ARC_DRAW + PULSE);
+                const arrival = age - ARRIVED;
                 if (A.depth >= B.depth) {
                     drawPin(A, pair.a.logo, -1);
                     drawPin(B, pair.b.logo, arrival);
@@ -437,7 +556,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
         function drawStill() {
             const now = performance.now();
             pairs = [];
-            if (withLogos && !mobile) for (let i = 0; i < 12 && pairs.length < 3; i++) spawn(now, 0, ARC_START + ARC_DRAW + PULSE + RING + 50);
+            if (withLogos && !mobile) for (let i = 0; i < 12 && pairs.length < 3; i++) spawn(now, 0, ARRIVED + RING + 50);
             frame(now, 0);
         }
 
@@ -449,6 +568,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
         const tick = (now: number) => {
             const t = (now - start0) / 1000;
             camX += (camTarget - camX) * 0.04;
+            followPointer();
             pairs = pairs.filter((p) => now - p.born < LIFE);
             // On phones the words fill the hero, so the floor moves without logos
             const maxPairs = !withLogos || mobile ? 0 : W < 1100 ? 3 : 4;
@@ -484,13 +604,20 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
         const onVisibility = () => (document.visibilityState === 'visible' ? start() : stop());
         document.addEventListener('visibilitychange', onVisibility);
 
+        // The camera drifts with the pointer; a mouse or pen also bends the floor
         const onMove = (e: PointerEvent) => {
             if (mobile) return;
             const r = wrap.getBoundingClientRect();
             const inside = e.clientY >= r.top && e.clientY <= r.bottom;
             camTarget = inside ? ((e.clientX - r.left) / r.width - 0.5) * 0.9 : 0;
+            pointer = e.pointerType === 'touch' ? null : { x: e.clientX, y: e.clientY };
+        };
+        const onLeave = () => {
+            pointer = null;
+            camTarget = 0;
         };
         window.addEventListener('pointermove', onMove);
+        document.documentElement.addEventListener('pointerleave', onLeave);
 
         // Redraw the still picture when logos finish loading or the theme changes
         let themeObserver: MutationObserver | null = null;
@@ -509,6 +636,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
             themeObserver?.disconnect();
             document.removeEventListener('visibilitychange', onVisibility);
             window.removeEventListener('pointermove', onMove);
+            document.documentElement.removeEventListener('pointerleave', onLeave);
         };
     }, [withLogos]);
 
