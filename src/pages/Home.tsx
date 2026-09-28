@@ -131,9 +131,6 @@ export function Home() {
                         ))}
                     </div>
                 </div>
-                <Link to="/use-cases" className="link-arrow mt-8">
-                    See what teams build <ArrowRight size={16} aria-hidden="true" />
-                </Link>
             </Section>
 
             {/* How it works, as a journey that also covers definable security */}
@@ -149,8 +146,7 @@ export function Home() {
                             calls to contracts on the others.
                         </p>
                         <p className="mt-4 text-slate-400">
-                            Teams build liquidity transfers, oracle and data feeds, AI agent integrations, and cross-chain tokens and apps. USDM, the
-                            fiat-backed stablecoin from Moneta, moves between Cardano and Midnight using VIA.
+                            Teams build liquidity transfers, oracle and data feeds, AI agent integrations, and cross-chain tokens and apps.
                         </p>
                         <Link to="/use-cases" className="mt-8 inline-flex items-center gap-1.5 font-semibold text-white transition-colors hover:text-via-teal">
                             See use cases <ArrowRight size={16} aria-hidden="true" />
