@@ -422,10 +422,14 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                 };
                 const A = pinState(pair.a, 0);
                 const B = pinState(pair.b, SECOND_DELAY);
+                const aFar = A.depth >= B.depth;
+                // Radius of a logo disc on screen
+                const discR = (st: ReturnType<typeof pinState>) => clamp((f * DISC_R) / st.depth, 11, 32) * clamp(st.s, 0, 1.2);
 
                 // Arc between the two logos, then a pulse that travels along it
-                const arcP = clamp((age - ARC_START) / ARC_DRAW, 0, 1);
-                if (arcP > 0 && exitScale > 0) {
+                const drawArc = () => {
+                    const arcP = clamp((age - ARC_START) / ARC_DRAW, 0, 1);
+                    if (arcP <= 0 || exitScale <= 0) return;
                     const dist = Math.hypot(B.x - A.x, B.z - A.z);
                     const mid = { x: (A.x + B.x) / 2, y: Math.max(A.topY, B.topY) + 0.3 * dist + 0.4, z: (A.z + B.z) / 2 };
                     const onArc = (u: number) => {
@@ -436,7 +440,22 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                             v * v * A.z + 2 * v * u * mid.z + u * u * B.z,
                         );
                     };
+                    // The arc ends at the farther logo's center. Walking back from there, find where it leaves
+                    // that logo's disc on screen. The arc stops there, so it meets the disc at its edge.
+                    const far = aFar ? A : B;
+                    const rFar = discR(far);
+                    let cut = aFar ? 1 : 0;
+                    for (let i = 1; i <= 200; i++) {
+                        const u = aFar ? i / 200 : 1 - i / 200;
+                        const p = onArc(u);
+                        if (Math.hypot(p.sx - far.top.sx, p.sy - far.top.sy) > rFar) {
+                            cut = u;
+                            break;
+                        }
+                    }
                     const drawn = easeInOut(arcP);
+                    const from = aFar ? cut : 0;
+                    const to = aFar ? drawn : Math.min(drawn, cut);
                     const steps = 30;
                     const g = ctx.createLinearGradient(A.top.sx, A.top.sy, B.top.sx, B.top.sy);
                     g.addColorStop(0, '#00E5E5');
@@ -446,17 +465,27 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                     ctx.strokeStyle = g;
                     ctx.lineWidth = clamp((f * 0.018) / ((A.depth + B.depth) / 2), 1, 2.2);
                     ctx.lineCap = 'round';
-                    ctx.beginPath();
-                    for (let i = 0; i <= steps; i++) {
-                        const p = onArc((i / steps) * drawn);
-                        if (i === 0) ctx.moveTo(p.sx, p.sy);
-                        else ctx.lineTo(p.sx, p.sy);
+                    if (to > from) {
+                        ctx.beginPath();
+                        for (let i = 0; i <= steps; i++) {
+                            const p = onArc(from + ((to - from) * i) / steps);
+                            if (i === 0) ctx.moveTo(p.sx, p.sy);
+                            else ctx.lineTo(p.sx, p.sy);
+                        }
+                        ctx.stroke();
                     }
-                    ctx.stroke();
 
                     const pulseU = clamp((age - ARC_START - ARC_DRAW) / PULSE, 0, 1);
                     if (pulseU > 0 && pulseU < 1) {
-                        const p = onArc(easeInOut(pulseU));
+                        const u = easeInOut(pulseU);
+                        const p = onArc(u);
+                        // Past the cut, the pulse slips behind the farther logo
+                        if (aFar ? u < cut : u > cut) {
+                            ctx.beginPath();
+                            ctx.rect(0, 0, W, H);
+                            ctx.arc(far.top.sx, far.top.sy, rFar, 0, Math.PI * 2);
+                            ctx.clip('evenodd');
+                        }
                         ctx.shadowColor = 'rgba(0,229,229,0.9)';
                         ctx.shadowBlur = 14;
                         ctx.fillStyle = dark ? '#E6FFFF' : '#00B8C4';
@@ -465,7 +494,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                         ctx.fill();
                     }
                     ctx.restore();
-                }
+                };
 
                 const drawPin = (st: ReturnType<typeof pinState>, logo: Logo, ringAge: number) => {
                     if (st.s <= 0.01) return;
@@ -488,7 +517,7 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                     ctx.lineTo(st.top.sx, st.top.sy);
                     ctx.stroke();
                     // Disc with the chain logo
-                    const r = clamp((f * DISC_R) / st.depth, 11, 32) * s;
+                    const r = discR(st);
                     ctx.shadowColor = dark ? 'rgba(0,0,0,0.6)' : 'rgba(15,23,42,0.2)';
                     ctx.shadowBlur = 16;
                     ctx.shadowOffsetY = 5;
@@ -514,12 +543,16 @@ export function MeshHero({ withLogos = true }: { withLogos?: boolean }) {
                     }
                     ctx.restore();
                 };
+                // The farther logo first, then the arc, then the nearer logo. Every point of the arc is nearer
+                // than the farther logo, so where the two line up on screen, the arc passes in front of it.
                 const arrival = age - ARRIVED;
-                if (A.depth >= B.depth) {
+                if (aFar) {
                     drawPin(A, pair.a.logo, -1);
+                    drawArc();
                     drawPin(B, pair.b.logo, arrival);
                 } else {
                     drawPin(B, pair.b.logo, arrival);
+                    drawArc();
                     drawPin(A, pair.a.logo, -1);
                 }
             }
